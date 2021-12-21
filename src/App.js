@@ -4,11 +4,9 @@ import PatientHistory from './components/PatientHistory';
 
 function App() {
   const [hovered, setHovered] = useState(false);
-  console.log(hovered);
   const handleMouseEnter = () => {
     setHovered(true);
   };
-
   const handleMouseLeave = () => {
     setHovered(false);
   };
