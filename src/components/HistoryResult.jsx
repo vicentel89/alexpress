@@ -1,110 +1,117 @@
 import React from 'react';
+import { format } from 'date-fns';
 
 function HistoryResult({ values }) {
+  const egc = findEgc(values.dob, values.reportDate, values.weeks);
+  const gu = (values.output / (values.weight / 1000) / 24).toFixed(2);
+  const pia = values.intake - values.output + (values.lastWeight - values.weight);
+  const bh = values.intake - (values.output + pia);
+
   return (
     <div>
       <h1>{values.bedNumber}</h1>
 
       <p>
         NOTA: PACIENTE VALORADO CON TODAS LAS MEDIDAS DE PROTECCION REQUERIDAS POR EVENTUALIDAD DE
-        PANDEMIA POR VIRUS SARS COV 2 EVOLUCION MÉDICA CUIDADOS BASICOS/INTERMEDIOS NEONATALES
+        PANDEMIA POR VIRUS SARS COV 2 EVOLUCION MÉDICA CUIDADOS {values.careType}S NEONATALES
       </p>
 
+      {values.isNew && (
+        <>
+          <p>NEONATO EN SUS PRIMERAS HORAS DE VIDA Y ESTANCIA HOSPITALARIA CON DIAGNÓSTICOS DE:</p>
+          <p>
+            -RECIEN NACIDO PRETERMINO {values.sex} DE {values.weeks} SEMANAS POR BALLARD EGC {egc}
+          </p>
+          <p>-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL</p>
+        </>
+      )}
+      <p>{values.diagnosis}</p>
+
+      <h2>BALANCE HIDIRICO {values.waterBalanceTime}HR</h2>
       <p>
-        NEONATO EN SUS PRIMERAS HORAS DE VIDA Y ESTANCIA HOSPITALARIA CON DIAGNÓSTICOS DE: -RECIEN
-        NACIDO PRETERMINO MASCULINO/FEMENINO DE XX SEMANAS POR BALLARD EGC XX -PESO Y TALLA
-        ADECUADOS PARA SU EDAD GESTACIONAL
+        PESO AYER: {values.lastWeight}GR PESO: {values.weight}GR GLUCOMETRIA: {values.glucose}MG/DL
+        LA: {values.intake}CC LE: {values.output}CC GU: {gu}CC/KG/HORA BH: {bh}
       </p>
-
-      <h2>BALANCE HIDIRICO 12HR</h2>
-      <p>PESO XXXX GR GLUCOMETRIA 83 MG DL LA XXX CC LE XXX CC GU: XXX CC/KG/HORA</p>
 
       <h2> EXAMEN FISICO </h2>
-      <p>SIGNOS VITALES FC: 100 LPM – FR: 35RPM – SAT02: 99% T 36.5°C </p>
-
       <p>
-        NORMOCEFALO, FONTANELA ANTERIOR NORMOTENSA, POSTERIOR PUNTIFORME, PUPILAS ISOCORICAS
-        NORMOREACTIVAS, ESCLERAS ANICTERICAS, NARINAS PERMEABLES, MUCOSA ORAL HUMEDA, SOG CERRADA,
-        CUELLO MOVIL SIN ADENOPATIAS PALPABLES.
+        SIGNOS VITALES FC: {values.cardiacFreq}LPM – FR: {values.respiratoryFreq}RPM – SAT02:{' '}
+        {values.saturation}% - T: {values.temperture}°C
       </p>
 
-      <p>
-        TÓRAX SIMETRICO, EXPANSIBLE, SIN TIRAJES, NO AGREGADOS. RUIDOS CARDIACOS RITMICOS SIN
-        SOPLOS.
-      </p>
-
-      <p>
-        ABDOMEN BLANDO, DEPRESIBLE, NO IMPRESIONA DOLOR A LA PALPACION, NO MASAS NO MEGALIAS, ONFALO
-        CLAMPEADO SIN INFECCIONES
-      </p>
-
-      <p> GENITOURINARIO NORMOCONFIGURADO PARA SEXO Y EDAD.</p>
-
-      <p>
-        EXTREMIDADES EUTROFICAS, SIN EDEMAS, LLENADO CAPILAR{'<'}2 SG, PULSOS DISTALES PRESENTES Y
-        SIMETRICOS.
-      </p>
-
-      <p>
-        NEUROLÓGICO, ACTIVO, REACTIVO CON RESPUESTA A ESTIMULOS, REFLEJOS PRIMITIVOS PRESENTES,
-        LIBRE DE CRISIS NEONATALES.
-      </p>
-
-      <p> PIEL Y ANEXOS ÍNTEGRA, SIN LESIONES, ROSADA</p>
+      <p>{values.physicalExam}</p>
 
       <h2> REPORTE DE PARACLÍNICOS</h2>
-      <p>XX/12/21 CH PCR GLICEMIA CA GASES</p>
+      <p>{formatDate(values.reportDate)}</p>
+
+      {paraclinics.map((paraclinic) =>
+        values[paraclinic] ? (
+          <p key={paraclinic}>
+            {paraclinic.toUpperCase()}: {values[paraclinic]}
+          </p>
+        ) : null
+      )}
 
       <h2>ANALISIS </h2>
-      <p>PACIENTE PRETERMINO EN REGULARES CONDICIONES GENERALES. CON IDX PREVIAMENTE DESCRITOS. </p>
-
-      <p> NEUROLOGICO: ACTIVO REACTIVO, SIN DEFICIT APARENTE, NI CRISIS. </p>
-
-      <p>RESPIRATORIO: TOLERANDO OXÍGENO AMBIENTE. PATRON RESPIRATORIO ADECUADO, NORMOSATURADO.</p>
-
-      <p>
-        HEMODINAMICO: MANTIENE SIGNOS VITALES ESTABLES NO SOPORTES, BIEN PERFUNDIDO, NO GRADIENTE
-        TERMICO.
-      </p>
-
-      <p>GI: TOLERANDO APORTE ENTERAL POR SONDA, HIDRATADO, NORMOGLICEMICO,</p>
-
-      <p> RENAL: DIURESIS POR PAÑAL PRESENTE, NO EDEMAS.</p>
-
-      <p> INFECCIOSO: NO DISTERMIAS.</p>
-
-      <p>
-        SE INDICA TOMA DE PARACLINICOS Y ESTUDIOS COMPLEMENTARIOS. SE EXPLICA A LOS PADRES QUIENES
-        REFIEREN ENTENDER Y ACEPTAR, PRONOSTICO SUJETO A EVOLUCION
-      </p>
+      {values.analysis}
 
       <h2> PLAN:</h2>
-      <p>1. ESTANCIA -CUIDADOS INTERMEDIOS NEONATALES </p>
+      <p>- CUIDADOS {values.careType}S NEONATALES </p>
 
-      <p> 2. DIETA </p>
+      {planFields.map((field) => {
+        return (
+          <React.Fragment key={field}>{values[field] && <p>{values[field]}</p>}</React.Fragment>
+        );
+      })}
 
-      <p> 3. OXÍGENO -NINGUNO </p>
-
-      <p>4. FARMACOLÓGICO</p>
-      <p>5. CUIDADOS DE ENFERMERÍA </p>
-      <ul>
-        <li>CUIDADOS BASICOS NEONATALES</li>
-        <li>MONITORIZACIÓN ELECTRONICA NO INVASIVA</li>
-        <li>GLUCOMETRIA CADA 12 HORAS</li>
-        <li>CUIDADOS DE ENFERMERÍA</li>
-        <li>PESO DIARIO -CONTROL DE LA, LE, BH</li>
-        <li>CONTROL DE SIGNOS VITALES Y AVISAR CAMBIOS</li>
-      </ul>
-
-      <p> 6. PARACLÍNICOS SOLICITADOS </p>
-
-      <p>7. IMÁGENES DIAGNÓSTICAS SOLICITADAS -</p>
-
-      <p> 8. ASISTENCIAL </p>
-
-      <p> 9. PENDIENTE -</p>
+      {values.pending && (
+        <>
+          <p>*****PENDIENTES******</p>
+          <p>{values.pending}</p>
+        </>
+      )}
     </div>
   );
 }
+
+const findEgc = (dob, reportD, weeks) => {
+  const reportDate = new Date(`${reportD} 00:00`);
+  const dobDate = new Date(`${dob} 00:00`);
+  const daysFromBirth = (reportDate - dobDate) / (1000 * 60 * 60 * 24);
+  const weeksFromBirth = Math.floor(daysFromBirth / 7);
+  const weeksFromBirthReminder = daysFromBirth % 7;
+  const egc = weeks + weeksFromBirth + weeksFromBirthReminder / 10;
+
+  return egc;
+};
+
+const formatDate = (reportDate) => {
+  let date = reportDate.toLocaleString('en-US', { timeZone: 'America/Bogota', day: '2-digit' });
+  return date.split('-').reverse().join('/');
+};
+
+const paraclinics = [
+  'wbc',
+  'hb',
+  'hto',
+  'plt',
+  'neut',
+  'linfos',
+  'pcr',
+  'glycemia',
+  'na',
+  'k',
+  'ca',
+  'ph',
+  'pco2',
+  'po2',
+  'hco3',
+  'be',
+  'vdrl',
+  'tsh',
+  'otherLabs',
+];
+
+const planFields = ['oxygen', 'diet', 'liquid', 'drugs', 'nurse', 'test', 'images', 'consult'];
 
 export default HistoryResult;

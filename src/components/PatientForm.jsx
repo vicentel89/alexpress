@@ -29,6 +29,7 @@ function PatientForm({ formik }) {
       />
       <CheckboxInput label="¿Es nuevo?" name="isNew" {...fieldProps} />
       <RadioInput options={['MASCULINO', 'FEMENINO']} name="sex" label="Sexo" {...fieldProps} />
+      <DateInput label="Fecha reporte: " name="reportDate" {...fieldProps} />
       <DateInput label="Fecha de nacimiento: " name="dob" {...fieldProps} />
       <NumberInput name="weeks" label="Edad gestacional" {...fieldProps} />
       <TextareaInput name="diagnosis" label="Diagnostico" {...fieldProps} />
@@ -47,7 +48,6 @@ function PatientForm({ formik }) {
       <NumberInput name="respiratoryFreq" label="Frecuencia respiratoria" {...fieldProps} />
       <NumberInput name="saturation" label="Saturacion" {...fieldProps} />
       <NumberInput name="temperture" label="Temperatura" {...fieldProps} />
-      <CheckboxInput label="¿Tiene sonda?" name="hasSog" {...fieldProps} />
       <TextareaInput name="physicalExam" label="Examen fisico" {...fieldProps} />
       <NumberInput name="wbc" label="wbc" {...fieldProps} />
       <NumberInput name="hb" label="hb" {...fieldProps} />

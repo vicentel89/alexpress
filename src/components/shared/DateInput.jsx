@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 function DateInput({ label, values, ...props }) {
   return (
     <Grid item>
-      <label htmlFor={props.name}>Fecha de nacimiento: </label>
+      <label htmlFor={props.name}>{label}</label>
       <input id={props.name} type="date" value={values[props.name]} {...props} />
     </Grid>
   );
