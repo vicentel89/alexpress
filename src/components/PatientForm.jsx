@@ -1,10 +1,4 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
-// import LocalizationProvider from '@mui/lab/LocalizationProvider';
-// import DatePicker from '@mui/lab/DatePicker';
-// import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import RadioInput from './shared/RadioInput';
 import TextfieldInput from './shared/TextfieldInput';
@@ -14,7 +8,7 @@ import CheckboxInput from './shared/CheckboxInput';
 import TextareaInput from './shared/TextareaInput';
 
 function PatientForm({ formik }) {
-  const { values, handleChange, handleSubmit } = formik;
+  const { values, handleChange } = formik;
 
   const fieldProps = { values, onChange: handleChange };
 

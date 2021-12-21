@@ -1,5 +1,4 @@
 import React from 'react';
-import { format } from 'date-fns';
 
 function HistoryResult({ values }) {
   const egc = findEgc(values.dob, values.reportDate, values.weeks);
