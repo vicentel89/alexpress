@@ -5,6 +5,11 @@ function HistoryResult({ values }) {
   const gu = (values.output / (values.weight / 1000) / 24).toFixed(2);
   const pia = values.intake - values.output + (values.lastWeight - values.weight);
   const bh = values.intake - (values.output + pia);
+  const ageInDays = findAgeInDays(values.dob, values.reportDate);
+  const daysFromAdmission = findDaysFromAdmission(values.admissionDate, values.reportDate);
+  const isPremature = values.weeks < 37;
+  const isPostTerm = values.weeks >= 40;
+  const term = isPremature ? 'PRETERMINO' : 'A TERMINO';
 
   return (
     <div>
@@ -15,15 +20,19 @@ function HistoryResult({ values }) {
         PANDEMIA POR VIRUS SARS COV 2 EVOLUCION MÉDICA CUIDADOS {values.careType}S NEONATALES
       </p>
 
-      {values.isNew && (
-        <>
-          <p>NEONATO EN SUS PRIMERAS HORAS DE VIDA Y ESTANCIA HOSPITALARIA CON DIAGNÓSTICOS DE:</p>
-          <p>
-            -RECIEN NACIDO PRETERMINO {values.sex} DE {values.weeks} SEMANAS POR BALLARD EGC {egc}
-          </p>
-          <p>-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL</p>
-        </>
+      {values.justBorn ? (
+        <p>NEONATO EN SUS PRIMERAS HORAS DE VIDA Y ESTANCIA HOSPITALARIA CON DIAGNÓSTICOS DE:</p>
+      ) : (
+        <p>
+          NEONATO CON {ageInDays} DIAS DE VIDA Y {daysFromAdmission} DIAS DE ESTANCIA HOSPITALARIA
+          CON DIAGNÓSTICOS DE:
+        </p>
       )}
+      <p>
+        -RECIEN NACIDO {term} {values.sex} DE {values.weeks} SEMANAS POR BALLARD{' '}
+        {!isPostTerm && `EGC ${egc}`}
+      </p>
+      <p>-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL</p>
       <p>{values.diagnosis}</p>
 
       <h2>BALANCE HIDIRICO {values.waterBalanceTime}HR</h2>
@@ -42,24 +51,50 @@ function HistoryResult({ values }) {
 
       <h2> REPORTE DE PARACLÍNICOS</h2>
       <p>{formatDate(values.reportDate)}</p>
-
-      {paraclinics.map((paraclinic) =>
-        values[paraclinic] ? (
-          <p key={paraclinic}>
-            {paraclinic.toUpperCase()}: {values[paraclinic]}
-          </p>
-        ) : null
-      )}
+      <p>
+        {hemogram.map((item) =>
+          values[item] ? <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span> : null
+        )}
+      </p>
+      <p>
+        {ions.map((item) =>
+          values[item] ? <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span> : null
+        )}
+      </p>
+      <p>
+        {gases.map((item) =>
+          values[item] ? <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span> : null
+        )}
+      </p>
+      <p>
+        {paraclinics.map((item) =>
+          values[item] ? <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span> : null
+        )}
+      </p>
+      <p>
+        {bilirubins.map((item) =>
+          values[item] ? <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span> : null
+        )}
+      </p>
+      <p>{values.otherLabs}</p>
 
       <h2>ANALISIS </h2>
-      {values.analysis}
+      <p>PACIENTE {term} EN REGULARES CONDICIONES GENERALES. CON IDX PREVIAMENTE DESCRITOS. </p>
+      <p>{values.analysis}</p>
 
       <h2> PLAN:</h2>
-      <p>- CUIDADOS {values.careType}S NEONATALES </p>
-
+      <p>PESO {values.weight}GR</p>
+      <p>-CUIDADOS {values.careType}S NEONATALES </p>
       {planFields.map((field) => {
         return (
-          <React.Fragment key={field}>{values[field] && <p>{values[field]}</p>}</React.Fragment>
+          <React.Fragment key={field}>{values[field] && <p>-{values[field]}</p>}</React.Fragment>
+        );
+      })}
+      {planFieldsSS.map((field) => {
+        return (
+          <React.Fragment key={field}>
+            {values[field] && <p>- SS {values[field]}</p>}
+          </React.Fragment>
         );
       })}
 
@@ -74,14 +109,29 @@ function HistoryResult({ values }) {
 }
 
 const findEgc = (dob, reportD, weeks) => {
-  const reportDate = new Date(`${reportD} 00:00`);
-  const dobDate = new Date(`${dob} 00:00`);
-  const daysFromBirth = (reportDate - dobDate) / (1000 * 60 * 60 * 24);
-  const weeksFromBirth = Math.floor(daysFromBirth / 7);
-  const weeksFromBirthReminder = daysFromBirth % 7;
+  // Edad gestacional corregia en semanas
+  const ageInDays = findAgeInDays(dob, reportD);
+  const weeksFromBirth = Math.floor(ageInDays / 7);
+  const weeksFromBirthReminder = ageInDays % 7;
   const egc = weeks + weeksFromBirth + weeksFromBirthReminder / 10;
 
   return egc;
+};
+
+const findAgeInDays = (dob, reportD) => {
+  const reportDate = new Date(`${reportD} 00:00`);
+  const dobDate = new Date(`${dob} 00:00`);
+  const ageInDays = (reportDate - dobDate) / (1000 * 60 * 60 * 24);
+
+  return ageInDays;
+};
+
+const findDaysFromAdmission = (admissionDate, reportD) => {
+  const reportDate = new Date(`${reportD} 00:00`);
+  const admDate = new Date(`${admissionDate} 00:00`);
+  const daysFromAdmission = (reportDate - admDate) / (1000 * 60 * 60 * 24);
+
+  return daysFromAdmission;
 };
 
 const formatDate = (reportDate) => {
@@ -89,28 +139,14 @@ const formatDate = (reportDate) => {
   return date.split('-').reverse().join('/');
 };
 
-const paraclinics = [
-  'wbc',
-  'hb',
-  'hto',
-  'plt',
-  'neut',
-  'linfos',
-  'pcr',
-  'glycemia',
-  'na',
-  'k',
-  'ca',
-  'ph',
-  'pco2',
-  'po2',
-  'hco3',
-  'be',
-  'vdrl',
-  'tsh',
-  'otherLabs',
-];
+const hemogram = ['wbc', 'hb', 'hto', 'plt', 'n', 'l'];
+const ions = ['na', 'k', 'ca'];
+const gases = ['ph', 'pco2', 'po2', 'hco3', 'be'];
+const paraclinics = ['glicemia', 'pcr', 'vdrl', 'tsh'];
+const bilirubins = ['bt', 'bd', 'bi'];
 
-const planFields = ['oxygen', 'diet', 'liquid', 'drugs', 'nurse', 'test', 'images', 'consult'];
+const planFields = ['oxygen', 'diet', 'liquid', 'drugs', 'nurse'];
+
+const planFieldsSS = ['test', 'images', 'consult'];
 
 export default HistoryResult;

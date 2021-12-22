@@ -26,10 +26,11 @@ function PatientForm({ formik }) {
         label="Estancia"
         {...fieldProps}
       />
-      <CheckboxInput label="¿Es nuevo?" name="isNew" {...fieldProps} />
+      <CheckboxInput label="¿Nacio hoy?" name="justBorn" {...fieldProps} />
       <RadioInput options={['MASCULINO', 'FEMENINO']} name="sex" label="Sexo" {...fieldProps} />
       <DateInput label="Fecha reporte: " name="reportDate" {...fieldProps} />
       <DateInput label="Fecha de nacimiento: " name="dob" {...fieldProps} />
+      <DateInput label="Fecha de ingreso: " name="admissionDate" {...fieldProps} />
       <NumberInput name="weeks" label="Edad gestacional" {...fieldProps} />
       <TextareaInput name="diagnosis" label="Diagnostico" {...fieldProps} />
       <RadioInput
@@ -48,24 +49,29 @@ function PatientForm({ formik }) {
       <NumberInput name="saturation" label="Saturacion" {...fieldProps} />
       <NumberInput name="temperture" label="Temperatura" {...fieldProps} />
       <TextareaInput name="physicalExam" label="Examen fisico" {...fieldProps} />
-      <NumberInput name="wbc" label="wbc" {...fieldProps} />
-      <NumberInput name="hb" label="hb" {...fieldProps} />
-      <NumberInput name="hto" label="hto" {...fieldProps} />
-      <NumberInput name="plt" label="plt" {...fieldProps} />
-      <NumberInput name="neut" label="neut" {...fieldProps} />
-      <NumberInput name="linfos" label="linfos" {...fieldProps} />
-      <NumberInput name="pcr" label="pcr" {...fieldProps} />
-      <NumberInput name="glycemia" label="glycemia" {...fieldProps} />
-      <NumberInput name="na" label="na" {...fieldProps} />
-      <NumberInput name="k" label="k" {...fieldProps} />
-      <NumberInput name="ca" label="ca" {...fieldProps} />
-      <NumberInput name="ph" label="ph" {...fieldProps} />
-      <NumberInput name="pco2" label="pco2" {...fieldProps} />
-      <NumberInput name="po2" label="po2" {...fieldProps} />
-      <NumberInput name="hco3" label="hco3" {...fieldProps} />
-      <NumberInput name="be" label="be" {...fieldProps} />
-      <NumberInput name="vdrl" label="vdrl" {...fieldProps} />
-      <NumberInput name="tsh" label="tsh" {...fieldProps} />
+      <Grid container gap={4} item>
+        <NumberInput name="wbc" label="wbc" {...fieldProps} />
+        <NumberInput name="hb" label="hb" {...fieldProps} />
+        <NumberInput name="hto" label="hto" {...fieldProps} />
+        <NumberInput name="plt" label="plt" {...fieldProps} />
+        <NumberInput name="n" label="n" {...fieldProps} />
+        <NumberInput name="l" label="l" {...fieldProps} />
+        <NumberInput name="na" label="na" {...fieldProps} />
+        <NumberInput name="k" label="k" {...fieldProps} />
+        <NumberInput name="ca" label="ca" {...fieldProps} />
+        <NumberInput name="ph" label="ph" {...fieldProps} />
+        <NumberInput name="pco2" label="pco2" {...fieldProps} />
+        <NumberInput name="po2" label="po2" {...fieldProps} />
+        <NumberInput name="hco3" label="hco3" {...fieldProps} />
+        <NumberInput name="be" label="be" {...fieldProps} />
+        <NumberInput name="pcr" label="pcr" {...fieldProps} />
+        <NumberInput name="glicemia" label="glicemia" {...fieldProps} />
+        <TextfieldInput name="vdrl" label="vdrl" {...fieldProps} />
+        <NumberInput name="tsh" label="tsh" {...fieldProps} />
+        <NumberInput name="bt" label="bt" {...fieldProps} />
+        <NumberInput name="bd" label="bd" {...fieldProps} />
+        <NumberInput name="bi" label="bi" {...fieldProps} />
+      </Grid>
       <TextareaInput name="otherLabs" label="Otros" {...fieldProps} />
       <TextareaInput name="analysis" label="Analisis" {...fieldProps} />
       <TextareaInput name="oxygen" label="Oxigeno" {...fieldProps} />

@@ -35,10 +35,11 @@ function PatientHistory() {
 const initialValues = {
   bedNumber: '',
   careType: 'BASICO',
-  isNew: false,
+  justBorn: false,
   sex: 'MASCULINO',
   reportDate: '',
   dob: '',
+  admissionDate: '',
   weeks: '',
   diagnosis: '',
   waterBalanceTime: 24,
@@ -64,10 +65,9 @@ const initialValues = {
   hb: '',
   hto: '',
   plt: '',
-  neut: '',
-  linfos: '',
+  n: '',
+  l: '',
   pcr: '',
-  glycemia: '',
   na: '',
   k: '',
   ca: '',
@@ -76,8 +76,12 @@ const initialValues = {
   po2: '',
   hco3: '',
   be: '',
+  glicemia: '',
   vdrl: '',
   tsh: '',
+  bt: '',
+  bd: '',
+  bi: '',
   otherLabs: '',
   analysis: `NEUROLOGICO: ACTIVO REACTIVO, SIN DEFICIT APARENTE, NI CRISIS. 
   RESPIRATORIO: TOLERANDO OXÍGENO AMBIENTE.  PATRON RESPIRATORIO ADECUADO, NORMOSATURADO. 
@@ -91,8 +95,7 @@ const initialValues = {
   diet: '',
   liquid: '',
   drugs: '',
-  nurse: `
-  -MONITORIZACIÓN ELECTRONICA NO INVASIVA
+  nurse: `MONITORIZACIÓN ELECTRONICA NO INVASIVA
   -GLUCOMETRIA CADA 12 HORAS
   -CUIDADOS DE ENFERMERÍA
   -PESO DIARIO
