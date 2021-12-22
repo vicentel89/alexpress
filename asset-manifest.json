@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/alexpress/static/css/main.c0c30da9.css",
-    "main.js": "/alexpress/static/js/main.3575ea3c.js",
+    "main.js": "/alexpress/static/js/main.6f3cc7ed.js",
     "static/js/787.e18562aa.chunk.js": "/alexpress/static/js/787.e18562aa.chunk.js",
     "index.html": "/alexpress/index.html",
     "main.c0c30da9.css.map": "/alexpress/static/css/main.c0c30da9.css.map",
-    "main.3575ea3c.js.map": "/alexpress/static/js/main.3575ea3c.js.map",
+    "main.6f3cc7ed.js.map": "/alexpress/static/js/main.6f3cc7ed.js.map",
     "787.e18562aa.chunk.js.map": "/alexpress/static/js/787.e18562aa.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c0c30da9.css",
-    "static/js/main.3575ea3c.js"
+    "static/js/main.6f3cc7ed.js"
   ]
 }
