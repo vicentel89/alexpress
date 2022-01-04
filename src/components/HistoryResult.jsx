@@ -2,7 +2,7 @@ import React from 'react';
 
 function HistoryResult({ values }) {
   const egc = findEgc(values.dob, values.reportDate, values.weeks);
-  const gu = (values.output / (values.weight / 1000) / 24).toFixed(2);
+  const gu = (values.output / (values.weight / 1000) / values.waterBalanceTime).toFixed(2);
   const pia = values.intake - values.output + (values.lastWeight - values.weight);
   const bh = values.intake - (values.output + pia);
   const ageInDays = findAgeInDays(values.dob, values.reportDate);
@@ -30,17 +30,25 @@ function HistoryResult({ values }) {
       )}
       <p>
         -RECIÉN NACIDO {term} {values.sex} DE {values.weeks} SEMANAS POR BALLARD{' '}
-        {!isPostTerm && `EGC ${egc}`}
+        {!isPostTerm && <span>EGC {egc}</span>}
       </p>
       <p>-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL</p>
       <p>{values.diagnosis}</p>
 
-      <h2>BALANCE HÍDIRICO {values.waterBalanceTime}HR</h2>
-      <p>
-        PESO AYER: {values.lastWeight}GR PESO ACTUAL: {values.weight}GR GLUCOMETRÍA:{' '}
-        {values.glucose}MG/DL LA: {values.intake}CC LE: {values.output}CC GU: {gu}CC/KG/HORA BH:{' '}
-        {bh}
-      </p>
+      {(values.lastWeight || values.weight || values.glucose || values.intake || values.output) && (
+        <>
+          <h2>BALANCE HÍDIRICO {values.waterBalanceTime}HR</h2>
+          <p>
+            {valNumShow(values.lastWeight, 'PESO AYER', 'GR')}
+            {valNumShow(values.weight, 'PESO ACTUAL', 'GR')}
+            {valNumShow(values.glucose, 'GLUCOMETRÍA', 'MG/DL')}
+            {valNumShow(values.intake, 'LA', 'CC')}
+            {valNumShow(values.output, 'LE', 'CC')}
+            {valNumShow(gu, 'GU', 'CC/KG/HORA')}
+            {valNumShow(bh, 'BH', '')}
+          </p>
+        </>
+      )}
 
       <h2> EXAMEN FÍSICO </h2>
       <p>
@@ -110,6 +118,9 @@ function HistoryResult({ values }) {
 }
 
 const findEgc = (dob, reportD, weeks) => {
+  if (!dob || !reportD || !weeks)
+    return <strong style={{ color: 'red' }}>FALTAN FECHAS Y/O EG</strong>;
+
   // Edad gestacional corregia en semanas
   const ageInDays = findAgeInDays(dob, reportD);
   const weeksFromBirth = Math.floor(ageInDays / 7);
@@ -120,6 +131,8 @@ const findEgc = (dob, reportD, weeks) => {
 };
 
 const findAgeInDays = (dob, reportD) => {
+  if (!dob || !reportD) return <strong style={{ color: 'red' }}>FALTAN FECHAS</strong>;
+
   const reportDate = new Date(`${reportD} 00:00`);
   const dobDate = new Date(`${dob} 00:00`);
   const ageInDays = (reportDate - dobDate) / (1000 * 60 * 60 * 24);
@@ -128,6 +141,8 @@ const findAgeInDays = (dob, reportD) => {
 };
 
 const findDaysFromAdmission = (admissionDate, reportD) => {
+  if (!admissionDate || !reportD) return <strong style={{ color: 'red' }}>FALTAN FECHAS</strong>;
+
   const reportDate = new Date(`${reportD} 00:00`);
   const admDate = new Date(`${admissionDate} 00:00`);
   const daysFromAdmission = (reportDate - admDate) / (1000 * 60 * 60 * 24);
@@ -138,6 +153,10 @@ const findDaysFromAdmission = (admissionDate, reportD) => {
 const formatDate = (reportDate) => {
   let date = reportDate.toLocaleString('en-US', { timeZone: 'America/Bogota', day: '2-digit' });
   return date.split('-').reverse().join('/');
+};
+
+const valNumShow = (val, label, units) => {
+  return val !== '' && isFinite(val) ? `${label}: ${val}${units} ` : '';
 };
 
 const hemogram = ['wbc', 'hb', 'hto', 'plt', 'n', 'l'];
