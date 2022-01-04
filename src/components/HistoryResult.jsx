@@ -16,7 +16,7 @@ function HistoryResult({ values }) {
       <h1>{values.bedNumber}</h1>
 
       <p>
-        NOTA: PACIENTE VALORADO CON TODAS LAS MEDIDAS DE PROTECCION REQUERIDAS POR EVENTUALIDAD DE
+        NOTA: PACIENTE VALORADO CON TODAS LAS MEDIDAS DE PROTECCIÓN REQUERIDAS POR EVENTUALIDAD DE
         PANDEMIA POR VIRUS SARS COV 2 EVOLUCION MÉDICA CUIDADOS {values.careType}S NEONATALES
       </p>
 
@@ -24,24 +24,25 @@ function HistoryResult({ values }) {
         <p>NEONATO EN SUS PRIMERAS HORAS DE VIDA Y ESTANCIA HOSPITALARIA CON DIAGNÓSTICOS DE:</p>
       ) : (
         <p>
-          NEONATO CON {ageInDays} DIAS DE VIDA Y {daysFromAdmission} DIAS DE ESTANCIA HOSPITALARIA
+          NEONATO CON {ageInDays} DÍAS DE VIDA Y {daysFromAdmission} DIAS DE ESTANCIA HOSPITALARIA
           CON DIAGNÓSTICOS DE:
         </p>
       )}
       <p>
-        -RECIEN NACIDO {term} {values.sex} DE {values.weeks} SEMANAS POR BALLARD{' '}
+        -RECIÉN NACIDO {term} {values.sex} DE {values.weeks} SEMANAS POR BALLARD{' '}
         {!isPostTerm && `EGC ${egc}`}
       </p>
       <p>-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL</p>
       <p>{values.diagnosis}</p>
 
-      <h2>BALANCE HIDIRICO {values.waterBalanceTime}HR</h2>
+      <h2>BALANCE HÍDIRICO {values.waterBalanceTime}HR</h2>
       <p>
-        PESO AYER: {values.lastWeight}GR PESO: {values.weight}GR GLUCOMETRIA: {values.glucose}MG/DL
-        LA: {values.intake}CC LE: {values.output}CC GU: {gu}CC/KG/HORA BH: {bh}
+        PESO AYER: {values.lastWeight}GR PESO ACTUAL: {values.weight}GR GLUCOMETRÍA:{' '}
+        {values.glucose}MG/DL LA: {values.intake}CC LE: {values.output}CC GU: {gu}CC/KG/HORA BH:{' '}
+        {bh}
       </p>
 
-      <h2> EXAMEN FISICO </h2>
+      <h2> EXAMEN FÍSICO </h2>
       <p>
         SIGNOS VITALES FC: {values.cardiacFreq}LPM – FR: {values.respiratoryFreq}RPM – SAT02:{' '}
         {values.saturation}% - T: {values.temperture}°C
@@ -78,7 +79,7 @@ function HistoryResult({ values }) {
       </p>
       <p>{values.otherLabs}</p>
 
-      <h2>ANALISIS </h2>
+      <h2>ANÁLISIS </h2>
       <p>PACIENTE {term} EN REGULARES CONDICIONES GENERALES. CON IDX PREVIAMENTE DESCRITOS. </p>
       <p>{values.analysis}</p>
 

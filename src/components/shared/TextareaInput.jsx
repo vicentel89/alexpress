@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 function TextareaInput({ values, ...props }) {
   return (
     <Grid item style={{ width: '100%' }}>
-      <TextField multiline rows={4} fullWidth value={values[props.name]} {...props} />
+      <TextField multiline minRows={3} fullWidth value={values[props.name]} {...props} />
     </Grid>
   );
 }

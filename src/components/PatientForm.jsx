@@ -8,14 +8,14 @@ import CheckboxInput from './shared/CheckboxInput';
 import TextareaInput from './shared/TextareaInput';
 
 function PatientForm({ formik }) {
-  const { values, handleChange: formikHandleChange } = formik;
+  const { values, handleChange: formikHandleChange, errors } = formik;
 
   const handleChange = (e) => {
     formikHandleChange(e);
     localStorage.setItem('backup', JSON.stringify(values));
   };
 
-  const fieldProps = { values, onChange: handleChange };
+  const fieldProps = { values, onChange: handleChange, errors };
 
   return (
     <Grid container direction="column" justifyContent="center" alignItems="flex-start" spacing={4}>
