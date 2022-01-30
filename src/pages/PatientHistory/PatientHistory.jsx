@@ -1,12 +1,12 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import PatientForm from './PatientForm';
-import HistoryResult from './HistoryResult';
-import { Button, Grid, Box } from '@mui/material';
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import PatientForm from "./PatientForm";
+import HistoryResult from "./HistoryResult";
+import { Button, Grid, Box } from "@mui/material";
 
 function PatientHistory() {
-  const backup = localStorage.getItem('backup');
+  const backup = localStorage.getItem("patient-history-backup");
 
   const formik = useFormik({
     initialValues: JSON.parse(backup) || initialValues,
@@ -14,21 +14,21 @@ function PatientHistory() {
       reportDate: Yup.date()
         .min(
           new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-          'La estas cagando, esta fecha es muy vieja'
+          "La estas cagando, esta fecha es muy vieja"
         )
-        .max(new Date(), 'La estas cagando, esta fecha es en el futuro'),
+        .max(new Date(), "La estas cagando, esta fecha es en el futuro"),
       dob: Yup.date()
         .min(
           new Date(Date.now() - 6 * 30.5 * 24 * 60 * 60 * 1000),
-          'La estas cagando, esta fecha es muy vieja'
+          "La estas cagando, esta fecha es muy vieja"
         )
-        .max(new Date(), 'La estas cagando, esta fecha es en el futuro'),
+        .max(new Date(), "La estas cagando, esta fecha es en el futuro"),
       admissionDate: Yup.date()
         .min(
           new Date(Date.now() - 6 * 31 * 24 * 60 * 60 * 1000),
-          'La estas cagando, esta fecha es muy vieja'
+          "La estas cagando, esta fecha es muy vieja"
         )
-        .max(new Date(), 'La estas cagando, esta fecha es en el futuro'),
+        .max(new Date(), "La estas cagando, esta fecha es en el futuro"),
     }),
     onSubmit: (values) => {
       console.log(values);
@@ -39,10 +39,20 @@ function PatientHistory() {
     <div>
       <Grid container>
         <Grid item md={8}>
-          <Box sx={{ pb: 4, pr: 2, height: 'calc(100vh - 100px)', overflow: 'auto' }}>
+          <Box
+            sx={{
+              pb: 4,
+              pr: 2,
+              height: "calc(100vh - 100px)",
+              overflow: "auto",
+            }}
+          >
             <Button
               onClick={() => {
-                localStorage.setItem('backup', JSON.stringify(initialValues));
+                localStorage.setItem(
+                  "patient-history-backup",
+                  JSON.stringify(initialValues)
+                );
                 window.location.reload();
               }}
               variant="contained"
@@ -54,7 +64,15 @@ function PatientHistory() {
           </Box>
         </Grid>
         <Grid item md={4}>
-          <Box sx={{ pl: 2, pr: 1, pb: 4, height: 'calc(100vh - 100px)', overflow: 'auto' }}>
+          <Box
+            sx={{
+              pl: 2,
+              pr: 1,
+              pb: 4,
+              height: "calc(100vh - 100px)",
+              overflow: "auto",
+            }}
+          >
             <HistoryResult values={formik.values} />
           </Box>
         </Grid>
@@ -64,21 +82,22 @@ function PatientHistory() {
 }
 
 const initialValues = {
-  bedNumber: '',
-  careType: 'BASICO',
+  bedNumber: "",
+  careType: "BASICO",
   justBorn: false,
-  sex: 'MASCULINO',
-  reportDate: '',
-  dob: '',
-  admissionDate: '',
-  weeks: '',
-  diagnosis: '',
+  exit: false,
+  sex: "MASCULINO",
+  reportDate: "",
+  dob: "",
+  admissionDate: "",
+  weeks: "",
+  diagnosis: "",
   waterBalanceTime: 24,
-  lastWeight: '',
-  weight: '',
-  glucose: '',
-  intake: '',
-  output: '',
+  lastWeight: "",
+  weight: "",
+  glucose: "",
+  intake: "",
+  output: "",
   cardiacFreq: 136,
   respiratoryFreq: 40,
   saturation: 99,
@@ -92,38 +111,37 @@ const initialValues = {
   NEUROLÓGICO, ACTIVO, REACTIVO CON RESPUESTA A ESTÍMULOS, REFLEJOS PRIMITIVOS PRESENTES, LIBRE DE CRISIS NEONATALES.  
   PIEL Y ANEXOS ÍNTEGRA, SIN LESIONES, ROSADA 
   `,
-  wbc: '',
-  hb: '',
-  hto: '',
-  plt: '',
-  n: '',
-  l: '',
-  pcr: '',
-  na: '',
-  k: '',
-  ca: '',
-  ph: '',
-  pco2: '',
-  po2: '',
-  hco3: '',
-  be: '',
-  glicemia: '',
-  vdrl: '',
-  tsh: '',
-  bt: '',
-  bd: '',
-  bi: '',
-  otherLabs: '',
-  analysis: `SE ENCUENTRA PACIENTE ACTIVO REACTIVO, SIN DÉFICIT APARENTE, NI CRISIS NEONATALES, TOLERANDO OXÍGENO AMBIENTE, 
-  PATRÓN RESPIRATORIO ADECUADO, NORMOSATURADO, MANTIENE SIGNOS VITALES ESTABLES, NO SOPORTES, 
-  BIEN PERFUNDIDO, TOLERANDO APORTE ENTERAL POR _____, HIDRATADO, NORMOGLICÉMICO, DIURESIS POR PAÑAL PRESENTE, NO EDEMAS, NO DISTERMIAS.
-  SE RECIBE REPORTE DE PARACLÍNICOS _____. 
-  CONTINÚA EN LA UNIDAD PARA VIGILANCIA ESTRICTA Y MANEJO, PRONÒSTICO SUJETO A EVOLUCIÒN CLÍNICA. SE EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.
-  `,
-  oxygen: '',
-  diet: '',
-  liquid: '',
-  drugs: '',
+  wbc: "",
+  hb: "",
+  hto: "",
+  plt: "",
+  n: "",
+  l: "",
+  pcr: "",
+  na: "",
+  k: "",
+  ca: "",
+  ph: "",
+  pco2: "",
+  po2: "",
+  hco3: "",
+  be: "",
+  glicemia: "",
+  vdrl: "",
+  tsh: "",
+  bloodGroup: "",
+  bt: "",
+  bd: "",
+  bi: "",
+  otherLabs: "",
+  foley: false,
+  oralIntake: false,
+  hasOxygen: false,
+  paraclinicAnalysis: "",
+  oxygen: "",
+  diet: "",
+  liquid: "",
+  drugs: "",
   nurse: `MONITORIZACIÓN ELECTRONICA NO INVASIVA
   -MANTENER TERMORREGULADO
   -GLUCOMETRÍA CADA 12 HORAS
@@ -132,10 +150,10 @@ const initialValues = {
   -CONTROL DE LA, LE, BH
   -CONTROL DE SIGNOS VITALES Y AVISAR CAMBIOS
   `,
-  test: '',
-  images: '',
-  consult: '',
-  pending: '',
+  test: "",
+  images: "",
+  consult: "",
+  pending: "",
 };
 
 export default PatientHistory;

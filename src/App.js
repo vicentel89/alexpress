@@ -1,22 +1,18 @@
-import { useState } from 'react';
-import './App.css';
-import PatientHistory from './components/PatientHistory';
+import { useState } from "react";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import PatientHistory from "./pages/PatientHistory/PatientHistory";
+import NewBorn from "./pages/NewBorn/NewBorn";
 
 function App() {
-  const [hovered, setHovered] = useState(false);
-  const handleMouseEnter = () => {
-    setHovered(true);
-  };
-  const handleMouseLeave = () => {
-    setHovered(false);
-  };
+  const [selectedPage, setSelectedPage] = useState("PatientHistory");
 
   return (
     <div className="App">
-      <div className="heart" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        {hovered ? <p>TE AMO❤︎</p> : <p>❤︎</p>}
-      </div>
-      <PatientHistory />
+      <Navbar selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+
+      {selectedPage === "PatientHistory" && <PatientHistory />}
+      {selectedPage === "NewBorn" && <NewBorn />}
     </div>
   );
 }
