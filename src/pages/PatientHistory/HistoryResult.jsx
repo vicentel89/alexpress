@@ -133,9 +133,13 @@ function HistoryResult({ values }) {
           ? "TOLERANDO APORTE ENTERAL POR SOG"
           : "TOLERANDO APORTE ENTERAL POR SUCCIÓN"}
         , HIDRATADO, NORMOGLICÉMICO, DIURESIS POR PAÑAL PRESENTE, NO EDEMAS, NO
-        DISTERMIAS. {values.paraclinicAnalysis}, CONTINÚA EN LA UNIDAD PARA
+        DISTERMIAS, NO DETERIORO CLÍNICO. {values.paraclinicAnalysis},
+        {values.exit
+          ? `DIAGNÓSTICOS DE INGRESO RESUELTOS POR LO QUE SE OTORGA ALTA HOSPITALARIA
+           CON CITA DE CONTROL POR PEDIATRÍA, SIGNOS DE ALARMA Y RECOMENDACIONES.`
+          : `CONTINÚA EN LA UNIDAD PARA
         VIGILANCIA ESTRICTA Y MANEJO, PRONÓSTICO SUJETO A EVOLUCIÓN CLÍNICA. SE
-        EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.
+        EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.`}
       </p>
 
       <h2> PLAN:</h2>
@@ -259,8 +263,8 @@ const valNumShow = (val, label, units) => {
 const hemogram = ["wbc", "hb", "hto", "plt", "n", "l"];
 const ions = ["na", "k", "ca"];
 const gases = ["ph", "pco2", "po2", "hco3", "be"];
-const paraclinics = ["glicemia", "pcr", "vdrl", "tsh"];
-const bilirubins = ["bt", "bd", "bi"];
+const paraclinics = ["glicemia", "pcr", "vdrl", "hemoclasificacion", "tsh"];
+const bilirubins = ["bt", "bd", "bi", "ret"];
 
 const planFields = ["oxygen", "diet", "liquid", "drugs", "nurse"];
 

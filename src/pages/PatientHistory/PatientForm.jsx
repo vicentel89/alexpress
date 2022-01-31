@@ -95,7 +95,7 @@ function PatientForm({ formik }) {
         <TextfieldInput name="vdrl" label="vdrl" {...fieldProps} />
         <NumberInput name="tsh" label="tsh" {...fieldProps} />
         <TextfieldInput
-          name="bloodGroup"
+          name="hemoclasificacion"
           label="hemoclasificación"
           {...fieldProps}
         />
@@ -118,6 +118,7 @@ function PatientForm({ formik }) {
         <NumberInput name="bt" label="bt" {...fieldProps} />
         <NumberInput name="bd" label="bd" {...fieldProps} />
         <NumberInput name="bi" label="bi" {...fieldProps} />
+        <NumberInput name="ret" label="reticulocitos" {...fieldProps} />
       </Grid>
 
       <TextareaInput name="otherLabs" label="Otros" {...fieldProps} />
@@ -129,6 +130,9 @@ function PatientForm({ formik }) {
         label="Analisis de paraclinicos"
         {...fieldProps}
       />
+      <Grid item>
+        <h2 style={{ marginBottom: 0 }}>PLAN</h2>
+      </Grid>
       <TextareaInput name="oxygen" label="Oxigeno" {...fieldProps} />
       <TextareaInput name="diet" label="Dieta" {...fieldProps} />
       <TextareaInput name="liquid" label="Liquidos" {...fieldProps} />
