@@ -35,6 +35,12 @@ function Navbar({ selectedPage, setSelectedPage }) {
           >
             Atencion
           </Button>
+          <Button
+            variant={selectedPage === "Admission" ? "contained" : "outlined"}
+            onClick={handleClick("Admission")}
+          >
+            Ingreso
+          </Button>
         </ButtonGroup>
         <div
           className="heart"

@@ -1,12 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import NewBornResult from "./NewBornResult";
+import AdmissionResult from "./AdmissionResult";
 import { Button, Grid, Box } from "@mui/material";
-import NewBornForm, { initialValues } from "./NewBornForm";
+import AdmissionForm, { initialValues } from "./AdmissionForm";
 
-function NewBorn() {
-  const backup = localStorage.getItem("new-born-backup");
+function Admission() {
+  const backup = localStorage.getItem("admission-backup");
 
   const formik = useFormik({
     initialValues: JSON.parse(backup) || initialValues,
@@ -31,7 +31,7 @@ function NewBorn() {
             <Button
               onClick={() => {
                 localStorage.setItem(
-                  "new-born-backup",
+                  "admission-backup",
                   JSON.stringify(initialValues)
                 );
                 window.location.reload();
@@ -41,7 +41,7 @@ function NewBorn() {
             >
               Reset Form
             </Button>
-            <NewBornForm formik={formik} />
+            <AdmissionForm formik={formik} />
           </Box>
         </Grid>
         <Grid item md={4}>
@@ -54,7 +54,7 @@ function NewBorn() {
               overflow: "auto",
             }}
           >
-            <NewBornResult values={formik.values} />
+            <AdmissionResult values={formik.values} />
           </Box>
         </Grid>
       </Grid>
@@ -62,4 +62,4 @@ function NewBorn() {
   );
 }
 
-export default NewBorn;
+export default Admission;

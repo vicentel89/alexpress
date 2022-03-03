@@ -25,7 +25,11 @@ function PatientForm({ formik }) {
       alignItems="flex-start"
       spacing={4}
     >
-      <TextfieldInput name="bedNumber" label="Numero de cama" {...fieldProps} />
+      <TextfieldInput
+        name="bedNumber"
+        label="Nombre del paciente"
+        {...fieldProps}
+      />
       <RadioInput
         options={["BASICO", "INTERMEDIO"]}
         name="careType"
@@ -41,7 +45,7 @@ function PatientForm({ formik }) {
         label="Sexo"
         {...fieldProps}
       />
-      <DateInput label="Fecha reporte: " name="reportDate" {...fieldProps} />
+      <DateInput label="Fecha evolución: " name="reportDate" {...fieldProps} />
       <DateInput label="Fecha de nacimiento: " name="dob" {...fieldProps} />
       <DateInput
         label="Fecha de ingreso: "
@@ -49,7 +53,7 @@ function PatientForm({ formik }) {
         {...fieldProps}
       />
       <NumberInput name="weeks" label="Edad gestacional" {...fieldProps} />
-      <TextareaInput name="diagnosis" label="Diagnostico" {...fieldProps} />
+      <TextareaInput name="diagnosis" label="Diagnósticos" {...fieldProps} />
       <RadioInput
         options={[24, 12]}
         name="waterBalanceTime"
@@ -57,9 +61,9 @@ function PatientForm({ formik }) {
         {...fieldProps}
       />
       <Grid container gap={4} item>
-        <NumberInput name="lastWeight" label="Ultimo peso" {...fieldProps} />
-        <NumberInput name="weight" label="Peso" {...fieldProps} />
-        <NumberInput name="glucose" label="Glucosa" {...fieldProps} />
+        <NumberInput name="lastWeight" label="Peso anterior" {...fieldProps} />
+        <NumberInput name="weight" label="Peso actual" {...fieldProps} />
+        <NumberInput name="glucose" label="Glucometría" {...fieldProps} />
         <NumberInput
           name="intake"
           label="Liquidos administrados"
@@ -88,7 +92,7 @@ function PatientForm({ formik }) {
       </Grid>
       <TextareaInput
         name="physicalExam"
-        label="Examen fisico"
+        label="Examen físico"
         {...fieldProps}
       />
       <Grid container gap={2} item>
@@ -99,15 +103,17 @@ function PatientForm({ formik }) {
           label="hemoclasificación"
           {...fieldProps}
         />
-        <NumberInput name="wbc" label="wbc" {...fieldProps} />
-        <NumberInput name="hb" label="hb" {...fieldProps} />
-        <NumberInput name="hto" label="hto" {...fieldProps} />
-        <NumberInput name="plt" label="plt" {...fieldProps} />
-        <NumberInput name="n" label="n" {...fieldProps} />
-        <NumberInput name="l" label="l" {...fieldProps} />
-        <NumberInput name="na" label="na" {...fieldProps} />
-        <NumberInput name="k" label="k" {...fieldProps} />
-        <NumberInput name="ca" label="ca" {...fieldProps} />
+
+        <NumberInput name="hb" label="hemoglobina" {...fieldProps} />
+        <NumberInput name="hto" label="hematocrito" {...fieldProps} />
+        <NumberInput name="plt" label="plaquetas" {...fieldProps} />
+        <NumberInput name="wbc" label="leucos" {...fieldProps} />
+        <NumberInput name="n" label="neutros" {...fieldProps} />
+        <NumberInput name="l" label="linfos" {...fieldProps} />
+        <NumberInput name="na" label="sodio" {...fieldProps} />
+        <NumberInput name="k" label="potasio" {...fieldProps} />
+        <NumberInput name="ca" label="calcio" {...fieldProps} />
+        <NumberInput name="cl" label="cloro" {...fieldProps} />
         <NumberInput name="ph" label="ph" {...fieldProps} />
         <NumberInput name="pco2" label="pco2" {...fieldProps} />
         <NumberInput name="po2" label="po2" {...fieldProps} />
@@ -115,19 +121,27 @@ function PatientForm({ formik }) {
         <NumberInput name="be" label="be" {...fieldProps} />
         <NumberInput name="pcr" label="pcr" {...fieldProps} />
         <NumberInput name="glicemia" label="glicemia" {...fieldProps} />
-        <NumberInput name="bt" label="bt" {...fieldProps} />
-        <NumberInput name="bd" label="bd" {...fieldProps} />
-        <NumberInput name="bi" label="bi" {...fieldProps} />
+        <NumberInput name="bt" label="bili total" {...fieldProps} />
+        <NumberInput name="bd" label="bili directa" {...fieldProps} />
+        <NumberInput name="bi" label="bili indirecta" {...fieldProps} />
         <NumberInput name="ret" label="reticulocitos" {...fieldProps} />
       </Grid>
 
       <TextareaInput name="otherLabs" label="Otros" {...fieldProps} />
-      <CheckboxInput label="SOG" name="foley" {...fieldProps} />
+      <CheckboxInput
+        label="ALIMENTACIÓN POR SONDA"
+        name="foley"
+        {...fieldProps}
+      />
       <CheckboxInput label="AYUNADO" name="oralIntake" {...fieldProps} />
-      <CheckboxInput label="Tiene oxigeno?" name="hasOxygen" {...fieldProps} />
+      <CheckboxInput
+        label="SUPLEMENTACIÓN DE OXÍGENO"
+        name="hasOxygen"
+        {...fieldProps}
+      />
       <TextareaInput
         name="paraclinicAnalysis"
-        label="Analisis de paraclinicos"
+        label="Notas análisis"
         {...fieldProps}
       />
       <Grid item>
@@ -140,12 +154,24 @@ function PatientForm({ formik }) {
 
       <TextareaInput
         name="nurse"
-        label="Cuidados de enfermeria"
+        label="Cuidados de enfermería"
         {...fieldProps}
       />
-      <TextareaInput name="test" label="Paraclinicos" {...fieldProps} />
-      <TextareaInput name="images" label="Imagenes" {...fieldProps} />
-      <TextareaInput name="consult" label="Interconsultas" {...fieldProps} />
+      <TextareaInput
+        name="test"
+        label="Paraclínicos solicitados"
+        {...fieldProps}
+      />
+      <TextareaInput
+        name="images"
+        label="Imágenes solicitadas"
+        {...fieldProps}
+      />
+      <TextareaInput
+        name="consult"
+        label="Interconsultas solicitadas"
+        {...fieldProps}
+      />
       <TextareaInput name="pending" label="Pendientes" {...fieldProps} />
     </Grid>
   );

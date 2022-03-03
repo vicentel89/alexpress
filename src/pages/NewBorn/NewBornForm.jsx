@@ -8,33 +8,34 @@ import CheckboxInput from "../../components/shared/CheckboxInput";
 import TextareaInput from "../../components/shared/TextareaInput";
 
 export const initialValues = {
-  textField: "",
-  textField2: "",
-  dob: "",
-  ToB: "",
+  momName: "",
+  momId: "",
+  dateOfBirth: "",
+  timeOfBirth: "",
   perfilInfeccioso: `ÚLTIMO PERFIL INFECCIOSO NEGATIVO`,
   antecedentesMaternos: "",
   malformacionesApgar: `SE TRASLADA PACIENTE A CUNA DE CALOR RADIENTE SE ESTIMULA Y SECA, SE CLAMPEA Y CORTA CORDÓN TRIVASCULAR (2 ARTERIAS Y UNA VENA), SE APLICA VITAMINA K. SE VERIFICA PERMEABILIDAD DE ANO Y ESÓFAGO. AL EXAMEN FÍSICO NO SE EVIDENCIAN MALFORMACIONES OSTENSIBLES, ORIFICIOS PERMEABLES, SATURACIÓN PRE Y POSTDUCTAL NORMALES. CON BUENA ADAPTACIÓN, TALLA Y PESO ADECUADOS PARA SU EDAD, 
   `,
-  numberField: "",
-  numberField2: "",
-  numberFieldG: "",
-  numberFieldP: "",
-  numberFieldC: "",
-  numberFieldV: "",
-  numberFieldPESO: "",
-  numberFieldTALLA: "",
-  numberFieldPC: "",
-  numberFieldPT: "",
-  numberFieldPA: "",
-  numberFieldCPN: "",
-  numberFieldA1: "",
-  numberFieldA5: "",
-  numberFieldA10: "",
-  radioField: "MASCULINO",
-  radioField2: "CESÁREA",
-  textFieldIC: "MOTIVADA POR",
-  textFieldAmnioLiq: "LIQUIDO AMNIOTICO CLARO, EUTERMICO,",
+  careType: "BASICO",
+  weeksBallard: "",
+  momAge: "",
+  gestaNumber: "",
+  paraNumber: "",
+  cesareaNumber: "",
+  vivoNumber: "",
+  weightAtBirth: "",
+  heightAtBirth: "",
+  headAtBirth: "",
+  thoraxAtBirth: "",
+  abdomenAtBirth: "",
+  prenatalControl: "",
+  apgar1: "",
+  apgar5: "",
+  apgar10: "",
+  gender: "MASCULINO",
+  birthBy: "CESÁREA",
+  surgeryIndication: "MOTIVADA POR",
+  amnioLiq: "LIQUIDO AMNIOTICO CLARO, EUTERMICO,",
   dxUCI: "",
   UciOrMaterno: "MATERNO",
   estanciaUCI:
@@ -47,7 +48,7 @@ export const initialValues = {
   INICIAR ESQUEMA DE VACUNACION 
   CURACION DIARIA DE ONFALO 
   RECOMENDACIONES Y  SIGNOS DE ALARMA
-  SS TSH NEONATAL, VDRL, HEMOCLASIFICACION 
+  SS TSH NEONATAL Y HEMOCLASIFICACION 
   `,
   planUCI: `INGRESO A UCIN
   DIETA: 
@@ -57,7 +58,7 @@ export const initialValues = {
   CUIDADOS DEL RECIEN NACIDO
   INICIAR ESQUEMA DE VACUCION DEL RECIEN NACIDO 
   RECOMENDACIONES Y  SIGNOS DE ALARMA
-  SS VDRL, HEMOCLASIFICACIÓN, TSH NEONATAL 
+  SS HEMOCLASIFICACIÓN Y TSH NEONATAL 
   `,
 };
 
@@ -79,41 +80,62 @@ function NewBornForm({ formik }) {
       alignItems="flex-start"
       spacing={4}
     >
-      <TextfieldInput name="textField" label="HIJO DE " {...fieldProps} />
-      <TextfieldInput
-        name="textField2"
-        label="IDENTIFICACIÓN"
+      <TextfieldInput name="momName" label="HIJO DE " {...fieldProps} />
+      <TextfieldInput name="momId" label="IDENTIFICACIÓN" {...fieldProps} />
+      <DateInput
+        name="dateOfBirth"
+        label="FECHA DE NACIMIENTO: "
         {...fieldProps}
       />
-      <DateInput name="dob" label="FECHA DE NACIMIENTO: " {...fieldProps} />
-      <TextfieldInput name="ToB" label="HORA" {...fieldProps} />
+      <TextfieldInput name="timeOfBirth" label="HORA" {...fieldProps} />
       <RadioInput
-        name="radioField"
-        label="Radio input"
+        name="gender"
+        label="Sexo"
         options={["MASCULINO", "FEMENINO"]}
         {...fieldProps}
       />
       <Grid container gap={2} item>
         <NumberInput
-          name="numberField"
+          name="weeksBallard"
           label="EDAD GESTACIONAL"
           {...fieldProps}
         />
-        <NumberInput name="numberFieldPESO" label="PESO" {...fieldProps} />
-        <NumberInput name="numberFieldTALLA" label="TALLA" {...fieldProps} />
-        <NumberInput name="numberFieldPC" label="PC" {...fieldProps} />
-        <NumberInput name="numberFieldPT" label="PT" {...fieldProps} />
-        <NumberInput name="numberFieldPA" label="PA" {...fieldProps} />
-        <NumberInput name="numberFieldA1" label="APGAR 1" {...fieldProps} />
-        <NumberInput name="numberFieldA5" label="APGAR 5" {...fieldProps} />
-        <NumberInput name="numberFieldA10" label="APGAR 10" {...fieldProps} />
-        <NumberInput name="numberField2" label="EDAD MATERNA" {...fieldProps} />
-        <TextfieldInput name="textFieldGS" label="GS" {...fieldProps} />
-        <NumberInput name="numberFieldG" label="G" {...fieldProps} />
-        <NumberInput name="numberFieldP" label="P" {...fieldProps} />
-        <NumberInput name="numberFieldC" label="C" {...fieldProps} />
-        <NumberInput name="numberFieldV" label="V" {...fieldProps} />
-        <NumberInput name="numberFieldCPN" label="CPN" {...fieldProps} />
+        <NumberInput name="weightAtBirth" label="PESO" {...fieldProps} />
+        <NumberInput name="heightAtBirth" label="TALLA" {...fieldProps} />
+        <NumberInput
+          name="headAtBirth"
+          label="PERIMETRO CEFALICO"
+          {...fieldProps}
+        />
+        <NumberInput
+          name="thoraxAtBirth"
+          label="PERIMETRO TORACICO"
+          {...fieldProps}
+        />
+        <NumberInput
+          name="abdomenAtBirth"
+          label="PERIMETRO ABDOMINAL"
+          {...fieldProps}
+        />
+        <NumberInput name="apgar1" label="APGAR 1" {...fieldProps} />
+        <NumberInput name="apgar5" label="APGAR 5" {...fieldProps} />
+        <NumberInput name="apgar10" label="APGAR 10" {...fieldProps} />
+        <NumberInput name="momAge" label="EDAD MATERNA" {...fieldProps} />
+        <TextfieldInput
+          name="hemoGroup"
+          label="GRUPO SANGUINEO"
+          {...fieldProps}
+        />
+        <NumberInput name="gestaNumber" label="GESTA" {...fieldProps} />
+        <NumberInput name="paraNumber" label="PARTOS" {...fieldProps} />
+        <NumberInput name="cesareaNumber" label="CESAREAS" {...fieldProps} />
+        <NumberInput name="vivoNumber" label="VIVOS" {...fieldProps} />
+        <NumberInput
+          name="prenatalControl"
+          label="CONTROLES PRENATALES"
+          {...fieldProps}
+        />
+
         <TextfieldInput
           name="perfilInfeccioso"
           label="PERFIL INFECCIOSO"
@@ -121,19 +143,23 @@ function NewBornForm({ formik }) {
         />
       </Grid>
       <RadioInput
-        name="radioField2"
-        label="Radio input"
+        name="birthBy"
+        label="NACIMIENTO POR"
         options={["CESÁREA", "PARTO"]}
         {...fieldProps}
       />
-      {values.radioField2 === "CESÁREA" && (
+      {values.birthBy === "CESÁREA" && (
         <TextfieldInput
-          name="textFieldIC"
+          name="surgeryIndication"
           label="INDICACION CESAREA"
           {...fieldProps}
         />
       )}
-      <TextfieldInput name="textFieldAmnioLiq" label="LA" {...fieldProps} />
+      <TextfieldInput
+        name="amnioLiq"
+        label="CARACTERISTICAS LIQUIDO AMNIOTICO"
+        {...fieldProps}
+      />
 
       <TextareaInput name="malformacionesApgar" label="" {...fieldProps} />
       <TextareaInput

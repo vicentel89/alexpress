@@ -14,21 +14,21 @@ function PatientHistory() {
       reportDate: Yup.date()
         .min(
           new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-          "La estas cagando, esta fecha es muy vieja"
+          "SEGURA??? ESTA FECHA ES MUY VIEJA"
         )
-        .max(new Date(), "La estas cagando, esta fecha es en el futuro"),
+        .max(new Date(), "ERROR: ESTA FECHA ES EN EL FUTURO!!!!!!!!"),
       dob: Yup.date()
         .min(
           new Date(Date.now() - 6 * 30.5 * 24 * 60 * 60 * 1000),
-          "La estas cagando, esta fecha es muy vieja"
+          "SEGURA??? ESTA FECHA ES MUY VIEJA"
         )
-        .max(new Date(), "La estas cagando, esta fecha es en el futuro"),
+        .max(new Date(), "ERROR: ESTA FECHA ES EN EL FUTURO!!!!!!!!"),
       admissionDate: Yup.date()
         .min(
           new Date(Date.now() - 6 * 31 * 24 * 60 * 60 * 1000),
-          "La estas cagando, esta fecha es muy vieja"
+          "SEGURA??? ESTA FECHA ES MUY VIEJA"
         )
-        .max(new Date(), "La estas cagando, esta fecha es en el futuro"),
+        .max(new Date(), "ERROR: ESTA FECHA ES EN EL FUTURO!!!!!!!!"),
     }),
     onSubmit: (values) => {
       console.log(values);
@@ -102,25 +102,24 @@ const initialValues = {
   respiratoryFreq: 40,
   saturation: 99,
   temperture: 36.5,
-  physicalExam: `NORMOCÉFALO, FONTANELA ANTERIOR NORMOTENSA, POSTERIOR PUNTIFORME, PUPILAS ISOCÓRICAS NORMOREACTIVAS, ESCLERAS ANICTÉRICAS, NARINAS PERMEABLES, MUCOSA ORAL HÚMEDA, CUELLO MÓVIL SIN ADENOPATÍAS PALPABLES. 
-  TÓRAX SIMÉTRICO, EXPANSIBLE, SIN TIRAJES, NO AGREGADOS. 
-  RUIDOS CARDÍACOS RÍTMICOS SIN SOPLOS. 
-  ABDOMEN BLANDO, DEPRESIBLE, NO IMPRESIONA DOLOR A LA PALPACIÓN, NO MASAS NO MEGALIAS, ÓNFALO CLAMPEADO SIN INFECCIONES  
-  GENITOURINARIO NORMOCONFIGURADO PARA SEXO Y EDAD.   
-  EXTREMIDADES EUTRÓFICAS, SIN EDEMAS, LLENADO CAPILAR<2 SG, PULSOS DISTALES PRESENTES Y SIMÉTRICOS. 
-  NEUROLÓGICO, ACTIVO, REACTIVO CON RESPUESTA A ESTÍMULOS, REFLEJOS PRIMITIVOS PRESENTES, LIBRE DE CRISIS NEONATALES.  
-  PIEL Y ANEXOS ÍNTEGRA, SIN LESIONES, ROSADA 
-  `,
-  wbc: "",
+  physicalExam: `CABEZA Y CUELLO: NORMOCÉFALO, FONTANELA ANTERIOR NORMOTENSA, POSTERIOR PUNTIFORME, PUPILAS ISOCÓRICAS NORMOREACTIVAS, ESCLERAS ANICTÉRICAS, NARINAS PERMEABLES, MUCOSA ORAL HÚMEDA, CUELLO MÓVIL SIN ADENOPATÍAS PALPABLES. 
+TÓRAX: SIMÉTRICO, EXPANSIBLE, SIN TIRAJES, NO AGREGADOS. RUIDOS CARDÍACOS RÍTMICOS SIN SOPLOS. 
+ABDOMEN: BLANDO, DEPRESIBLE, NO IMPRESIONA DOLOR A LA PALPACIÓN, NO MASAS NO MEGALIAS, ÓNFALO CLAMPEADO SIN INFECCIONES  
+GENITOURINARIO: NORMOCONFIGURADO PARA SEXO Y EDAD.   
+EXTREMIDADES: EUTRÓFICAS, SIN EDEMAS, LLENADO CAPILAR<2 SG, PULSOS DISTALES PRESENTES Y SIMÉTRICOS. 
+NEUROLÓGICO: ACTIVO, REACTIVO CON RESPUESTA A ESTÍMULOS, REFLEJOS PRIMITIVOS PRESENTES, LIBRE DE CRISIS NEONATALES.  
+PIEL Y ANEXOS: ÍNTEGRA, SIN LESIONES, ROSADA`,
   hb: "",
   hto: "",
   plt: "",
+  wbc: "",
   n: "",
   l: "",
   pcr: "",
   na: "",
   k: "",
   ca: "",
+  cl: "",
   ph: "",
   pco2: "",
   po2: "",

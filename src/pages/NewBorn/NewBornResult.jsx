@@ -8,8 +8,8 @@ function NewBornResult({ values }) {
   return (
     <div>
       <h1>NOTA DE ATENCIÓN AL RECIÉN NACIDO</h1>
-      <h2>HIJO DE {values.textField}</h2>
-      <h3>DOCUMENTO MATERNO: {values.textField2}</h3>
+      <h2>HIJO DE {values.momName}</h2>
+      <h3>DOCUMENTO MATERNO: {values.momId}</h3>
       <h2>ANTECEDENTES PERSONALES MATERNOS</h2>
       <p> {values.antecedentesMaternos}</p>
       <h2>ADAPTACIÓN NEONATAL</h2>
@@ -24,33 +24,32 @@ function NewBornResult({ values }) {
       </p>
       <br />
       <p>
-        <strong>FECHA DE NACIMIENTO:</strong> {formatDate(values.dob)}{" "}
-        {values.ToB}
+        <strong>FECHA DE NACIMIENTO:</strong> {formatDate(values.dateOfBirth)}{" "}
+        {values.timeOfBirth}
       </p>
       <p>
         RECIBO RECIÉN NACIDO DE MANOS DE GINECÓLOGO, DE SEXO{" "}
         <strong>{values.radioField}</strong> DE{" "}
-        <strong>{values.numberField}</strong> SEMANAS POR BALLARD, PRODUCTO DE
-        MADRE <strong>{values.numberField2}</strong> AÑOS
+        <strong>{values.weeksBallard}</strong> SEMANAS POR BALLARD, PRODUCTO DE
+        MADRE <strong>{values.momAge}</strong> AÑOS
         <strong>
-          G{values.numberFieldG}P{values.numberFieldP}C{values.numberFieldC}V
-          {values.numberFieldV}
+          G{values.gestaNumber}P{values.paraNumber}C{values.cesareaNumber}V
+          {values.vivoNumber}
         </strong>
-        , GRUPO SANGUINEO <strong>{values.textFieldGS}</strong>,{" "}
-        {values.perfilInfeccioso}. <strong>{values.numberFieldCPN}</strong>{" "}
+        , GRUPO SANGUINEO <strong>{values.hemoGroup}</strong>,{" "}
+        {values.perfilInfeccioso}. <strong>{values.prenatalControl}</strong>{" "}
         CONTROLES PRENATALES. NACE POR{" "}
         <strong>
-          {values.radioField2} {values.textFieldIC}
+          {values.birthBy} {values.surgeryIndication}
         </strong>
-        . {values.textFieldAmnioLiq} APGAR AL MINUTO{" "}
-        <strong>{values.numberFieldA1}/10</strong> A LOS 5 MIN DE{" "}
-        <strong>{values.numberFieldA5}/10</strong> Y A LOS 10 MIN DE{" "}
-        <strong>{values.numberFieldA10}/10.</strong> PESO:{" "}
-        <strong>{values.numberFieldPESO}</strong>GRAMOS. TALLA:{" "}
-        <strong>{values.numberFieldTALLA}</strong> CM. PC:{" "}
-        <strong>{values.numberFieldPC}</strong> CM. PT:{" "}
-        <strong>{values.numberFieldPT}</strong> CM. PA:{" "}
-        <strong>{values.numberFieldPA}</strong> CM.
+        . {values.amnioLiq} APGAR AL MINUTO <strong>{values.apgar1}/10</strong>{" "}
+        A LOS 5 MIN DE <strong>{values.apgar5}/10</strong> Y A LOS 10 MIN DE{" "}
+        <strong>{values.apgar10}/10.</strong> PESO:{" "}
+        <strong>{values.weightAtBirth}</strong>GRAMOS. TALLA:{" "}
+        <strong>{values.heightAtBirth}</strong> CM. PERÍMETRO CEFALICO:{" "}
+        <strong>{values.headAtBirth}</strong> CM. PERÍMETRO TORÁCICO:{" "}
+        <strong>{values.thoraxAtBirth}</strong> CM. PERÍMETRO ABDOMINAL:{" "}
+        <strong>{values.abdomenAtBirth}</strong> CM.
       </p>
       <br />
       <p> {values.malformacionesApgar}</p>
@@ -76,8 +75,8 @@ function NewBornResult({ values }) {
   );
 }
 
-const formatDate = (dob) => {
-  let date = dob.toLocaleString("en-US", {
+const formatDate = (dateOfBirth) => {
+  let date = dateOfBirth.toLocaleString("en-US", {
     timeZone: "America/Bogota",
     day: "2-digit",
   });

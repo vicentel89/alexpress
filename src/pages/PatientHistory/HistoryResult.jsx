@@ -44,7 +44,7 @@ function HistoryResult({ values }) {
       )}
       <p>
         -RECIÉN NACIDO {term} {values.sex} DE {values.weeks} SEMANAS POR BALLARD{" "}
-        {!isPostTerm && <span>EGC {egc}</span>}
+        {!isPostTerm && <span>EDAD GESTACIONAL CORREGIDA {egc}</span>}
       </p>
       <p>-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL</p>
       <p>{values.diagnosis}</p>
@@ -60,57 +60,60 @@ function HistoryResult({ values }) {
             {valNumShow(values.lastWeight, "PESO AYER", "GR")}
             {valNumShow(values.weight, "PESO ACTUAL", "GR")}
             {valNumShow(values.glucose, "GLUCOMETRÍA", "MG/DL")}
-            {valNumShow(values.intake, "LA", "CC")}
-            {valNumShow(values.output, "LE", "CC")}
-            {valNumShow(gu, "GU", "CC/KG/HORA")}
-            {valNumShow(bh, "BH", "")}
+            {valNumShow(values.intake, "LÍQUIDOS ADMINISTRADOS", "CC")}
+            {valNumShow(values.output, "LÍQUIDOS ELIMINADOS", "CC")}
+            {valNumShow(gu, "GASTO URINARIO", "CC/KG/HORA")}
+            {valNumShow(bh, "BALANCE HÍDRICO", "")}
           </p>
         </>
       )}
 
       <h2> EXAMEN FÍSICO </h2>
       <p>
-        SIGNOS VITALES FC: {values.cardiacFreq}LPM – FR:{" "}
-        {values.respiratoryFreq}RPM – SAT02: {values.saturation}% - T:{" "}
-        {values.temperture}°C
+        SIGNOS VITALES FC:<strong> {values.cardiacFreq} </strong>LPM – FR:{" "}
+        <strong>{values.respiratoryFreq}</strong> RPM – SAT02:{" "}
+        <strong>{values.saturation} </strong>% - T:{" "}
+        <strong>{values.temperture}°C</strong>
       </p>
 
       <p>{values.physicalExam}</p>
 
       <h2> REPORTE DE PARACLÍNICOS</h2>
-      <p>{formatDate(values.reportDate)}</p>
+      <p>
+        <strong>{formatDate(values.reportDate)}</strong>
+      </p>
       <p>
         {hemogram.map((item) =>
           values[item] ? (
-            <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span>
+            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
           ) : null
         )}
       </p>
       <p>
         {ions.map((item) =>
           values[item] ? (
-            <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span>
+            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
           ) : null
         )}
       </p>
       <p>
         {gases.map((item) =>
           values[item] ? (
-            <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span>
+            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
           ) : null
         )}
       </p>
       <p>
         {paraclinics.map((item) =>
           values[item] ? (
-            <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span>
+            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
           ) : null
         )}
       </p>
       <p>
         {bilirubins.map((item) =>
           values[item] ? (
-            <span key={item}>{`${item.toUpperCase()}: ${values[item]} ;`}</span>
+            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
           ) : null
         )}
       </p>
@@ -122,24 +125,26 @@ function HistoryResult({ values }) {
         PACIENTE {term} EN REGULARES CONDICIONES GENERALES. CON IDX PREVIAMENTE
         DESCRITOS. SE ENCUENTRA PACIENTE ACTIVO REACTIVO, SIN DÉFICIT APARENTE,
         NI CRISIS NEONATALES,{" "}
-        {values.hasOxygen
-          ? "RECIBIENDO OXIGENO POR CANULA NASAL"
-          : "TOLERANDO OXÍGENO AMBIENTE"}
+        {values.hasOxygen ? (
+          <strong> RECIBIENDO OXÍGENO SUPLEMENTARIO DE BAJO FLUJO </strong>
+        ) : (
+          <strong>TOLERANDO OXÍGENO AMBIENTE</strong>
+        )}
         , PATRÓN RESPIRATORIO ADECUADO, NORMOSATURADO, MANTIENE SIGNOS VITALES
         ESTABLES, NO SOPORTES, BIEN PERFUNDIDO,
-        {values.oralIntake
-          ? "AYUNADO"
-          : values.foley
-          ? "TOLERANDO APORTE ENTERAL POR SOG"
-          : "TOLERANDO APORTE ENTERAL POR SUCCIÓN"}
+        {values.oralIntake ? (
+          <strong> AYUNADO</strong>
+        ) : values.foley ? (
+          <strong> TOLERANDO APORTE ENTERAL POR SONDA </strong>
+        ) : (
+          <strong> TOLERANDO APORTE ENTERAL POR SUCCIÓN </strong>
+        )}
         , HIDRATADO, NORMOGLICÉMICO, DIURESIS POR PAÑAL PRESENTE, NO EDEMAS, NO
-        DISTERMIAS, NO DETERIORO CLÍNICO. {values.paraclinicAnalysis},
+        DISTERMIAS, NO DETERIORO CLÍNICO. {values.paraclinicAnalysis}
         {values.exit
           ? `DIAGNÓSTICOS DE INGRESO RESUELTOS POR LO QUE SE OTORGA ALTA HOSPITALARIA
            CON CITA DE CONTROL POR PEDIATRÍA, SIGNOS DE ALARMA Y RECOMENDACIONES.`
-          : `CONTINÚA EN LA UNIDAD PARA
-        VIGILANCIA ESTRICTA Y MANEJO, PRONÓSTICO SUJETO A EVOLUCIÓN CLÍNICA. SE
-        EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.`}
+          : `CONTINÚA EN LA UNIDAD PARA VIGILANCIA ESTRICTA Y MANEJO, PRONÓSTICO SUJETO A EVOLUCIÓN CLÍNICA. SE EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.`}
       </p>
 
       <h2> PLAN:</h2>
@@ -174,13 +179,7 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
 6. HACE DEL CUERPO CON SANGRE O MOCO.
 7. CONVULSIONA
 8. ESTA MUY DORMIDO – NO RESPONDE A ESTÍMULOS.
--MONITORIZACIÓN ELECTRONICA NO INVASIVA
--MANTENER TERMORREGULADO
--GLUCOMETRÍA CADA 12 HORAS
--CUIDADOS DE ENFERMERÍA
--PESO DIARIO
--CONTROL DE LA, LE, BH
--CONTROL DE SIGNOS VITALES Y AVISAR CAMBIOS
+
 `}
         </p>
       ) : (
@@ -260,8 +259,8 @@ const valNumShow = (val, label, units) => {
   return val !== "" && isFinite(val) ? `${label}: ${val}${units} ` : "";
 };
 
-const hemogram = ["wbc", "hb", "hto", "plt", "n", "l"];
-const ions = ["na", "k", "ca"];
+const hemogram = ["hb", "hto", "plt", "wbc", "n", "l"];
+const ions = ["na", "k", "ca", "cl"];
 const gases = ["ph", "pco2", "po2", "hco3", "be"];
 const paraclinics = ["glicemia", "pcr", "vdrl", "hemoclasificacion", "tsh"];
 const bilirubins = ["bt", "bd", "bi", "ret"];
