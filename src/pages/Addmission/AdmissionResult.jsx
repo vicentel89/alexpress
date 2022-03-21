@@ -22,10 +22,7 @@ function AdmissionResult({ values }) {
       </p>
       <h2>ENFERMEDAD ACTUAL</h2> <p> {values.actualDisease}</p>
       <h2>ANTECEDENTES PERINATALES</h2>
-      <p style={{ fontSize: "0.5rem" }}>
-        {" "}
-        AQUÍ ES DONDE QUIERO QUE VAYA LA ADAPTACIÓN DE ATENCIONES{" "}
-      </p>
+      <p> {values.antecedentesPerinatales}</p>
       <h2> EXAMEN FÍSICO </h2>
       <p>
         {" "}
@@ -40,7 +37,6 @@ function AdmissionResult({ values }) {
         -RECIÉN NACIDO {term} {values.babyGender} DE {values.numberField}{" "}
         SEMANAS POR BALLARD
       </p>
-      <p>-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL</p>
       <p>{values.diagnosis}</p>
       <h2>ANÁLISIS </h2>
       <p>

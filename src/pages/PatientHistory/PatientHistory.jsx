@@ -84,6 +84,7 @@ function PatientHistory() {
 const initialValues = {
   bedNumber: "",
   careType: "BASICO",
+  timeofDay: "",
   justBorn: false,
   exit: false,
   sex: "MASCULINO",
@@ -91,7 +92,7 @@ const initialValues = {
   dob: "",
   admissionDate: "",
   weeks: "",
-  diagnosis: "",
+  diagnosis: "-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL",
   waterBalanceTime: 24,
   lastWeight: "",
   weight: "",
@@ -137,6 +138,8 @@ PIEL Y ANEXOS: ÍNTEGRA, SIN LESIONES, ROSADA`,
   foley: false,
   oralIntake: false,
   hasOxygen: false,
+  upOralIntake: false,
+  nutritionSupport: "Ninguno",
   paraclinicAnalysis: "",
   oxygen: "",
   diet: "",
@@ -144,7 +147,6 @@ PIEL Y ANEXOS: ÍNTEGRA, SIN LESIONES, ROSADA`,
   drugs: "",
   nurse: `MONITORIZACIÓN ELECTRONICA NO INVASIVA
   -MANTENER TERMORREGULADO
-  -GLUCOMETRÍA CADA 12 HORAS
   -CUIDADOS DE ENFERMERÍA
   -PESO DIARIO
   -CONTROL DE LA, LE, BH

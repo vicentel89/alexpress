@@ -26,7 +26,7 @@ GENITOURINARIO: NORMOCONFIGURADO PARA SEXO Y EDAD.
 EXTREMIDADES: EUTRÓFICAS, SIN EDEMAS, LLENADO CAPILAR<2 SG, PULSOS DISTALES PRESENTES Y SIMÉTRICOS. 
 NEUROLÓGICO: ACTIVO, REACTIVO CON RESPUESTA A ESTÍMULOS, REFLEJOS PRIMITIVOS PRESENTES, LIBRE DE CRISIS NEONATALES.  
 PIEL Y ANEXOS: ÍNTEGRA, SIN LESIONES, ROSADA`,
-  diagnosis: "",
+  diagnosis: "-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL",
   paraclinicAnalysis: "",
   careType: "BASICO",
 
@@ -118,6 +118,11 @@ function AdmissionForm({ formik }) {
       <TextareaInput
         name="physicalExam"
         label="Examen físico"
+        {...fieldProps}
+      />
+      <TextareaInput
+        name="antecedentesPerinatales"
+        label="ANTECEDENTES PERINATALES"
         {...fieldProps}
       />
       <TextareaInput name="diagnosis" label="Diagnósticos" {...fieldProps} />

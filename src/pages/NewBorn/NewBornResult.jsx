@@ -33,8 +33,8 @@ function NewBornResult({ values }) {
         <strong>{values.weeksBallard}</strong> SEMANAS POR BALLARD, PRODUCTO DE
         MADRE <strong>{values.momAge}</strong> AÑOS
         <strong>
-          G{values.gestaNumber}P{values.paraNumber}C{values.cesareaNumber}V
-          {values.vivoNumber}
+          G{values.gestaNumber}P{values.paraNumber}C{values.cesareaNumber}A
+          {values.abortionNumber}E{values.ectopicNumber}V{values.vivoNumber}
         </strong>
         , GRUPO SANGUINEO <strong>{values.hemoGroup}</strong>,{" "}
         {values.perfilInfeccioso}. <strong>{values.prenatalControl}</strong>{" "}
@@ -60,10 +60,9 @@ function NewBornResult({ values }) {
       )}
       <h2>DIAGNÓSTICOS</h2>
       <p>
-        -RECIÉN NACIDO {term} {values.radioField} DE {values.numberField}{" "}
-        SEMANAS POR BALLARD
+        -RECIÉN NACIDO {values.gender} {term} DE {values.weeksBallard} SEMANAS
+        POR BALLARD
       </p>
-      <p>-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL</p>
       {values.UciOrMaterno === "UCI" && <p>{values.dxUCI}</p>}
       <h2>PLAN</h2>
       {values.UciOrMaterno === "MATERNO" ? (

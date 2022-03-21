@@ -127,6 +127,8 @@ function NewBornForm({ formik }) {
           {...fieldProps}
         />
         <NumberInput name="gestaNumber" label="GESTA" {...fieldProps} />
+        <NumberInput name="abortionNumber" label="ABORTOS" {...fieldProps} />
+        <NumberInput name="ectopicNumber" label="ECTOPICOS" {...fieldProps} />
         <NumberInput name="paraNumber" label="PARTOS" {...fieldProps} />
         <NumberInput name="cesareaNumber" label="CESAREAS" {...fieldProps} />
         <NumberInput name="vivoNumber" label="VIVOS" {...fieldProps} />

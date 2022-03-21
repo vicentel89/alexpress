@@ -22,15 +22,16 @@ function HistoryResult({ values }) {
   return (
     <div>
       <h1>{values.bedNumber}</h1>
-
+      <p>
+        ***{values.exit ? "NOTA DE EGRESO" : "EVOLUCION MÉDICA"}{" "}
+        {values.timeOfDay} CUIDADOS {values.careType}S NEONATALES***{" "}
+      </p>
       <p>
         NOTA: PACIENTE VALORADO CON TODAS LAS MEDIDAS DE PROTECCIÓN REQUERIDAS
         POR EVENTUALIDAD DE PANDEMIA POR VIRUS SARS COV 2{" "}
-        {values.exit ? "NOTA DE EGRESO" : "EVOLUCION MÉDICA"} CUIDADOS{" "}
-        {values.careType}S NEONATALES
       </p>
-      <br />
 
+      <br />
       {values.justBorn ? (
         <p>
           NEONATO EN SUS PRIMERAS HORAS DE VIDA Y ESTANCIA HOSPITALARIA CON
@@ -46,8 +47,9 @@ function HistoryResult({ values }) {
         -RECIÉN NACIDO {term} {values.sex} DE {values.weeks} SEMANAS POR BALLARD{" "}
         {!isPostTerm && <span>EDAD GESTACIONAL CORREGIDA {egc}</span>}
       </p>
-      <p>-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL</p>
-      <p>{values.diagnosis}</p>
+      <p> {values.diagnosis}</p>
+      <p> FN {formatDate(values.dob)}</p>
+      <p> FI {formatDate(values.admissionDate)}</p>
 
       {(values.lastWeight ||
         values.weight ||
@@ -56,18 +58,18 @@ function HistoryResult({ values }) {
         values.output) && (
         <>
           <h2>BALANCE HÍDIRICO {values.waterBalanceTime}HR</h2>
+          <p>{valNumShow(values.lastWeight, "PESO AYER", "GR")}</p>
+          <p> {valNumShow(values.weight, "PESO ACTUAL", "GR")}</p>
+          <p> {valNumShow(values.glucose, "GLUCOMETRÍA", "MG/DL")}</p>
+          <p>{valNumShow(values.intake, "LÍQUIDOS ADMINISTRADOS", "CC")}</p>
+          <p>{valNumShow(values.output, "LÍQUIDOS ELIMINADOS", "CC")}</p>
+          <p>{valNumShow(gu, "GASTO URINARIO", "CC/KG/HORA")}</p>
           <p>
-            {valNumShow(values.lastWeight, "PESO AYER", "GR")}
-            {valNumShow(values.weight, "PESO ACTUAL", "GR")}
-            {valNumShow(values.glucose, "GLUCOMETRÍA", "MG/DL")}
-            {valNumShow(values.intake, "LÍQUIDOS ADMINISTRADOS", "CC")}
-            {valNumShow(values.output, "LÍQUIDOS ELIMINADOS", "CC")}
-            {valNumShow(gu, "GASTO URINARIO", "CC/KG/HORA")}
-            {valNumShow(bh, "BALANCE HÍDRICO", "")}
+            {valNumShow(pia, "PERDIDAS INSENSIBLES APROXIMADAS", "CC/KG/DIA")}
           </p>
+          <p> {valNumShow(bh, "BALANCE HÍDRICO", "")}</p>
         </>
       )}
-
       <h2> EXAMEN FÍSICO </h2>
       <p>
         SIGNOS VITALES FC:<strong> {values.cardiacFreq} </strong>LPM – FR:{" "}
@@ -75,9 +77,7 @@ function HistoryResult({ values }) {
         <strong>{values.saturation} </strong>% - T:{" "}
         <strong>{values.temperture}°C</strong>
       </p>
-
       <p>{values.physicalExam}</p>
-
       <h2> REPORTE DE PARACLÍNICOS</h2>
       <p>
         <strong>{formatDate(values.reportDate)}</strong>
@@ -118,9 +118,7 @@ function HistoryResult({ values }) {
         )}
       </p>
       <p>{values.otherLabs}</p>
-
       <h2>ANÁLISIS </h2>
-
       <p>
         PACIENTE {term} EN REGULARES CONDICIONES GENERALES. CON IDX PREVIAMENTE
         DESCRITOS. SE ENCUENTRA PACIENTE ACTIVO REACTIVO, SIN DÉFICIT APARENTE,
@@ -139,6 +137,22 @@ function HistoryResult({ values }) {
         ) : (
           <strong> TOLERANDO APORTE ENTERAL POR SUCCIÓN </strong>
         )}
+        {values.upOralIntake && (
+          <strong>
+            , POR LO QUE SE PROGRESA{" "}
+            {values.nutritionSupport === "LEVS" && " Y SE AJUSTAN LEVS"}
+            {values.nutritionSupport === "NPT" &&
+              " Y SE AJUSTA NUTRICION PARENTERAL"}
+          </strong>
+        )}
+        {/* {values.upOralIntake && <strong>, POR LO QUE SE PROGRESA</strong>}
+        {values.ivFLUIDS ? (
+          <strong> Y SE AJUSTAN LEVS </strong>
+        ) : values.parenteralNut ? (
+          <p> Y SE AJUSTA NUTRICION PARENTERAL</p>
+        ) : (
+          <p></p>
+        )} */}
         , HIDRATADO, NORMOGLICÉMICO, DIURESIS POR PAÑAL PRESENTE, NO EDEMAS, NO
         DISTERMIAS, NO DETERIORO CLÍNICO. {values.paraclinicAnalysis}
         {values.exit
@@ -146,10 +160,8 @@ function HistoryResult({ values }) {
            CON CITA DE CONTROL POR PEDIATRÍA, SIGNOS DE ALARMA Y RECOMENDACIONES.`
           : `CONTINÚA EN LA UNIDAD PARA VIGILANCIA ESTRICTA Y MANEJO, PRONÓSTICO SUJETO A EVOLUCIÓN CLÍNICA. SE EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.`}
       </p>
-
       <h2> PLAN:</h2>
       <p>PESO {values.weight}GR</p>
-
       {values.exit ? (
         <p>
           {` EGRESO INSTITUCIONAL
@@ -184,7 +196,13 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
         </p>
       ) : (
         <>
-          <p>-CUIDADOS {values.careType}S NEONATALES </p>
+          <p>
+            -CUIDADOS {values.careType}S NEONATALES
+            {values.foley && <strong> //SOG </strong>}
+            {values.hasOxygen && <strong> //OXÍGENO </strong>}
+            {values.nutritionSupport === "LEVS" && <strong> //LEVS </strong>}
+            {values.nutritionSupport === "NPT" && <strong> //NPT </strong>}
+          </p>
           {planFields.map((field) => {
             return (
               <React.Fragment key={field}>

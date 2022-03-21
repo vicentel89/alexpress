@@ -31,6 +31,12 @@ function PatientForm({ formik }) {
         {...fieldProps}
       />
       <RadioInput
+        options={["DE LA MAÑANA", "DE LA NOCHE"]}
+        name="timeOfDay"
+        label="nota"
+        {...fieldProps}
+      />
+      <RadioInput
         options={["BASICO", "INTERMEDIO"]}
         name="careType"
         label="Estancia"
@@ -55,7 +61,7 @@ function PatientForm({ formik }) {
       <NumberInput name="weeks" label="Edad gestacional" {...fieldProps} />
       <TextareaInput name="diagnosis" label="Diagnósticos" {...fieldProps} />
       <RadioInput
-        options={[24, 12]}
+        options={[24, 12, 6]}
         name="waterBalanceTime"
         label="Tiempo de balance de agua"
         {...fieldProps}
@@ -128,15 +134,30 @@ function PatientForm({ formik }) {
       </Grid>
 
       <TextareaInput name="otherLabs" label="Otros" {...fieldProps} />
-      <CheckboxInput
-        label="ALIMENTACIÓN POR SONDA"
-        name="foley"
-        {...fieldProps}
-      />
-      <CheckboxInput label="AYUNADO" name="oralIntake" {...fieldProps} />
+
       <CheckboxInput
         label="SUPLEMENTACIÓN DE OXÍGENO"
         name="hasOxygen"
+        {...fieldProps}
+      />
+
+      <Grid container gap={3} item>
+        <CheckboxInput label="AYUNADO" name="oralIntake" {...fieldProps} />
+        <CheckboxInput
+          label="ALIMENTACIÓN POR SONDA"
+          name="foley"
+          {...fieldProps}
+        />
+        <CheckboxInput
+          label="PROGRESAR AE"
+          name="upOralIntake"
+          {...fieldProps}
+        />
+      </Grid>
+      <RadioInput
+        options={["Ninguno", "LEVS", "NPT"]}
+        name="nutritionSupport"
+        label="Soporte nutricional"
         {...fieldProps}
       />
       <TextareaInput
