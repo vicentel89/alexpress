@@ -23,50 +23,42 @@ function PatientForm({ formik }) {
       direction="column"
       justifyContent="center"
       alignItems="flex-start"
-      spacing={4}
+      spacing={2}
     >
+      <h3>****IDENTIFICACION**</h3>
+
       <TextfieldInput
         name="bedNumber"
         label="Nombre del paciente"
         {...fieldProps}
       />
+      <DateInput label=" Fecha evolución: " name="reportDate" {...fieldProps} />
       <RadioInput
-        options={["DE LA MAÑANA", "DE LA NOCHE"]}
+        options={["AM", "PM"]}
         name="timeOfDay"
-        label="nota"
-        {...fieldProps}
-      />
-      <RadioInput
-        options={["BASICO", "INTERMEDIO"]}
-        name="careType"
-        label="Estancia"
+        label="Evolución"
         {...fieldProps}
       />
       <CheckboxInput label="¿Nacio hoy?" name="justBorn" {...fieldProps} />
+      <DateInput label="Fecha nacimiento: " name="dob" {...fieldProps} />
+      <DateInput label="Fecha ingreso: " name="admissionDate" {...fieldProps} />
       <CheckboxInput label="EGRESO" name="exit" {...fieldProps} />
-
       <RadioInput
         options={["MASCULINO", "FEMENINO"]}
         name="sex"
         label="Sexo"
         {...fieldProps}
       />
-      <DateInput label="Fecha evolución: " name="reportDate" {...fieldProps} />
-      <DateInput label="Fecha de nacimiento: " name="dob" {...fieldProps} />
-      <DateInput
-        label="Fecha de ingreso: "
-        name="admissionDate"
-        {...fieldProps}
-      />
       <NumberInput name="weeks" label="Edad gestacional" {...fieldProps} />
       <TextareaInput name="diagnosis" label="Diagnósticos" {...fieldProps} />
+      <h3>****OBJETIVO**</h3>
       <RadioInput
         options={[24, 12, 6]}
         name="waterBalanceTime"
         label="Tiempo de balance de agua"
         {...fieldProps}
       />
-      <Grid container gap={4} item>
+      <Grid container gap={2} item>
         <NumberInput name="lastWeight" label="Peso anterior" {...fieldProps} />
         <NumberInput name="weight" label="Peso actual" {...fieldProps} />
         <NumberInput name="glucose" label="Glucometría" {...fieldProps} />
@@ -87,7 +79,6 @@ function PatientForm({ formik }) {
           label="Frecuencia cardiaca"
           {...fieldProps}
         />
-
         <NumberInput
           name="respiratoryFreq"
           label="Frecuencia respiratoria"
@@ -101,6 +92,7 @@ function PatientForm({ formik }) {
         label="Examen físico"
         {...fieldProps}
       />
+      <h3>****PARACLÍNICOS**</h3>
       <Grid container gap={2} item>
         <TextfieldInput name="vdrl" label="vdrl" {...fieldProps} />
         <NumberInput name="tsh" label="tsh" {...fieldProps} />
@@ -132,20 +124,20 @@ function PatientForm({ formik }) {
         <NumberInput name="bi" label="bili indirecta" {...fieldProps} />
         <NumberInput name="ret" label="reticulocitos" {...fieldProps} />
       </Grid>
-
       <TextareaInput name="otherLabs" label="Otros" {...fieldProps} />
-
+      <h3>****ANÁLISIS**</h3>
       <CheckboxInput
         label="SUPLEMENTACIÓN DE OXÍGENO"
         name="hasOxygen"
         {...fieldProps}
       />
-
-      <Grid container gap={3} item>
+      <Grid container gap={6} item>
         <CheckboxInput label="AYUNADO" name="oralIntake" {...fieldProps} />
-        <CheckboxInput
-          label="ALIMENTACIÓN POR SONDA"
-          name="foley"
+        <CheckboxInput label="SONDA" name="foley" {...fieldProps} />
+        <RadioInput
+          options={["Ninguno", "LEVS", "NPT"]}
+          name="nutritionSupport"
+          label="Soporte nutricional"
           {...fieldProps}
         />
         <CheckboxInput
@@ -153,31 +145,46 @@ function PatientForm({ formik }) {
           name="upOralIntake"
           {...fieldProps}
         />
+        <CheckboxInput
+          label="RECUPERACIÓN NUTRICIONAL"
+          name="nutritionRecovery"
+          {...fieldProps}
+        />
       </Grid>
-      <RadioInput
-        options={["Ninguno", "LEVS", "NPT"]}
-        name="nutritionSupport"
-        label="Soporte nutricional"
-        {...fieldProps}
-      />
+
       <TextareaInput
         name="paraclinicAnalysis"
         label="Notas análisis"
         {...fieldProps}
       />
-      <Grid item>
-        <h2 style={{ marginBottom: 0 }}>PLAN</h2>
-      </Grid>
-      <TextareaInput name="oxygen" label="Oxigeno" {...fieldProps} />
-      <TextareaInput name="diet" label="Dieta" {...fieldProps} />
-      <TextareaInput name="liquid" label="Liquidos" {...fieldProps} />
-      <TextareaInput name="drugs" label="Farmacos" {...fieldProps} />
 
+      <h3>****PLAN**</h3>
+
+      <TextareaInput name="oxygen" label="Oxigeno" {...fieldProps} />
+      <h4>***DIETA*</h4>
+      <Grid container gap={6} item>
+        <NumberInput
+          name="newOralIntake"
+          label="Tasa hídrica"
+          {...fieldProps}
+        />
+        <NumberInput name="oralTake" label="cc por toma" {...fieldProps} />
+      </Grid>
+      <h4>***LEVS*</h4>
+      <NumberInput name="hidricRate" label="TH LEVS" {...fieldProps} />
+      <NumberInput name="TIG" label="TIG" {...fieldProps} />
+      <NumberInput name="meqSodium" label="mEq Sodio" {...fieldProps} />
+      <NumberInput name="meqPotassium" label="mEq Potasio" {...fieldProps} />
+      <h4>***NPT*</h4>
+      <TextareaInput name="NPT" label="NPT" {...fieldProps} />
+      <h4>***TRATAMIENTO*</h4>
+      <TextareaInput name="drugs" label="Farmacos" {...fieldProps} />
       <TextareaInput
         name="nurse"
         label="Cuidados de enfermería"
         {...fieldProps}
       />
+      <h4>***SOLICITAR*</h4>
       <TextareaInput
         name="test"
         label="Paraclínicos solicitados"

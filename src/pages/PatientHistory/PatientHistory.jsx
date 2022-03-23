@@ -83,11 +83,10 @@ function PatientHistory() {
 
 const initialValues = {
   bedNumber: "",
-  careType: "BASICO",
   timeofDay: "",
   justBorn: false,
   exit: false,
-  sex: "MASCULINO",
+  sex: "",
   reportDate: "",
   dob: "",
   admissionDate: "",
@@ -138,20 +137,25 @@ PIEL Y ANEXOS: ÍNTEGRA, SIN LESIONES, ROSADA`,
   foley: false,
   oralIntake: false,
   hasOxygen: false,
+  nutritionRecovery: false,
   upOralIntake: false,
   nutritionSupport: "Ninguno",
   paraclinicAnalysis: "",
   oxygen: "",
-  diet: "",
-  liquid: "",
+  newOralIntake: "",
+  oralTake: "",
+  hidricRate: "",
+  meqSodium: "",
+  meqPotassium: "",
+  TIG: "",
+  NPT: "",
   drugs: "",
   nurse: `MONITORIZACIÓN ELECTRONICA NO INVASIVA
-  -MANTENER TERMORREGULADO
-  -CUIDADOS DE ENFERMERÍA
-  -PESO DIARIO
-  -CONTROL DE LA, LE, BH
-  -CONTROL DE SIGNOS VITALES Y AVISAR CAMBIOS
-  `,
+-MANTENER TERMORREGULADO
+-CUIDADOS DE ENFERMERÍA
+-PESO DIARIO
+-CONTROL DE LA, LE, BH
+-CONTROL DE SIGNOS VITALES Y AVISAR CAMBIOS`,
   test: "",
   images: "",
   consult: "",

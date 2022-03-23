@@ -18,19 +18,24 @@ function HistoryResult({ values }) {
   const isPremature = values.weeks < 37;
   const isPostTerm = values.weeks >= 40;
   const term = isPremature ? "PRETERMINO" : "A TERMINO";
+  const isIntermediate =
+    values.hasOxygen ||
+    values.foley ||
+    values.nutritionSupport === "LEVS" ||
+    values.nutritionSupport === "NPT";
+  const careType = isIntermediate ? "INTERMEDIO" : "BASICO";
 
   return (
     <div>
-      <h1>{values.bedNumber}</h1>
+      <h1 style={{ marginBottom: 0 }}>{values.bedNumber}</h1>
       <p>
         ***{values.exit ? "NOTA DE EGRESO" : "EVOLUCION MÉDICA"}{" "}
-        {values.timeOfDay} CUIDADOS {values.careType}S NEONATALES***{" "}
+        {values.timeOfDay} CUIDADOS {careType}S NEONATALES***{" "}
       </p>
       <p>
         NOTA: PACIENTE VALORADO CON TODAS LAS MEDIDAS DE PROTECCIÓN REQUERIDAS
         POR EVENTUALIDAD DE PANDEMIA POR VIRUS SARS COV 2{" "}
       </p>
-
       <br />
       {values.justBorn ? (
         <p>
@@ -39,8 +44,11 @@ function HistoryResult({ values }) {
         </p>
       ) : (
         <p>
-          NEONATO CON {ageInDays} DÍAS DE VIDA Y {daysFromAdmission} DIAS DE
-          ESTANCIA HOSPITALARIA CON DIAGNÓSTICOS DE:
+          NEONATO CON {ageInDays} DÍAS DE VIDA Y{" "}
+          {daysFromAdmission === ageInDays
+            ? "DE ESTANCIA HOSPITALARIA"
+            : `${daysFromAdmission} DIAS DE ESTANCIA HOSPITALARIA `}
+          CON DIAGNÓSTICOS DE:
         </p>
       )}
       <p>
@@ -48,16 +56,20 @@ function HistoryResult({ values }) {
         {!isPostTerm && <span>EDAD GESTACIONAL CORREGIDA {egc}</span>}
       </p>
       <p> {values.diagnosis}</p>
+      <p>{values.nutritionRecovery && "-RECUPERACIÓN NUTRICIONAL"}</p>
+      <br />
+
       <p> FN {formatDate(values.dob)}</p>
       <p> FI {formatDate(values.admissionDate)}</p>
-
       {(values.lastWeight ||
         values.weight ||
         values.glucose ||
         values.intake ||
         values.output) && (
         <>
-          <h2>BALANCE HÍDIRICO {values.waterBalanceTime}HR</h2>
+          <h2 style={{ marginBottom: 0 }}>
+            BALANCE HÍDIRICO {values.waterBalanceTime}HR
+          </h2>
           <p>{valNumShow(values.lastWeight, "PESO AYER", "GR")}</p>
           <p> {valNumShow(values.weight, "PESO ACTUAL", "GR")}</p>
           <p> {valNumShow(values.glucose, "GLUCOMETRÍA", "MG/DL")}</p>
@@ -70,7 +82,7 @@ function HistoryResult({ values }) {
           <p> {valNumShow(bh, "BALANCE HÍDRICO", "")}</p>
         </>
       )}
-      <h2> EXAMEN FÍSICO </h2>
+      <h2 style={{ marginBottom: 0 }}> EXAMEN FÍSICO </h2>
       <p>
         SIGNOS VITALES FC:<strong> {values.cardiacFreq} </strong>LPM – FR:{" "}
         <strong>{values.respiratoryFreq}</strong> RPM – SAT02:{" "}
@@ -78,47 +90,61 @@ function HistoryResult({ values }) {
         <strong>{values.temperture}°C</strong>
       </p>
       <p>{values.physicalExam}</p>
-      <h2> REPORTE DE PARACLÍNICOS</h2>
-      <p>
-        <strong>{formatDate(values.reportDate)}</strong>
-      </p>
-      <p>
-        {hemogram.map((item) =>
-          values[item] ? (
-            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
-          ) : null
-        )}
-      </p>
-      <p>
-        {ions.map((item) =>
-          values[item] ? (
-            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
-          ) : null
-        )}
-      </p>
-      <p>
-        {gases.map((item) =>
-          values[item] ? (
-            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
-          ) : null
-        )}
-      </p>
-      <p>
-        {paraclinics.map((item) =>
-          values[item] ? (
-            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
-          ) : null
-        )}
-      </p>
-      <p>
-        {bilirubins.map((item) =>
-          values[item] ? (
-            <span key={item}>{` ${item.toUpperCase()}: ${values[item]} `}</span>
-          ) : null
-        )}
-      </p>
-      <p>{values.otherLabs}</p>
-      <h2>ANÁLISIS </h2>
+      {hasParaclinics(values) && (
+        <>
+          <h2 style={{ marginBottom: 0 }}>REPORTE DE PARACLÍNICOS</h2>
+          <p>
+            <strong>{formatDate(values.reportDate)}</strong>
+          </p>
+          <p>
+            {hemogram.map((item) =>
+              values[item] ? (
+                <span key={item}>{` ${item.toUpperCase()}: ${
+                  values[item]
+                } `}</span>
+              ) : null
+            )}
+          </p>
+          <p>
+            {ions.map((item) =>
+              values[item] ? (
+                <span key={item}>{` ${item.toUpperCase()}: ${
+                  values[item]
+                } `}</span>
+              ) : null
+            )}
+          </p>
+          <p>
+            {gases.map((item) =>
+              values[item] ? (
+                <span key={item}>{` ${item.toUpperCase()}: ${
+                  values[item]
+                } `}</span>
+              ) : null
+            )}
+          </p>
+          <p>
+            {paraclinics.map((item) =>
+              values[item] ? (
+                <span key={item}>{` ${item.toUpperCase()}: ${
+                  values[item]
+                } `}</span>
+              ) : null
+            )}
+          </p>
+          <p>
+            {bilirubins.map((item) =>
+              values[item] ? (
+                <span key={item}>{` ${item.toUpperCase()}: ${
+                  values[item]
+                } `}</span>
+              ) : null
+            )}
+          </p>
+          <p>{values.otherLabs}</p>
+        </>
+      )}
+      <h2 style={{ marginBottom: 0 }}>ANÁLISIS </h2>
       <p>
         PACIENTE {term} EN REGULARES CONDICIONES GENERALES. CON IDX PREVIAMENTE
         DESCRITOS. SE ENCUENTRA PACIENTE ACTIVO REACTIVO, SIN DÉFICIT APARENTE,
@@ -137,6 +163,18 @@ function HistoryResult({ values }) {
         ) : (
           <strong> TOLERANDO APORTE ENTERAL POR SUCCIÓN </strong>
         )}
+        {values.nutritionSupport === "LEVS" && (
+          <strong>
+            , CON SOPORTE DE LIQUIDOS ENDOVENOSOS DEXTROSADOS CON ELECTROLITOS
+            PARA EVITAR DESPLOME NUTRICIONAL
+          </strong>
+        )}
+        {values.nutritionSupport === "NPT" && (
+          <strong>
+            , CON SOPORTE DE NUTRICIÓN PARENTERAL PARA EVITAR CATABOLISMO
+            PROTEICO
+          </strong>
+        )}
         {values.upOralIntake && (
           <strong>
             , POR LO QUE SE PROGRESA{" "}
@@ -154,13 +192,16 @@ function HistoryResult({ values }) {
           <p></p>
         )} */}
         , HIDRATADO, NORMOGLICÉMICO, DIURESIS POR PAÑAL PRESENTE, NO EDEMAS, NO
-        DISTERMIAS, NO DETERIORO CLÍNICO. {values.paraclinicAnalysis}
+        DISTERMIAS, NO DETERIORO CLÍNICO. {values.paraclinicAnalysis}{" "}
+        {values.nutritionRecovery &&
+          "SE ENCUENTRA EN RECUPERACION NUTRICIONAL PARA GANANCIA DE PESO PONDERAL YA QUE NO TIENE EL PESO ADECUADO ESTABLECIDO POR LAS GUIAS DE NEONATALOGIA COLOMBIANA DE ASCON DE BAJO PESO AL NACER"}{" "}
+        .
         {values.exit
           ? `DIAGNÓSTICOS DE INGRESO RESUELTOS POR LO QUE SE OTORGA ALTA HOSPITALARIA
            CON CITA DE CONTROL POR PEDIATRÍA, SIGNOS DE ALARMA Y RECOMENDACIONES.`
           : `CONTINÚA EN LA UNIDAD PARA VIGILANCIA ESTRICTA Y MANEJO, PRONÓSTICO SUJETO A EVOLUCIÓN CLÍNICA. SE EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.`}
       </p>
-      <h2> PLAN:</h2>
+      <h2 style={{ marginBottom: 0 }}> PLAN:</h2>
       <p>PESO {values.weight}GR</p>
       {values.exit ? (
         <p>
@@ -197,12 +238,26 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
       ) : (
         <>
           <p>
-            -CUIDADOS {values.careType}S NEONATALES
-            {values.foley && <strong> //SOG </strong>}
-            {values.hasOxygen && <strong> //OXÍGENO </strong>}
-            {values.nutritionSupport === "LEVS" && <strong> //LEVS </strong>}
-            {values.nutritionSupport === "NPT" && <strong> //NPT </strong>}
+            -CUIDADOS {careType}S NEONATALES
+            {values.foley && " //SOG "}
+            {values.hasOxygen && " //OXÍGENO "}
+            {values.nutritionSupport === "LEVS" && "//LEVS "}
+            {values.nutritionSupport === "NPT" && " //NPT "}
           </p>
+          {values.oxygen && `-${values.oxygen}`}
+          <Diet
+            weight={values.weight}
+            foley={values.foley}
+            newOralIntake={values.newOralIntake}
+            oralTake={values.oralTake}
+          />
+          <Liquids
+            weight={values.weight}
+            hidricRate={values.hidricRate}
+            meqSodium={values.meqSodium}
+            meqPotassium={values.meqPotassium}
+            TIG={values.TIG}
+          />
           {planFields.map((field) => {
             return (
               <React.Fragment key={field}>
@@ -217,10 +272,12 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
               </React.Fragment>
             );
           })}
-
+          {isIntermediate
+            ? "-GLUCOMETRÍA CADA 12 HORAS"
+            : "-GLUCOMETRÍA CADA 24 HORAS"}
           {values.pending && (
             <>
-              <h3>*****PENDIENTES******</h3>
+              <h3 style={{ marginBottom: 0 }}>*****PENDIENTES******</h3>
               <p>{values.pending}</p>
             </>
           )}
@@ -229,6 +286,62 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
     </div>
   );
 }
+
+const Diet = ({ weight, foley, newOralIntake, oralTake }) => {
+  if (newOralIntake)
+    return (
+      <p>
+        {" "}
+        -APORTE ENTERAL {((newOralIntake * weight) / 1000 / 8).toFixed(0)} CC
+        CADA 3 HORAS POR{" "}
+        {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
+        {newOralIntake} CC/KG/DIA){" "}
+      </p>
+    );
+
+  if (oralTake)
+    return (
+      <p>
+        {" "}
+        - APORTE ENTERAL {oralTake} CC CADA 3 HORAS POR{" "}
+        {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
+        {((oralTake * 8) / (weight / 1000)).toFixed(0)} CC/KG/DIA){" "}
+      </p>
+    );
+
+  return null;
+};
+
+const Liquids = ({ TIG, weight, meqSodium, meqPotassium, hidricRate }) => {
+  const weightInKg = weight / 1000;
+
+  const volTot = (hidricRate * weightInKg).toFixed(0);
+  const DAD = ((TIG / 100) * weightInKg * 1440).toFixed(0);
+  const AD = (volTot - DAD).toFixed(0);
+  const Natrol = ((meqSodium * weightInKg) / 2).toFixed(0);
+  const Katrol = ((meqPotassium * weightInKg) / 2).toFixed(0);
+  const dropVolTot = (volTot / 24).toFixed(0);
+
+  if (!meqSodium || !meqPotassium || !TIG)
+    return (
+      <p>
+        {" "}
+        -LEVS DAD 10% {volTot}CC PASAR A {dropVolTot}CC/HORA (TH {hidricRate}{" "}
+        CC/KG/DIA){" "}
+      </p>
+    );
+  if (hidricRate && meqSodium && meqPotassium)
+    return (
+      <p>
+        {" "}
+        -LEVS DAD 10% {DAD} CC, AD {AD} CC, NATROL {Natrol} CC, KATROL {Katrol}{" "}
+        CC, PASAR A {dropVolTot}
+        CC/H (TH {hidricRate} CC/KG/DIA, NA {meqSodium}mEq, K {meqPotassium}mEq,
+        TIG {TIG})
+      </p>
+    );
+  return null;
+};
 
 const findEgc = (dob, reportD, weeks) => {
   if (!dob || !reportD || !weeks)
@@ -277,13 +390,33 @@ const valNumShow = (val, label, units) => {
   return val !== "" && isFinite(val) ? `${label}: ${val}${units} ` : "";
 };
 
+const hasParaclinics = (values) => {
+  const hasParaclinic = (group) =>
+    group.reduce((result, key) => result || !!values[key], false);
+
+  const hasHemogram = hasParaclinic(hemogram);
+  const hasIons = hasParaclinic(ions);
+  const hasGases = hasParaclinic(gases);
+  const hasParacl = hasParaclinic(paraclinics);
+  const hasBilirubins = hasParaclinic(bilirubins);
+
+  return (
+    !!values.otherLabs ||
+    hasHemogram ||
+    hasIons ||
+    hasGases ||
+    hasParacl ||
+    hasBilirubins
+  );
+};
+
 const hemogram = ["hb", "hto", "plt", "wbc", "n", "l"];
 const ions = ["na", "k", "ca", "cl"];
 const gases = ["ph", "pco2", "po2", "hco3", "be"];
 const paraclinics = ["glicemia", "pcr", "vdrl", "hemoclasificacion", "tsh"];
 const bilirubins = ["bt", "bd", "bi", "ret"];
 
-const planFields = ["oxygen", "diet", "liquid", "drugs", "nurse"];
+const planFields = ["NPT", "drugs", "nurse"];
 
 const planFieldsSS = ["test", "images", "consult"];
 
