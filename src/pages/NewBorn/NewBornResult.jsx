@@ -29,7 +29,7 @@ function NewBornResult({ values }) {
       </p>
       <p>
         RECIBO RECIÉN NACIDO DE MANOS DE GINECÓLOGO, DE SEXO{" "}
-        <strong>{values.radioField}</strong> DE{" "}
+        <strong>{values.gender}</strong> DE{" "}
         <strong>{values.weeksBallard}</strong> SEMANAS POR BALLARD, PRODUCTO DE
         MADRE <strong>{values.momAge}</strong> AÑOS
         <strong>

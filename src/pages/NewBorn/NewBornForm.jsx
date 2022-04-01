@@ -100,6 +100,28 @@ function NewBornForm({ formik }) {
           label="EDAD GESTACIONAL"
           {...fieldProps}
         />
+        <TextareaInput
+          name="antecedentesMaternos"
+          label="ANTECEDENTES MATERNOS"
+          {...fieldProps}
+        />
+        <NumberInput name="momAge" label="EDAD MATERNA" {...fieldProps} />
+        <TextfieldInput
+          name="hemoGroup"
+          label="GRUPO SANGUINEO"
+          {...fieldProps}
+        />
+        <NumberInput name="gestaNumber" label="GESTA" {...fieldProps} />
+        <NumberInput name="abortionNumber" label="ABORTOS" {...fieldProps} />
+        <NumberInput name="ectopicNumber" label="ECTOPICOS" {...fieldProps} />
+        <NumberInput name="paraNumber" label="PARTOS" {...fieldProps} />
+        <NumberInput name="cesareaNumber" label="CESAREAS" {...fieldProps} />
+        <NumberInput name="vivoNumber" label="VIVOS" {...fieldProps} />
+        <NumberInput
+          name="prenatalControl"
+          label="CONTROLES PRENATALES"
+          {...fieldProps}
+        />
         <NumberInput name="weightAtBirth" label="PESO" {...fieldProps} />
         <NumberInput name="heightAtBirth" label="TALLA" {...fieldProps} />
         <NumberInput
@@ -120,23 +142,6 @@ function NewBornForm({ formik }) {
         <NumberInput name="apgar1" label="APGAR 1" {...fieldProps} />
         <NumberInput name="apgar5" label="APGAR 5" {...fieldProps} />
         <NumberInput name="apgar10" label="APGAR 10" {...fieldProps} />
-        <NumberInput name="momAge" label="EDAD MATERNA" {...fieldProps} />
-        <TextfieldInput
-          name="hemoGroup"
-          label="GRUPO SANGUINEO"
-          {...fieldProps}
-        />
-        <NumberInput name="gestaNumber" label="GESTA" {...fieldProps} />
-        <NumberInput name="abortionNumber" label="ABORTOS" {...fieldProps} />
-        <NumberInput name="ectopicNumber" label="ECTOPICOS" {...fieldProps} />
-        <NumberInput name="paraNumber" label="PARTOS" {...fieldProps} />
-        <NumberInput name="cesareaNumber" label="CESAREAS" {...fieldProps} />
-        <NumberInput name="vivoNumber" label="VIVOS" {...fieldProps} />
-        <NumberInput
-          name="prenatalControl"
-          label="CONTROLES PRENATALES"
-          {...fieldProps}
-        />
 
         <TextfieldInput
           name="perfilInfeccioso"
