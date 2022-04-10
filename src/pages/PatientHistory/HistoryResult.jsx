@@ -240,6 +240,7 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
             {values.foley && " //SOG "}
             {values.hasOxygen && " //OXÍGENO "}
             {values.nutritionSupport === "LEVS" && "//LEVS "}
+            {values.hidricRate && "//LEVS "}
             {values.nutritionSupport === "NPT" && " //NPT "}
           </p>
           {values.oxygen && `-${values.oxygen}`}
