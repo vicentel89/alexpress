@@ -277,7 +277,7 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
             : "-GLUCOMETRÍA CADA 24 HORAS"}
           {values.pending && (
             <>
-              <h3 style={{ marginBottom: 0 }}>*****PENDIENTES******</h3>
+              <h3 style={{ marginBottom: 0 }}>PENDIENTES</h3>
               <p>{values.pending}</p>
             </>
           )}
@@ -334,13 +334,13 @@ const Liquids = ({ TIG, weight, meqSodium, meqPotassium, hidricRate }) => {
     return (
       <p>
         {" "}
-        -LEVS DAD 10% {DAD} CC, AD {AD} CC, NATROL {Natrol} CC, KATROL {Katrol}{" "}
-        CC, PASAR A {dropVolTot}
+        -LIQUIDOS ENDOVENOSOS DAD 10% {DAD} CC, AD {AD} CC, NATROL {Natrol} CC,
+        KATROL {Katrol} CC, PASAR A {dropVolTot}
         CC/H (TH {hidricRate} CC/KG/DIA, NA {meqSodium}mEq, K {meqPotassium}mEq,
         TIG {TIG})
       </p>
     );
-  return null;
+  if (!hidricRate) return null;
 };
 
 const findEgc = (dob, reportD, weeks) => {
