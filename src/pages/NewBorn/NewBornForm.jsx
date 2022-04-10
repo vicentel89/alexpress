@@ -100,11 +100,6 @@ function NewBornForm({ formik }) {
           label="EDAD GESTACIONAL"
           {...fieldProps}
         />
-        <TextareaInput
-          name="antecedentesMaternos"
-          label="ANTECEDENTES MATERNOS"
-          {...fieldProps}
-        />
         <NumberInput name="momAge" label="EDAD MATERNA" {...fieldProps} />
         <TextfieldInput
           name="hemoGroup"
@@ -120,6 +115,11 @@ function NewBornForm({ formik }) {
         <NumberInput
           name="prenatalControl"
           label="CONTROLES PRENATALES"
+          {...fieldProps}
+        />
+        <TextareaInput
+          name="antecedentesMaternos"
+          label="ANTECEDENTES MATERNOS"
           {...fieldProps}
         />
         <NumberInput name="weightAtBirth" label="PESO" {...fieldProps} />
@@ -169,11 +169,6 @@ function NewBornForm({ formik }) {
       />
 
       <TextareaInput name="malformacionesApgar" label="" {...fieldProps} />
-      <TextareaInput
-        name="antecedentesMaternos"
-        label="ANTECEDENTES MATERNOS"
-        {...fieldProps}
-      />
 
       <RadioInput
         name="UciOrMaterno"

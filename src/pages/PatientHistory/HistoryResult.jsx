@@ -22,7 +22,8 @@ function HistoryResult({ values }) {
     values.hasOxygen ||
     values.foley ||
     values.nutritionSupport === "LEVS" ||
-    values.nutritionSupport === "NPT";
+    values.nutritionSupport === "NPT" ||
+    values.hidricRate;
   const careType = isIntermediate ? "INTERMEDIO" : "BASICO";
 
   return (
@@ -58,7 +59,6 @@ function HistoryResult({ values }) {
       <p> {values.diagnosis}</p>
       <p>{values.nutritionRecovery && "-RECUPERACIÓN NUTRICIONAL"}</p>
       <br />
-
       <p> FN {formatDate(values.dob)}</p>
       <p> FI {formatDate(values.admissionDate)}</p>
       {(values.lastWeight ||
@@ -76,9 +76,6 @@ function HistoryResult({ values }) {
           <p>{valNumShow(values.intake, "LÍQUIDOS ADMINISTRADOS", "CC")}</p>
           <p>{valNumShow(values.output, "LÍQUIDOS ELIMINADOS", "CC")}</p>
           <p>{valNumShow(gu, "GASTO URINARIO", "CC/KG/HORA")}</p>
-          <p>
-            {valNumShow(pia, "PERDIDAS INSENSIBLES APROXIMADAS", "CC/KG/DIA")}
-          </p>
           <p> {valNumShow(bh, "BALANCE HÍDRICO", "")}</p>
         </>
       )}
@@ -202,7 +199,8 @@ function HistoryResult({ values }) {
           : `CONTINÚA EN LA UNIDAD PARA VIGILANCIA ESTRICTA Y MANEJO, PRONÓSTICO SUJETO A EVOLUCIÓN CLÍNICA. SE EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.`}
       </p>
       <h2 style={{ marginBottom: 0 }}> PLAN:</h2>
-      <p>PESO {values.weight}GR</p>
+      <p>PESO {values.weight}GR</p> THT{" "}
+      {values.hidricRate + values.newOralIntake}
       {values.exit ? (
         <p>
           {` EGRESO INSTITUCIONAL
@@ -250,6 +248,7 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
             foley={values.foley}
             newOralIntake={values.newOralIntake}
             oralTake={values.oralTake}
+            momMilk={values.momMilk}
           />
           <Liquids
             weight={values.weight}
@@ -287,23 +286,45 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
   );
 }
 
-const Diet = ({ weight, foley, newOralIntake, oralTake }) => {
-  if (newOralIntake)
+const Diet = ({ weight, foley, newOralIntake, oralTake, momMilk }) => {
+  if (newOralIntake && momMilk)
     return (
       <p>
         {" "}
-        -APORTE ENTERAL {((newOralIntake * weight) / 1000 / 8).toFixed(0)} CC
-        CADA 3 HORAS POR{" "}
+        -APORTE ENTERAL LACTANCIA MATERNA EXCLUSIVA{" "}
+        {((newOralIntake * weight) / 1000 / 8).toFixed(0)} CC CADA 3 HORAS POR{" "}
         {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
         {newOralIntake} CC/KG/DIA){" "}
       </p>
     );
 
-  if (oralTake)
+  if (oralTake && momMilk)
     return (
       <p>
         {" "}
-        - APORTE ENTERAL {oralTake} CC CADA 3 HORAS POR{" "}
+        - APORTE ENTERAL LACTANCIA MATERNA EXCLUSIVA {oralTake} CC CADA 3 HORAS
+        POR {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
+        {((oralTake * 8) / (weight / 1000)).toFixed(0)} CC/KG/DIA){" "}
+      </p>
+    );
+  if (newOralIntake || !momMilk)
+    return (
+      <p>
+        {" "}
+        -APORTE ENTERAL LM/LF {((newOralIntake * weight) / 1000 / 8).toFixed(
+          0
+        )}{" "}
+        CC CADA 3 HORAS POR{" "}
+        {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
+        {newOralIntake} CC/KG/DIA){" "}
+      </p>
+    );
+
+  if (oralTake || !momMilk)
+    return (
+      <p>
+        {" "}
+        - APORTE ENTERAL LM/LF {oralTake} CC CADA 3 HORAS POR{" "}
         {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
         {((oralTake * 8) / (weight / 1000)).toFixed(0)} CC/KG/DIA){" "}
       </p>
@@ -320,14 +341,14 @@ const Liquids = ({ TIG, weight, meqSodium, meqPotassium, hidricRate }) => {
   const AD = (volTot - DAD).toFixed(0);
   const Natrol = ((meqSodium * weightInKg) / 2).toFixed(0);
   const Katrol = ((meqPotassium * weightInKg) / 2).toFixed(0);
-  const dropVolTot = (volTot / 24).toFixed(0);
+  const dropVolTot = (volTot / 24).toFixed(1);
 
-  if (!meqSodium || !meqPotassium || !TIG)
+  if ((!meqSodium || !meqPotassium || !TIG) && hidricRate)
     return (
       <p>
         {" "}
-        -LEVS DAD 10% {volTot}CC PASAR A {dropVolTot}CC/HORA (TH {hidricRate}{" "}
-        CC/KG/DIA){" "}
+        -LÍQUIDOS ENDOVENOSOS DAD 10% {volTot}CC PASAR A {dropVolTot}CC/HORA (TH{" "}
+        {hidricRate} CC/KG/DIA){" "}
       </p>
     );
   if (hidricRate && meqSodium && meqPotassium)
@@ -340,7 +361,7 @@ const Liquids = ({ TIG, weight, meqSodium, meqPotassium, hidricRate }) => {
         TIG {TIG})
       </p>
     );
-  if (!hidricRate) return null;
+  return null;
 };
 
 const findEgc = (dob, reportD, weeks) => {
