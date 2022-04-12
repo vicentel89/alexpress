@@ -14,11 +14,11 @@ function App() {
     <div className="App">
       <Navbar selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
 
+      {selectedPage === "Balance" && <Balance />}
       {selectedPage === "PatientHistory" && <PatientHistory />}
       {selectedPage === "NewBorn" && <NewBorn />}
       {selectedPage === "Admission" && <Admission />}
       {selectedPage === "emergency" && <Emergency />}
-      {selectedPage === "Balance" && <Balance />}
     </div>
   );
 }
