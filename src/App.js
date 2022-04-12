@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import PatientHistory from "./pages/PatientHistory/PatientHistory";
@@ -12,26 +12,25 @@ function App() {
   const [selectedPage, setSelectedPage] = useState("PatientHistory");
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="App">
-              <Navbar
-                selectedPage={selectedPage}
-                setSelectedPage={setSelectedPage}
-              />
-              {selectedPage === "PatientHistory" && <PatientHistory />}
-              {selectedPage === "NewBorn" && <NewBorn />}
-              {selectedPage === "Admission" && <Admission />}
-              {selectedPage === "emergency" && <Emergency />}
-            </div>
-          }
-        />
-        <Route path="balance" element={<Balance />} />
-      </Routes>
-    </BrowserRouter>
+    <Router>
+      <Switch>
+        <Route path="/balance">
+          <Balance />
+        </Route>
+        <Route path="/">
+          <div className="App">
+            <Navbar
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+            />
+            {selectedPage === "PatientHistory" && <PatientHistory />}
+            {selectedPage === "NewBorn" && <NewBorn />}
+            {selectedPage === "Admission" && <Admission />}
+            {selectedPage === "emergency" && <Emergency />}
+          </div>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
