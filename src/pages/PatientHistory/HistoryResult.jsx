@@ -1,20 +1,23 @@
 import React from "react";
+import { ThemeConsumer } from "styled-components";
 
 function HistoryResult({ values }) {
   const egc = findEgc(values.dob, values.reportDate, values.weeks);
-  const gu = (
-    values.output /
-    (values.weight / 1000) /
-    values.waterBalanceTime
-  ).toFixed(2);
-  const pia =
-    values.intake - values.output + (values.lastWeight - values.weight);
-  const bh = values.intake - (values.output + pia);
   const ageInDays = findAgeInDays(values.dob, values.reportDate);
+
   const daysFromAdmission = findDaysFromAdmission(
     values.admissionDate,
     values.reportDate
   );
+
+  const weightInKg = values.weight / 1000;
+  const pia =
+    ((findConstantPia(values.weight, ageInDays) * values.weight) / 1000) *
+    values.waterBalanceTime;
+  const totalOutput = pia + values.output;
+  const gu = values.output / weightInKg / values.waterBalanceTime;
+  const dailyBalance = values.intake - totalOutput;
+
   const isPremature = values.weeks < 37;
   const isPostTerm = values.weeks >= 40;
   const term = isPremature ? "PRETERMINO" : "A TERMINO";
@@ -67,18 +70,33 @@ function HistoryResult({ values }) {
         values.intake ||
         values.output) && (
         <>
+          <br />
           <h2 style={{ marginBottom: 0 }}>
-            BALANCE HÍDIRICO {values.waterBalanceTime}HR
+            BALANCE HÍDIRICO EN {values.waterBalanceTime}HR{" "}
+            {valNumShow(dailyBalance.toFixed(1), " ", "CC")}
           </h2>
           <p>{valNumShow(values.lastWeight, "PESO AYER", "GR")}</p>
           <p> {valNumShow(values.weight, "PESO ACTUAL", "GR")}</p>
-          <p> {valNumShow(values.glucose, "GLUCOMETRÍA", "MG/DL")}</p>
           <p>{valNumShow(values.intake, "LÍQUIDOS ADMINISTRADOS", "CC")}</p>
           <p>{valNumShow(values.output, "LÍQUIDOS ELIMINADOS", "CC")}</p>
-          <p>{valNumShow(gu, "GASTO URINARIO", "CC/KG/HORA")}</p>
-          <p> {valNumShow(bh, "BALANCE HÍDRICO", "")}</p>
+          <p>
+            {valNumShow(
+              pia.toFixed(1),
+              "PERDIDAS INSENSIBLES APROXIMADAS",
+              "CC"
+            )}
+          </p>
+          <p>
+            {valNumShow(
+              totalOutput.toFixed(2),
+              "TOTAL DE LÍQUIDOS ELIMINADOS",
+              "CC"
+            )}
+          </p>
+          <p>{valNumShow(gu.toFixed(0), "DIURESIS", "CC/KG/HORA")}</p>
         </>
       )}
+      <br />
       <h2 style={{ marginBottom: 0 }}> EXAMEN FÍSICO </h2>
       <p>
         SIGNOS VITALES FC:<strong> {values.cardiacFreq} </strong>LPM – FR:{" "}
@@ -86,9 +104,12 @@ function HistoryResult({ values }) {
         <strong>{values.saturation} </strong>% - T:{" "}
         <strong>{values.temperture}°C</strong>
       </p>
+      <br />
       <p>{values.physicalExam}</p>
+      <p> {valNumShow(values.glucose, "GLUCOMETRÍA", "MG/DL")}</p>
       {hasParaclinics(values) && (
         <>
+          <br />
           <h2 style={{ marginBottom: 0 }}>REPORTE DE PARACLÍNICOS</h2>
           <p>
             <strong>{formatDate(values.reportDate)}</strong>
@@ -141,6 +162,7 @@ function HistoryResult({ values }) {
           <p>{values.otherLabs}</p>
         </>
       )}
+      <br />
       <h2 style={{ marginBottom: 0 }}>ANÁLISIS </h2>
       <p>
         PACIENTE {term} EN REGULARES CONDICIONES GENERALES. CON IDX PREVIAMENTE
@@ -189,18 +211,20 @@ function HistoryResult({ values }) {
           <p></p>
         )} */}
         , HIDRATADO, NORMOGLICÉMICO, DIURESIS POR PAÑAL PRESENTE, NO EDEMAS, NO
-        DISTERMIAS, NO DETERIORO CLÍNICO. {values.paraclinicAnalysis}{" "}
+        DISTERMIAS, NO DETERIORO CLÍNICO.{" "}
+        <strong>{values.paraclinicAnalysis}</strong>{" "}
         {values.nutritionRecovery &&
           "SE ENCUENTRA EN RECUPERACION NUTRICIONAL PARA GANANCIA DE PESO PONDERAL YA QUE NO TIENE EL PESO ADECUADO ESTABLECIDO POR LAS GUIAS DE NEONATALOGIA COLOMBIANA DE ASCON DE BAJO PESO AL NACER"}{" "}
-        .
         {values.exit
           ? `DIAGNÓSTICOS DE INGRESO RESUELTOS POR LO QUE SE OTORGA ALTA HOSPITALARIA
            CON CITA DE CONTROL POR PEDIATRÍA, SIGNOS DE ALARMA Y RECOMENDACIONES.`
           : `CONTINÚA EN LA UNIDAD PARA VIGILANCIA ESTRICTA Y MANEJO, PRONÓSTICO SUJETO A EVOLUCIÓN CLÍNICA. SE EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.`}
       </p>
+      <br />
       <h2 style={{ marginBottom: 0 }}> PLAN:</h2>
-      <p>PESO {values.weight}GR</p> THT{" "}
-      {values.hidricRate + values.newOralIntake}
+      <p>
+        <strong>PESO {values.weight}GR</strong>
+      </p>
       {values.exit ? (
         <p>
           {` EGRESO INSTITUCIONAL
@@ -236,11 +260,14 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
       ) : (
         <>
           <p>
-            -CUIDADOS {careType}S NEONATALES
+            THT <strong>{values.hidricRate + values.newOralIntake}</strong>
+          </p>
+          <p>
+            <strong>-CUIDADOS {careType}S NEONATALES</strong>
             {values.foley && " //SOG "}
             {values.hasOxygen && " //OXÍGENO "}
-            {values.nutritionSupport === "LEVS" && "//LEVS "}
-            {values.hidricRate && "//LEVS "}
+            {(values.nutritionSupport === "LEVS" || values.hidricRate) &&
+              "//LEVS "}
             {values.nutritionSupport === "NPT" && " //NPT "}
           </p>
           {values.oxygen && `-${values.oxygen}`}
@@ -248,7 +275,6 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
             weight={values.weight}
             foley={values.foley}
             newOralIntake={values.newOralIntake}
-            oralTake={values.oralTake}
             momMilk={values.momMilk}
           />
           <Liquids
@@ -265,20 +291,26 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
               </React.Fragment>
             );
           })}
-          {planFieldsSS.map((field) => {
-            return (
-              <React.Fragment key={field}>
-                {values[field] && <p>- SS {values[field]}</p>}
-              </React.Fragment>
-            );
-          })}
-          {isIntermediate
-            ? "-GLUCOMETRÍA CADA 12 HORAS"
-            : "-GLUCOMETRÍA CADA 24 HORAS"}
+
+          <p>{values.nurse}</p>
+          <p>
+            {isIntermediate
+              ? "-GLUCOMETRÍA CADA 12 HORAS"
+              : "-GLUCOMETRÍA CADA 24 HORAS"}
+          </p>
+          <p>
+            {planFieldsSS.map((field) => {
+              return (
+                <React.Fragment key={field}>
+                  {values[field] && <p>- SS {values[field]}</p>}
+                </React.Fragment>
+              );
+            })}
+          </p>
           {values.pending && (
             <>
               <h3 style={{ marginBottom: 0 }}>PENDIENTES</h3>
-              <p>{values.pending}</p>
+              <p>-{values.pending}</p>
             </>
           )}
         </>
@@ -287,50 +319,31 @@ RECIÉN NACIDOS : SIGNOS DE ALARMA
   );
 }
 
-const Diet = ({ weight, foley, newOralIntake, oralTake, momMilk }) => {
-  if (newOralIntake && momMilk)
+const Diet = ({ weight, foley, newOralIntake, momMilk }) => {
+  if (!newOralIntake) return <strong> -NVO/SOG ABIERTA </strong>;
+  if (newOralIntake && momMilk && `-${newOralIntake}`)
     return (
       <p>
         {" "}
         -APORTE ENTERAL LACTANCIA MATERNA EXCLUSIVA{" "}
-        {((newOralIntake * weight) / 1000 / 8).toFixed(0)} CC CADA 3 HORAS POR{" "}
+        <strong>{((newOralIntake * weight) / 1000 / 8).toFixed(0)} </strong>CC
+        CADA 3 HORAS POR{" "}
         {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
         {newOralIntake} CC/KG/DIA){" "}
       </p>
     );
 
-  if (oralTake && momMilk)
-    return (
-      <p>
-        {" "}
-        - APORTE ENTERAL LACTANCIA MATERNA EXCLUSIVA {oralTake} CC CADA 3 HORAS
-        POR {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
-        {((oralTake * 8) / (weight / 1000)).toFixed(0)} CC/KG/DIA){" "}
-      </p>
-    );
   if (newOralIntake || !momMilk)
     return (
       <p>
         {" "}
-        -APORTE ENTERAL LM/LF {((newOralIntake * weight) / 1000 / 8).toFixed(
-          0
-        )}{" "}
-        CC CADA 3 HORAS POR{" "}
+        -APORTE ENTERAL LM/LF{" "}
+        <strong>{((newOralIntake * weight) / 1000 / 8).toFixed(0)}</strong> CC
+        CADA 3 HORAS POR{" "}
         {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
-        {newOralIntake} CC/KG/DIA){" "}
+        <strong>{newOralIntake}</strong> CC/KG/DIA){" "}
       </p>
     );
-
-  if (oralTake || !momMilk)
-    return (
-      <p>
-        {" "}
-        - APORTE ENTERAL LM/LF {oralTake} CC CADA 3 HORAS POR{" "}
-        {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>} (TH{" "}
-        {((oralTake * 8) / (weight / 1000)).toFixed(0)} CC/KG/DIA){" "}
-      </p>
-    );
-
   return null;
 };
 
@@ -348,8 +361,9 @@ const Liquids = ({ TIG, weight, meqSodium, meqPotassium, hidricRate }) => {
     return (
       <p>
         {" "}
-        -LÍQUIDOS ENDOVENOSOS DAD 10% {volTot}CC PASAR A {dropVolTot}CC/HORA (TH{" "}
-        {hidricRate} CC/KG/DIA){" "}
+        -LÍQUIDOS ENDOVENOSOS DAD 10% <strong>{volTot}</strong> CC PASAR A{" "}
+        <strong>{dropVolTot}</strong> CC/HORA (TH<strong> {hidricRate}</strong>{" "}
+        CC/KG/DIA){" "}
       </p>
     );
   if (hidricRate && meqSodium && meqPotassium)
@@ -387,6 +401,28 @@ const findAgeInDays = (dob, reportD) => {
   const ageInDays = (reportDate - dobDate) / (1000 * 60 * 60 * 24);
 
   return ageInDays;
+};
+
+const findConstantPia = (weight, ageInDays) => {
+  if (ageInDays <= 7 && weight <= 1000) {
+    return 2.6;
+  }
+  if (ageInDays <= 7 && weight >= 1001 && weight <= 1250) {
+    return 2.3;
+  }
+  if (ageInDays <= 7 && weight >= 1251 && weight <= 1500) {
+    return 1.6;
+  }
+  if (ageInDays <= 7 && weight >= 1501 && weight <= 1750) {
+    return 0.95;
+  }
+  if (ageInDays <= 7 && weight >= 1751) {
+    return 0.83;
+  }
+  if (ageInDays >= 8) {
+    return 1.25;
+  }
+  return null;
 };
 
 const findDaysFromAdmission = (admissionDate, reportD) => {
@@ -438,7 +474,7 @@ const gases = ["ph", "pco2", "po2", "hco3", "be"];
 const paraclinics = ["glicemia", "pcr", "vdrl", "hemoclasificacion", "tsh"];
 const bilirubins = ["bt", "bd", "bi", "ret"];
 
-const planFields = ["NPT", "drugs", "nurse"];
+const planFields = ["NPT", "drugs"];
 
 const planFieldsSS = ["test", "images", "consult"];
 

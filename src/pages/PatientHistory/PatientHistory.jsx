@@ -143,7 +143,6 @@ PIEL Y ANEXOS: ÍNTEGRA, SIN LESIONES, ROSADA`,
   paraclinicAnalysis: "",
   oxygen: "",
   newOralIntake: "",
-  oralTake: "",
   momMilk: false,
   hidricRate: "",
   meqSodium: "",
@@ -151,7 +150,7 @@ PIEL Y ANEXOS: ÍNTEGRA, SIN LESIONES, ROSADA`,
   TIG: "",
   NPT: "",
   drugs: "",
-  nurse: `MONITORIZACIÓN ELECTRONICA NO INVASIVA
+  nurse: `-MONITORIZACIÓN ELECTRONICA NO INVASIVA
 -MANTENER TERMORREGULADO
 -CUIDADOS DE ENFERMERÍA
 -PESO DIARIO

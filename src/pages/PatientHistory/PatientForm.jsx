@@ -168,7 +168,6 @@ function PatientForm({ formik }) {
           label="Tasa hídrica"
           {...fieldProps}
         />
-        <NumberInput name="oralTake" label="cc por toma" {...fieldProps} />
         <CheckboxInput
           label="LECHE MATERNA EXCLUSIVA"
           name="momMilk"
