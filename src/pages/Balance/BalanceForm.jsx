@@ -23,9 +23,13 @@ function BalanceForm({ formik }) {
       spacing={2}
     >
       <h3>****BALANCE HIDRICO**</h3>
+      <RadioInput
+        options={[">7", "<7"]}
+        name="daysOfLife"
+        label="Días de vida"
+        {...fieldProps}
+      />
 
-      <DateInput label="Fecha nacimiento: " name="dob" {...fieldProps} />
-      <DateInput label=" Fecha medición: " name="reportDate" {...fieldProps} />
       <RadioInput
         options={[24, 12, 6]}
         name="waterBalanceTime"

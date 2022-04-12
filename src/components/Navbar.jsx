@@ -47,12 +47,6 @@ function Navbar({ selectedPage, setSelectedPage }) {
           >
             Emergencia
           </Button>
-          <Button
-            variant={selectedPage === "BALANCE" ? "contained" : "outlined"}
-            onClick={handleClick("Balance")}
-          >
-            BALANCE HIDRICO
-          </Button>
         </ButtonGroup>
         <div
           className="heart"

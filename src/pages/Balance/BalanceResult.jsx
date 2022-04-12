@@ -1,17 +1,17 @@
 import React from "react";
-import { ThemeConsumer } from "styled-components";
 
 function BalanceResult({ values }) {
-  const ageInDays = findAgeInDays(values.dob, values.reportDate);
   const weightInKg = values.weight / 1000;
-  const pia = (
-    findConstantPia(values.weight, ageInDays) *
-    weightInKg *
-    values.waterBalanceTime
-  ).toFixed(2);
-  const totalOutput = pia + values.output;
-  const gu = (values.output / weightInKg / values.waterBalanceTime).toFixed(2);
-  const dailyBalance = (values.intake - totalOutput).toFixed(2);
+  const weight = values.weight;
+  const daysOfLife = values.daysOfLife;
+  const output = values.output;
+  const intake = values.intake;
+  const waterBalanceTime = values.waterBalanceTime;
+  const constantPia = findConstantPia(weight, daysOfLife);
+  const pia = ((constantPia * weight) / 1000) * waterBalanceTime;
+  const totalOutput = pia + output;
+  const gu = output / weightInKg / waterBalanceTime;
+  const dailyBalance = intake - totalOutput;
 
   return (
     <div>
@@ -20,12 +20,12 @@ function BalanceResult({ values }) {
       </h2>
       <br />
       <p>
-        DIAS DE VIDA: <strong>{ageInDays}</strong>
+        DIAS DE VIDA: <strong>{daysOfLife}</strong>
       </p>
       <br />
       <p>
         {" "}
-        CONSTANTE: <strong>{findConstantPia(values.weight, ageInDays)}</strong>
+        CONSTANTE: <strong>{findConstantPia(values.weight, daysOfLife)}</strong>
       </p>
       <br />
       {(values.weight || values.glucose || values.intake || values.output) && (
@@ -47,23 +47,27 @@ function BalanceResult({ values }) {
           <br />
           <p>
             {" "}
-            PERDIDAS INSENSIBLES APROXIMADAS: <strong>{pia}</strong> CC/KG/
+            PERDIDAS INSENSIBLES APROXIMADAS: <strong>
+              {pia.toFixed(2)}
+            </strong>{" "}
+            CC/KG/
             {values.waterBalanceTime}H{" "}
           </p>
           <br />
           <p>
             {" "}
-            TOTAL DE LÍQUIDOS ELIMINADOS: <strong>{totalOutput}</strong> GR{" "}
+            TOTAL DE LÍQUIDOS ELIMINADOS:{" "}
+            <strong>{totalOutput.toFixed(2)}</strong> GR{" "}
           </p>
           <br />
           <p>
             {" "}
-            BALANCE: <strong>{dailyBalance}</strong> CC{" "}
+            BALANCE: <strong>{dailyBalance.toFixed(2)}</strong> CC{" "}
           </p>
           <br />
           <p>
             {" "}
-            DIURESIS: <strong>{gu}</strong> CC/KG/HORA{" "}
+            DIURESIS: <strong>{gu.toFixed(2)}</strong> CC/KG/HORA{" "}
           </p>
         </>
       )}
@@ -71,45 +75,26 @@ function BalanceResult({ values }) {
   );
 }
 
-const findAgeInDays = (dob, reportD) => {
-  if (!dob || !reportD)
-    return <strong style={{ color: "red" }}>FALTAN FECHAS</strong>;
-
-  const reportDate = new Date(`${reportD} 00:00`);
-  const dobDate = new Date(`${dob} 00:00`);
-  const ageInDays = (reportDate - dobDate) / (1000 * 60 * 60 * 24);
-
-  return ageInDays;
-};
-
-const findConstantPia = (weight, ageInDays) => {
-  if (ageInDays <= 7 && weight <= 1000) {
+const findConstantPia = (weight, daysOfLife) => {
+  if (daysOfLife === "<7" && weight <= 1000) {
     return 2.6;
   }
-  if (ageInDays <= 7 && weight >= 1001 && weight <= 1250) {
+  if (daysOfLife === "<7" && weight >= 1001 && weight <= 1250) {
     return 2.3;
   }
-  if (ageInDays <= 7 && weight >= 1251 && weight <= 1500) {
+  if (daysOfLife === "<7" && weight >= 1251 && weight <= 1500) {
     return 1.6;
   }
-  if (ageInDays <= 7 && weight >= 1501 && weight <= 1750) {
+  if (daysOfLife === "<7" && weight >= 1501 && weight <= 1750) {
     return 0.95;
   }
-  if (ageInDays <= 7 && weight >= 1751) {
+  if (daysOfLife === "<7" && weight >= 1751) {
     return 0.83;
   }
-  if (ageInDays >= 8) {
+  if (daysOfLife === ">7") {
     return 1.25;
   }
   return null;
-};
-
-const formatDate = (reportDate) => {
-  let date = reportDate.toLocaleString("en-US", {
-    timeZone: "America/Bogota",
-    day: "2-digit",
-  });
-  return date.split("-").reverse().join("/");
 };
 
 export default BalanceResult;

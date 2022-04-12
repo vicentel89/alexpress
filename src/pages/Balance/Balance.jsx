@@ -10,27 +10,14 @@ function Balance() {
 
   const formik = useFormik({
     initialValues: JSON.parse(backup) || initialValues,
-    validationSchema: Yup.object({
-      reportDate: Yup.date()
-        .min(
-          new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-          "SEGURA??? ESTA FECHA ES MUY VIEJA"
-        )
-        .max(new Date(), "ERROR: ESTA FECHA ES EN EL FUTURO!!!!!!!!"),
-      dob: Yup.date()
-        .min(
-          new Date(Date.now() - 6 * 30.5 * 24 * 60 * 60 * 1000),
-          "SEGURA??? ESTA FECHA ES MUY VIEJA"
-        )
-        .max(new Date(), "ERROR: ESTA FECHA ES EN EL FUTURO!!!!!!!!"),
-    }),
+
     onSubmit: (values) => {
       console.log(values);
     },
   });
 
   return (
-    <div>
+    <div style={{ padding: 40 }}>
       <Grid container>
         <Grid item md={8}>
           <Box
@@ -52,7 +39,7 @@ function Balance() {
               variant="contained"
               style={{ marginBottom: 32 }}
             >
-              Reset Form
+              Resetear
             </Button>
             <BalanceForm formik={formik} />
           </Box>
@@ -76,14 +63,11 @@ function Balance() {
 }
 
 const initialValues = {
-  reportDate: "",
-  dob: "",
-  admissionDate: "",
+  daysOfLife: "",
   waterBalanceTime: 24,
-  weight: "",
-  glucose: "",
-  intake: "",
-  output: "",
+  weight: 0,
+  intake: 0,
+  output: 0,
 };
 
 export default Balance;
