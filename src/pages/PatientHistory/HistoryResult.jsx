@@ -14,10 +14,9 @@ function HistoryResult({ values }) {
   const pia =
     ((findConstantPia(values.weight, ageInDays) * values.weight) / 1000) *
     values.waterBalanceTime;
-  const totalOutput = pia + values.output;
+  const totalOutput = pia + Number(values.output);
   const gu = values.output / weightInKg / values.waterBalanceTime;
   const dailyBalance = values.intake - totalOutput;
-
   const isPremature = values.weeks < 37;
   const isPostTerm = values.weeks >= 40;
   const term = isPremature ? "PRETERMINO" : "A TERMINO";
@@ -93,7 +92,7 @@ function HistoryResult({ values }) {
               "CC"
             )}
           </p>
-          <p>{valNumShow(gu.toFixed(0), "DIURESIS", "CC/KG/HORA")}</p>
+          <p>{valNumShow(gu.toFixed(2), "DIURESIS", "CC/KG/HORA")}</p>
         </>
       )}
       <br />
