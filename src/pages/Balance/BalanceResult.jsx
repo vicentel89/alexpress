@@ -9,7 +9,7 @@ function BalanceResult({ values }) {
   const waterBalanceTime = values.waterBalanceTime;
   const constantPia = findConstantPia(weight, daysOfLife);
   const pia = ((constantPia * weight) / 1000) * waterBalanceTime;
-  const totalOutput = pia + output;
+  const totalOutput = pia + Number(output);
   const gu = output / weightInKg / waterBalanceTime;
   const dailyBalance = intake - totalOutput;
 
