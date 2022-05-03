@@ -43,6 +43,9 @@ function HistoryResult({ values }) {
           NOTA: PACIENTE VALORADO CON TODAS LAS MEDIDAS DE PROTECCIÓN REQUERIDAS
           POR EVENTUALIDAD DE PANDEMIA POR VIRUS SARS COV 2{" "}
         </p>
+        <p style={{ fontSize: "0.5rem" }}>
+          SE REALIZA VALORACIÓN CONJUNTA CON PEDIATRA EN TURNO
+        </p>
         <br />
         {values.justBorn ? (
           <p>

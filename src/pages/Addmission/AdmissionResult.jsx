@@ -17,6 +17,9 @@ function AdmissionResult({ values }) {
           {" "}
           NOTA DE INGRESO A UNIDAD DE CUIDADOS {values.careType}S NEONATALES
         </h1>
+        <p style={{ fontSize: "0.5rem" }}>
+          SE REALIZA VALORACIÓN CONJUNTA CON PEDIATRA EN TURNO
+        </p>
         <h2>HIJO DE {values.kidOf}</h2>
         <h3>DOCUMENTO MATERNO: {values.idMom}</h3>
         <h2>MOTIVO DE CONSULTA</h2>
