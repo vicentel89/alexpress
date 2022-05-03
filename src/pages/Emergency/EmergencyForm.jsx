@@ -9,52 +9,52 @@ import TextareaInput from "../../components/shared/TextareaInput";
 
 export const initialValues = {
   patientName: "",
-  Id: "",
-  dateOfBirth: "",
-  adress: "",
-  neighboorhood: "",
-  nationality: "COLOMBIANO",
-  phone: "",
+  patientAge: "",
+  patientBed: "",
   gender: "",
-  civilState: "",
-  religion: "",
-  ocupation: "",
-  studies: "",
-  natural: "",
-  resident: "",
-  procedent: "",
+  consult: "",
+  painPlace: "",
+  painPlaceSpecific: "",
+  painScale: "",
+  painType: "",
+  painApparition: "",
+  painActivity: "",
+  painConcomitant: ", concomitante con",
+  traumatype: "",
+  traumaPlace: "",
+  traumaActivity: "",
+  traumaObject: "",
+  painMeds: "",
   mainComplaint: "",
-  actualDisease:
-    "PACIENTE M/F DE X AÑOS DE EDAD, QUE CONSULTA POR CUADRO CLÍNICO DE _TIEMPO DE EVOLUCIÓN, CARACTERIZADO POR APARICIÓN, LOCALIZACIÓN, TIPO, INTENSIDAD, CONCOMITANCIAS, IRRADIACIÓN, ALIVIO",
-  personalAnt: "NIEGA",
-  pathologicalAnt: "NIEGA",
-  pharmacologicAnt: "NIEGA",
-  hospitalizationAnt: "NIEGA",
-  surgicalAnt: "NIEGA",
-  traumaticAnt: "NIEGA",
-  alergicAnt: "NIEGA",
-  toxicAnt: "NIEGA",
-  transfusionAnt: "NIEGA",
-  vaccinationAnt: "NIEGA",
+  evolutionHours: "",
+  actualDisease: "",
+  personalAnt: "niega",
+  pathologicalAnt: "niega",
+  pharmacologicAnt: "niega",
+  hospitalizationAnt: "niega",
+  surgicalAnt: "niega",
+  traumaticAnt: "niega",
+  alergicAnt: "niega",
+  toxicAnt: "niega",
+  transfusionAnt: "niega",
+  vaccinationAnt: "niega",
   bloodType: "",
-  familyAnt: "NIEGA",
+  familyAnt: "niega",
   otherAnt:
     "Personales no patológicos ginecoobstétricos: G, P, A, C, M, V, E, Compañeros sexuales en los últimos 6 meses, menarquia, FUM, ciclos regulares, duración de ciclos, inicio de vida sexual, inicio de vida obstétrica, planificación, última citología, ETS, EPI, menopausia",
   headPhysical:
-    "NORMOCÉFALO, DOLIOCÉFALO (EJE LONGITUDINAL MÁS LARGO QUE EL TRANSVERSAL), BRAQUICÉFALO (EJE LONGITUDINAL MÁS CORTO QUE EL TRANSVERSAL), MESATICÉFALO (EJES IGUALES, CRANEOSINOSTOSIS (CIERRE PRECOZ DE LAS SUTURAS), SURCOS FRONTALES SIMÉTRICOS, PUPILAS ISOCÓRICAS NORMORREACTIVAS A LA LUZ, SIN EVIDENCIA DE NISTAGMO, CONJUNTIVAS NORMOCRÓMICAS, ESCLERAS ANICTÉRICAS, BUENA IMPLANTACIÓN DE CEJAS Y PESTAÑAS NARINAS DE CONFORMACIÓN NORMAL, MUCOSA ORAL HÚMEDA, HIDRATADA, OROFARINGE SIN ALTERACIONES.NARIZ: SINUSITIS SI DUELE AL PRESIONAR, AL INCLINARSE HACIA DELANTE, SI LA TRANSILUMINACIÓN ES POSITIVA. SINUSITIS MAXILAR: DOLOR RETROORBITAL, CERCA DEL 2DO PREMOLAR Y 1ER Y 2NDO MOLARES. SINUSITIS FRONTAL: ARCADAS SUPERCILIARES, SINUSITIS ETMOIDAL: PERIORBITAL, SINUSITIS ESFENOIDAL: OCCIPITAL. GOTEO NASAL POSTERIOR. ALIENTO OLOR A MANZANA: CETOACIDOSIS DIABÉTICA. ALIENTO AMONIACAL: UREMIA, ALIENTO PÚTRIDO: ABSCESO PULMONAR.",
+    "Normocéfalo, surcos frontales simétricos, pupilas isocóricas normorreactivas a la luz, sin evidencia de nistagmo, conjuntivas normocrómicas, escleras anictéricas, buena implantación de cejas y pestañas narinas de conformación normal, mucosa oral húmeda, hidratada, orofaringe sin alteraciones.",
   neckPhysical:
-    "MÓVIL, NO DOLOROSO A LA PALPACIÓN NI MOVILIZACIÓN, NO SE PALPAN MASAS NI ADENOMEGALIAS, TIROIDES NO VISIBLE NI PALPABLE, PULSOS CAROTÍDEOS SIMÉTRICOS, NO INGURGITACIÓN YUGULAR",
+    "móvil, no doloroso a la palpación ni movilización, no se palpan masas ni adenomegalias, tiroides no visible ni palpable, pulsos carotídeos simétricos, no ingurgitación yugular",
   thoraxPhysical:
-    "SIMÉTRICO, EXPANSIBLE, SIN USO DE MUSCULATURA ACCESORIA, NO DOLOROSO A LA PALPACIÓN PULMONES CON ADECUADA ENTRADA DE AIRE BILATERAL, RUIDOS RESPIRATORIOS BILATERALES SIN AGREGADOS PATOLÓGICOS. VIBRACIONES VOCALES AUSENTES/PRESENTES/AUMENTADAS/DISMINUIDAS, FRÉMITOS AUSENTES/PRESENTES/AUMENTADOS/ DISMINUIDOS, BRONCOFONÍA, PECTORILOQUIA ÁFONA, PERCUSIÓN SIN ALTERACIONES",
+    "Simétrico, expansible, sin uso de musculatura accesoria, no doloroso a la palpación pulmones con adecuada entrada de aire bilateral, ruidos respiratorios bilaterales sin agregados patológicos, percusión sin alteraciones",
   heartPhysical:
-    "RUIDOS CARDÍACOS RÍTMICOS, DE BUEN TONO E INTENSIDAD, SIN SOPLOS NI AGREGADOS, LLENADO CAPILAR DISTAL INMEDIATO",
-  pulsePhysical:
-    "CAROTÍDEO, HUMERAL, RADIAL, FEMORAL, POPLÍTEO, TIBIAL POSTERIOR, PEDIO",
-  urinaryPhysical: "PUÑOPERCUSIÓN BILATERAL NEGATIVA",
+    "Ruidos cardíacos rítmicos, de buen tono e intensidad, sin soplos ni agregados, llenado capilar distal inmediato",
   abdomenPhysical:
-    "NO DISTENDIDO, PERISTALSIS POSITIVA, BLANDO, DEPRESIBLE, NO DOLOROSO A LA PALPACIÓN, SIN EVIDENCIA DE SIGNOS DE IRRITACIÓN PERITONEAL, NO SE PALPAN MASAS.",
+    "No distendido, peristalsis positiva, blando, depresible, no doloroso a la palpación, sin evidencia de signos de irritación peritoneal, no se palpan masas. Puño percusión bilateral negativa.",
+  extremitiesPhysical: "simétricas y eutróficas sin edemas",
   skinPhysical:
-    "ÍNTEGRA SIN LESIONES APARENTES, NO SE EVIDENCIA TINTE ICTÉRICO",
+    "íntegra sin lesiones aparentes, no se evidencia tinte ictérico",
   othertests: "",
   analysis: "",
   diagnostics: "",
@@ -62,9 +62,9 @@ export const initialValues = {
   oxygen: "",
   diet: "",
   levs: "",
-  test: "SS",
-  images: "SS",
-  consult: "SS VALORACIÓN POR",
+  test: "",
+  images: "",
+  consult: "",
   pending: "",
 };
 function EmergencyForm({ formik }) {
@@ -87,46 +87,135 @@ function EmergencyForm({ formik }) {
     >
       <h2>***DATOS IDENTIFICACIÓN</h2>
       <TextfieldInput name="patientName" label="NOMBRE" {...fieldProps} />
-      <TextfieldInput name="Id" label="IDENTIFICACIÓN" {...fieldProps} />
-      <DateInput
-        name="dateOfBirth"
-        label="FECHA DE NACIMIENTO: "
-        {...fieldProps}
-      />
-      <TextfieldInput name="neighboorhood" label="BARRIO " {...fieldProps} />
-      <TextfieldInput
-        name="nationality"
-        label="NACIONALIDAD "
-        {...fieldProps}
-      />
-      <NumberInput name="phone" label="TELEFONO" {...fieldProps} />
+      <NumberInput name="patientAge" label="EDAD" {...fieldProps} />
+      <TextfieldInput name="patientBed" label="Cama" {...fieldProps} />
       <RadioInput
         name="gender"
         label="GÉNERO"
-        options={["MASCULINO", "FEMENINO"]}
+        options={["masculino", "femenino"]}
         {...fieldProps}
       />
-      <TextfieldInput name="civilState" label="ESTADO CIVIL " {...fieldProps} />
-      <TextfieldInput name="religion" label="RELIGION " {...fieldProps} />
-      <TextfieldInput name="ocupation" label="OCUPACION " {...fieldProps} />
-      <TextfieldInput name="studies" label="ESCOLARIDAD" {...fieldProps} />
-      <TextfieldInput name="natural" label="NATURAL " {...fieldProps} />
-      <TextfieldInput name="resident" label="RESIDENTE " {...fieldProps} />
-      <TextfieldInput name="procedent" label="PROCEDENTE " {...fieldProps} />
       <h2>***MOTIVO DE CONSULTA</h2>
-      <TextareaInput
-        name="mainComplaint"
-        label="MOTIVO DE CONSULTA"
+      <RadioInput
+        name="consult"
+        label="MC"
+        options={["dolor", "trauma", "otro"]}
         {...fieldProps}
       />
+      {values.consult === "otro" && (
+        <TextareaInput
+          name="mainComplaint"
+          label="MOTIVO DE CONSULTA"
+          {...fieldProps}
+        />
+      )}
+
       <h2>***ENFERMEDAD ACTUAL</h2>
-      <TextareaInput
-        name="actualDisease"
-        label="ENFERMEDAD ACTUAL"
+
+      <NumberInput
+        name="evolutionHours"
+        label="horas de evolución"
         {...fieldProps}
       />
+      {values.consult === "dolor" && (
+        <>
+          <RadioInput
+            name="painPlace"
+            label="lugar"
+            options={["torácico", "abdominal", "de cabeza"]}
+            {...fieldProps}
+          />
+          <TextfieldInput
+            name="painPlaceSpecific"
+            label="Especificaciones locaclizacion del dolor"
+            {...fieldProps}
+          />
+          <RadioInput
+            name="painType"
+            label="tipo"
+            options={[
+              "peso",
+              "urente",
+              "cólico",
+              "desgarrante",
+              "transfixiante",
+              "corrientazo",
+              "pulsátil",
+            ]}
+            {...fieldProps}
+          />
+          <NumberInput
+            name="painScale"
+            label="escala analoga del dolor"
+            {...fieldProps}
+          />
+          <RadioInput
+            name="painApparition"
+            label="aparición"
+            options={["súbita", "insidiosa"]}
+            {...fieldProps}
+          />
+          <TextfieldInput
+            name="painActivity"
+            label="actividad que estaba realizando cuando aparecio el dolor, alivio del dolor"
+            {...fieldProps}
+          />
+          <TextfieldInput
+            name="painConcomitant"
+            label="Concomitancias"
+            {...fieldProps}
+          />
+          )
+        </>
+      )}
+      {values.consult === "trauma" && (
+        <>
+          <TextfieldInput
+            name="traumaType"
+            label="tipo de trauma"
+            {...fieldProps}
+          />
+          <TextfieldInput
+            name="traumaObject"
+            label="tipo de objeto que genera trauma"
+            {...fieldProps}
+          />
+          <TextfieldInput
+            name="traumaPlace"
+            label="Localizacion del trauma"
+            {...fieldProps}
+          />
+          <TextfieldInput
+            name="traumaActivity"
+            label="actividad que estaba realizando cuando aparecio el dolor, alivio del dolor"
+            {...fieldProps}
+          />
+          )
+        </>
+      )}
+      {values.consult === "otro" && (
+        <>
+          <TextareaInput
+            name="actualDisease"
+            label="cuadro clinico"
+            {...fieldProps}
+          />
+          )
+        </>
+      )}
+      <TextfieldInput
+        name="painMeds"
+        label="Medicamentos que consumio"
+        {...fieldProps}
+      />
+      <RadioInput
+        name="painBetter"
+        label="efecto del mediamento sobre el dolor"
+        options={["con alivio", "sin alivio"]}
+        {...fieldProps}
+      />
+
       <h2>***ANTECEDENTES</h2>
-      <TextfieldInput name="personalAnt" label="PERSONALES " {...fieldProps} />
       <TextfieldInput
         name="pathologicalAnt"
         label="PATOLÓGICOS "
@@ -172,23 +261,23 @@ function EmergencyForm({ formik }) {
         {...fieldProps}
       />
       <h2>***EXAMEN FÍSICO</h2>
-      <TextareaInput name="headPhysical" label="CABEZA" {...fieldProps} />
-      <TextareaInput name="neckPhysical" label="CUELLO" {...fieldProps} />
-      <TextareaInput name="thoraxPhysical" label="TÓRAX" {...fieldProps} />
-      <TextareaInput name="heartPhysical" label="CORAZÓN" {...fieldProps} />
-      <TextareaInput name="pulsePhysical" label="PULSOS" {...fieldProps} />
-      <TextareaInput name="abdomenPhysical" label="ABDOMEN" {...fieldProps} />
-      <TextareaInput name="skinPhysical" label="PIEL" {...fieldProps} />
-
+      <TextareaInput name="headPhysical" label="Cabeza" {...fieldProps} />
+      <TextareaInput name="neckPhysical" label="Cuello" {...fieldProps} />
+      <TextareaInput name="thoraxPhysical" label="Tórax" {...fieldProps} />
+      <TextareaInput name="heartPhysical" label="Corazón" {...fieldProps} />
+      <TextareaInput name="abdomenPhysical" label="Abdomen" {...fieldProps} />
+      <TextareaInput
+        name="extremitiesPhysical"
+        label="Extremidades"
+        {...fieldProps}
+      />
+      <TextareaInput name="skinPhysical" label="Piel" {...fieldProps} />
       <h2>***PARACLÍNICOS EXTRAINSTITUCIONALES</h2>
       <TextareaInput name="otherTests" label="" {...fieldProps} />
-
       <h2>***ANÁLISIS</h2>
       <TextareaInput name="analysis" label="" {...fieldProps} />
-
       <h2>***IMPRESIÓN DIAGNÓSTICA</h2>
       <TextareaInput name="diagnostics" label="" {...fieldProps} />
-
       <h2>***PLAN</h2>
       <h4>*****ESTANCIA*</h4>
       <TextareaInput name="stay" label="" {...fieldProps} />

@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import PatientForm from "./PatientForm";
 import HistoryResult from "./HistoryResult";
 import { Button, Grid, Box } from "@mui/material";
+import CopyButton from "../../components/shared/CopyButton";
 
 function PatientHistory() {
   const backup = localStorage.getItem("patient-history-backup");
@@ -36,48 +37,50 @@ function PatientHistory() {
   });
 
   return (
-    <div>
-      <Grid container>
-        <Grid item md={8}>
-          <Box
-            sx={{
-              pb: 4,
-              pr: 2,
-              height: "calc(100vh - 100px)",
-              overflow: "auto",
-            }}
-          >
-            <Button
-              onClick={() => {
-                localStorage.setItem(
-                  "patient-history-backup",
-                  JSON.stringify(initialValues)
-                );
-                window.location.reload();
+    <>
+      <div>
+        <Grid container>
+          <Grid item md={8}>
+            <Box
+              sx={{
+                pb: 4,
+                pr: 2,
+                height: "calc(100vh - 100px)",
+                overflow: "auto",
               }}
-              variant="contained"
-              style={{ marginBottom: 32 }}
             >
-              Reset Form
-            </Button>
-            <PatientForm formik={formik} />
-          </Box>
+              <Button
+                onClick={() => {
+                  localStorage.setItem(
+                    "patient-history-backup",
+                    JSON.stringify(initialValues)
+                  );
+                  window.location.reload();
+                }}
+                variant="contained"
+                style={{ marginBottom: 32 }}
+              >
+                Reset Form
+              </Button>
+              <PatientForm formik={formik} />
+            </Box>
+          </Grid>
+          <Grid item md={4}>
+            <Box
+              sx={{
+                pl: 2,
+                pr: 1,
+                pb: 4,
+                height: "calc(100vh - 100px)",
+                overflow: "auto",
+              }}
+            >
+              <HistoryResult values={formik.values} />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item md={4}>
-          <Box
-            sx={{
-              pl: 2,
-              pr: 1,
-              pb: 4,
-              height: "calc(100vh - 100px)",
-              overflow: "auto",
-            }}
-          >
-            <HistoryResult values={formik.values} />
-          </Box>
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   );
 }
 
@@ -91,7 +94,8 @@ const initialValues = {
   dob: "",
   admissionDate: "",
   weeks: "",
-  diagnosis: "-PESO Y TALLA ADECUADOS PARA SU EDAD GESTACIONAL",
+  diagnosis:
+    "-PESO, TALLA Y PERÍMETRO CEFÁLICO ADECUADOS PARA SU EDAD GESTACIONAL",
   waterBalanceTime: 24,
   lastWeight: "",
   weight: "",
