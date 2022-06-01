@@ -16,9 +16,6 @@ function NewBornResult({ values }) {
         <h2>HIJO DE {values.momName}</h2>
         <h3>DOCUMENTO MATERNO: {values.momId}</h3>
         <br />
-        <h2>***ANTECEDENTES PERSONALES MATERNOS</h2>
-        <p> {values.antecedentesMaternos}</p>
-        <br />
         <h2>***ADAPTACIÓN NEONATAL</h2>
         <p style={{ fontSize: "0.5rem" }}>
           BAJO CUMPLIMIENTO ESTRICTO DE LOS PROTOCOLOS DE BIOSEGURIDAD
@@ -38,7 +35,7 @@ function NewBornResult({ values }) {
           RECIBO RECIÉN NACIDO DE MANOS DE GINECÓLOGO, DE SEXO{" "}
           <strong>{values.gender}</strong> DE{" "}
           <strong>{values.weeksBallard}</strong> SEMANAS POR BALLARD, PRODUCTO
-          DE MADRE <strong>{values.momAge}</strong> AÑOS
+          DE MADRE DE <strong> {values.momAge}</strong> AÑOS
           <strong>
             G{values.gestaNumber} P{values.paraNumber} C{values.cesareaNumber} A
             {values.abortionNumber} E{values.ectopicNumber} V{values.vivoNumber}
@@ -59,6 +56,9 @@ function NewBornResult({ values }) {
           <strong>{values.thoraxAtBirth}</strong> CM. PERÍMETRO ABDOMINAL:{" "}
           <strong>{values.abdomenAtBirth}</strong> CM.
         </p>
+        <br />
+        <h2>***ANTECEDENTES PERSONALES MATERNOS</h2>
+        <p> {values.antecedentesMaternos}</p>
         <br />
         <p> {values.malformacionesApgar}</p>
         {values.UciOrMaterno === "MATERNO" ? (
