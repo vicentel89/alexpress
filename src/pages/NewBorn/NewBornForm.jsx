@@ -54,7 +54,6 @@ export const initialValues = {
   GENTAMICINA GOTAS OFTÁLMICAS PROFILÁCTICAS
   VITAMINA K 1 MG IM 
   TRASLADO A UCIN
-  LACTANCIA MATERNA EXCLUSIVA A LIBRE DEMANDA
   INICIAR ESQUEMA DE VACUNACIÓN 
   CURACION DIARIA DE ONFALO 
   RECOMENDACIONES Y  SIGNOS DE ALARMA
@@ -82,6 +81,11 @@ function NewBornForm({ formik }) {
     >
       <TextfieldInput name="momName" label="HIJO DE " {...fieldProps} />
       <TextfieldInput name="momId" label="IDENTIFICACIÓN" {...fieldProps} />
+      <TextareaInput
+        name="antecedentesMaternos"
+        label="ANTECEDENTES MATERNOS"
+        {...fieldProps}
+      />
       <DateInput
         name="dateOfBirth"
         label="FECHA DE NACIMIENTO: "
@@ -115,11 +119,6 @@ function NewBornForm({ formik }) {
         <NumberInput
           name="prenatalControl"
           label="CONTROLES PRENATALES"
-          {...fieldProps}
-        />
-        <TextareaInput
-          name="antecedentesMaternos"
-          label="ANTECEDENTES MATERNOS"
           {...fieldProps}
         />
         <NumberInput name="weightAtBirth" label="PESO" {...fieldProps} />

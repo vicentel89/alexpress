@@ -44,7 +44,8 @@ function HistoryResult({ values }) {
           POR EVENTUALIDAD DE PANDEMIA POR VIRUS SARS COV 2{" "}
         </p>
         <p style={{ fontSize: "0.5rem" }}>
-          SE REALIZA VALORACIÓN CONJUNTA CON PEDIATRA EN TURNO
+          SE REALIZA VALORACIÓN CONJUNTA CON PEDIATRA EN TURNO{" "}
+          {values.pediatricianShift}{" "}
         </p>
         <br />
         {values.justBorn ? (
@@ -76,7 +77,6 @@ function HistoryResult({ values }) {
           values.intake ||
           values.output) && (
           <>
-            <br />
             <h2 style={{ marginBottom: 0 }}>
               BALANCE HÍDIRICO EN {values.waterBalanceTime}HR{" "}
               {valNumShow(dailyBalance.toFixed(1), " ", "CC")}
@@ -102,7 +102,6 @@ function HistoryResult({ values }) {
             <p>{valNumShow(gu.toFixed(2), "DIURESIS", "CC/KG/HORA")}</p>
           </>
         )}
-        <br />
         <h2 style={{ marginBottom: 0 }}> EXAMEN FÍSICO </h2>
         <p>
           SIGNOS VITALES FC:<strong> {values.cardiacFreq} </strong>LPM – FR:{" "}
@@ -110,7 +109,6 @@ function HistoryResult({ values }) {
           <strong>{values.saturation} </strong>% - T:{" "}
           <strong>{values.temperture}°C</strong>
         </p>
-        <br />
         <p>{values.physicalExam}</p>
         <p> {valNumShow(values.glucose, "GLUCOMETRÍA", "MG/DL")}</p>
         {hasParaclinics(values) && (

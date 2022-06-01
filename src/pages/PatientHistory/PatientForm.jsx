@@ -39,6 +39,17 @@ function PatientForm({ formik }) {
         label="Evolución"
         {...fieldProps}
       />
+      <RadioInput
+        options={[
+          "DRA GRACIELA AGAMEZ",
+          "DR MANUEL BRAVO",
+          "DRA DANNY VIÑA",
+          "DR LUIS MENDEZ",
+        ]}
+        name="pediatricianShift"
+        label="Pediatra en turno"
+        {...fieldProps}
+      />
       <CheckboxInput label="¿Nacio hoy?" name="justBorn" {...fieldProps} />
       <DateInput label="Fecha nacimiento: " name="dob" {...fieldProps} />
       <DateInput label="Fecha ingreso: " name="admissionDate" {...fieldProps} />

@@ -87,6 +87,7 @@ function PatientHistory() {
 const initialValues = {
   bedNumber: "",
   timeofDay: "",
+  pediatricianShift: "",
   justBorn: false,
   exit: false,
   sex: "",
