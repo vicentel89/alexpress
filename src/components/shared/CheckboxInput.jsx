@@ -1,11 +1,11 @@
-import React from 'react';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
+import React from "react";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Grid from "@mui/material/Grid";
 
-function CheckboxInput({ label, values, ...props }) {
+function CheckboxInput({ label, values, md, ...props }) {
   return (
-    <Grid item>
+    <Grid item md={md}>
       <FormControlLabel
         labelPlacement="start"
         control={<Checkbox {...props} />}

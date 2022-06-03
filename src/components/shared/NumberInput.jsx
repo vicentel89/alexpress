@@ -1,11 +1,16 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
+import React from "react";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
 
-function NumberInput({ values, ...props }) {
+function NumberInput({ values, md, ...props }) {
   return (
-    <Grid item>
-      <TextField size="small" type="number" value={values[props.name]} {...props} />
+    <Grid item md={md}>
+      <TextField
+        size="small"
+        type="number"
+        value={values[props.name]}
+        {...props}
+      />
     </Grid>
   );
 }
