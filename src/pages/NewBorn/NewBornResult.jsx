@@ -14,8 +14,12 @@ function NewBornResult({ values }) {
       <div ref={NBresultRef}>
         <h1>***NOTA DE ATENCIÓN AL RECIÉN NACIDO***</h1>
         <br />
-        <h2>HIJO DE {values.momName}</h2>
+        <strong>FECHA DE NACIMIENTO:</strong> {formatDate(values.dateOfBirth)}{" "}
+        {values.timeOfBirth}H<h2>HIJO DE {values.momName}</h2>
         <h3>DOCUMENTO MATERNO: {values.momId}</h3>
+        <br />
+        <h2>***ANTECEDENTES PERSONALES MATERNOS</h2>
+        <p> {values.antecedentesMaternos}</p>
         <br />
         <h2>***ADAPTACIÓN NEONATAL</h2>
         <p style={{ fontSize: "0.5rem" }}>
@@ -64,9 +68,6 @@ function NewBornResult({ values }) {
           <strong>{values.abdomenAtBirth}</strong> CM.
         </p>
         <br />
-        <h2>***ANTECEDENTES PERSONALES MATERNOS</h2>
-        <p> {values.antecedentesMaternos}</p>
-        <br />
         <p> {values.malformacionesApgar}</p>
         {values.UciOrMaterno === "MATERNO" ? (
           <p>SE INDICA TRASLADO A LADO MATERNO</p>
@@ -85,7 +86,7 @@ function NewBornResult({ values }) {
           weight={values.weightAtBirth}
           height={values.percentileHeightAtBirth}
         />
-        {values.UciOrMaterno === "UCI" && <p>{values.dxUCI}</p>}
+        {values.dxUCI}
         <br />
         <h2>PLAN</h2>
         {values.UciOrMaterno === "MATERNO" ? (
@@ -99,10 +100,12 @@ function NewBornResult({ values }) {
 }
 
 const formatDate = (dateOfBirth) => {
-  let date = dateOfBirth.toLocaleString("en-US", {
-    timeZone: "America/Bogota",
-    day: "2-digit",
-  });
+  let date = dateOfBirth
+    ? dateOfBirth.toLocaleString("en-US", {
+        timeZone: "America/Bogota",
+        day: "2-digit",
+      })
+    : "";
   return date.split("-").reverse().join("/");
 };
 
@@ -137,13 +140,17 @@ const PercentileAnalysis = ({ head, height, weightPer, weight }) => {
       {isRCIU && (
         <>
           <p>-RESTRICCIÓN DEL CRECIMIENTO INTRAUTERINO</p>
-          <p>--PESO, TALLA Y PERÍMETRO CEFÁLICO MENORES AL PERCENTIL 10</p>
+          <p>
+            --PESO (P{weightPer}), TALLA (P{height}) Y PERÍMETRO CEFÁLICO (P
+            {head}) MENORES AL PERCENTIL 10
+          </p>
         </>
       )}
       {isAdequate && (
         <>
           <p>
-            -PESO, TALLA Y PERÍMETRO CEFÁLICO ADECUADOS PARA LA EDAD GESTACIONAL
+            -PESO (P{weightPer}), TALLA (P{height}) Y PERÍMETRO CEFÁLICO (P
+            {head}) ADECUADOS PARA LA EDAD GESTACIONAL
           </p>
         </>
       )}
@@ -153,14 +160,20 @@ const PercentileAnalysis = ({ head, height, weightPer, weight }) => {
         <>
           <p>-GRANDE PARA LA EDAD GESTACIONAL</p>
           <p>--PESO EN PERCENTIL {weightPer}</p>
-          <p>-TALLA Y PERÍMETRO CEFÁLICO ADECUADOS PARA LA EDAD GESTACIONAL</p>
+          <p>
+            -TALLA (P{height}) Y PERÍMETRO CEFÁLICO (P{head}) ADECUADOS PARA LA
+            EDAD GESTACIONAL
+          </p>
         </>
       )}
       {isLittle && isRightHead && (
         <>
           <p>-PEQUEÑO PARA LA EDAD GESTACIONAL</p>
           <p>--PESO EN PERCENTIL {weightPer}</p>
-          <p>-TALLA Y PERÍMETRO CEFÁLICO ADECUADOS PARA LA EDAD GESTACIONAL</p>
+          <p>
+            -TALLA (P{height}) Y PERÍMETRO CEFÁLICO ADECUADOS (P{head}) PARA LA
+            EDAD GESTACIONAL
+          </p>
         </>
       )}
       {hasMicrocephaly && (

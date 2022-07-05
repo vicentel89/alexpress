@@ -157,12 +157,6 @@ function PatientForm({ formik }) {
         {...fieldProps}
       />
       <h3 style={{ paddingLeft: 20 }}>**PARACLÍNICOS**</h3>
-      <Grid container direction="row" justifyContent="left" spacing={4} item>
-        <strong>
-          -----I--------------PERINATALES------------I--------------------------------------HEMOGRAMA
-          ------------------------------------------I
-        </strong>
-      </Grid>
       <Grid container gap={1} item>
         <TextfieldInput md={0.7} name="vdrl" label="vdrl" {...fieldProps} />
         <NumberInput md={0.6} name="tsh" label="tsh" {...fieldProps} />
@@ -178,11 +172,6 @@ function PatientForm({ formik }) {
         <NumberInput md={1} name="wbc" label="leucos" {...fieldProps} />
         <NumberInput md={1.05} name="n" label="neutros" {...fieldProps} />
         <NumberInput md={1} name="l" label="linfos" {...fieldProps} />
-      </Grid>
-      <Grid container direction="row" justifyContent="left" spacing={1} item>
-        <strong>
-          -I-----------------------ELECTROLITOS------------------------I---------------------GASES-------------------I---PCR---I--GLICEMIA--I
-        </strong>
       </Grid>
       <Grid container gap={1} item>
         <NumberInput md={0.9} name="ca" label="calcio" {...fieldProps} />
@@ -202,11 +191,6 @@ function PatientForm({ formik }) {
           label="glicemia"
           {...fieldProps}
         />
-      </Grid>
-      <Grid container gap={1} item>
-        <strong>
-          I--------------------------BILIRRUBINAS-------------------------I
-        </strong>
       </Grid>
       <Grid container gap={1} item>
         <NumberInput md={1.1} name="bt" label="bili total" {...fieldProps} />
@@ -234,40 +218,66 @@ function PatientForm({ formik }) {
         spacing={1}
         gap={-15}
       >
-        <CheckboxInput
-          md={2}
-          label="OXÍGENO"
-          name="hasOxygen"
-          {...fieldProps}
-        />
-        <CheckboxInput
-          md={2}
-          label="AYUNADO"
-          name="oralIntake"
-          {...fieldProps}
-        />
-        <CheckboxInput md={1.6} label="SONDA" name="foley" {...fieldProps} />
+        {values.exit ? (
+          <>
+            <CheckboxInput
+              md={2}
+              label="OFTALMO"
+              name="ophtalmo"
+              {...fieldProps}
+            />
+            <CheckboxInput md={2} label="NEURO" name="neuro" {...fieldProps} />
+            <CheckboxInput md={2} label="NEFRO" name="nefro" {...fieldProps} />
+            <CheckboxInput
+              md={2}
+              label="POTENCIALES"
+              name="potentials"
+              {...fieldProps}
+            />
+          </>
+        ) : (
+          <>
+            <CheckboxInput
+              md={2}
+              label="OXÍGENO"
+              name="hasOxygen"
+              {...fieldProps}
+            />
+            <CheckboxInput
+              md={2}
+              label="AYUNADO"
+              name="oralIntake"
+              {...fieldProps}
+            />
+            <CheckboxInput
+              md={1.6}
+              label="SONDA"
+              name="foley"
+              {...fieldProps}
+            />
 
-        <CheckboxInput
-          md={2.3}
-          label="PROGRESAR AE"
-          name="upOralIntake"
-          {...fieldProps}
-        />
-        <CheckboxInput
-          md={4}
-          label="RECUPERACIÓN NUTRICIONAL"
-          name="nutritionRecovery"
-          {...fieldProps}
-        />
+            <CheckboxInput
+              md={2.3}
+              label="PROGRESAR AE"
+              name="upOralIntake"
+              {...fieldProps}
+            />
+            <CheckboxInput
+              md={4}
+              label="RECUPERACIÓN NUTRICIONAL"
+              name="nutritionRecovery"
+              {...fieldProps}
+            />
+            <RadioInput
+              md={4}
+              options={["Ninguno", "LEVS", "NPT"]}
+              name="nutritionSupport"
+              label="Soporte nutricional"
+              {...fieldProps}
+            />
+          </>
+        )}
       </Grid>
-      <RadioInput
-        md={4}
-        options={["Ninguno", "LEVS", "NPT"]}
-        name="nutritionSupport"
-        label="Soporte nutricional"
-        {...fieldProps}
-      />
       <TextareaInput
         name="paraclinicAnalysis"
         label="Notas análisis"

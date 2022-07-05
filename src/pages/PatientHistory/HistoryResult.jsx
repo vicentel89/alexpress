@@ -58,7 +58,7 @@ function HistoryResult({ values }) {
             NEONATO CON {ageInDays} DÍAS DE VIDA Y{" "}
             {daysFromAdmission === ageInDays
               ? "DE ESTANCIA HOSPITALARIA"
-              : `${daysFromAdmission} DIAS DE ESTANCIA HOSPITALARIA `}
+              : `${daysFromAdmission} DIAS DE ESTANCIA HOSPITALARIA `}{" "}
             CON DIAGNÓSTICOS DE:
           </p>
         )}
@@ -71,6 +71,7 @@ function HistoryResult({ values }) {
         <br />
         <p> FN {formatDate(values.dob)}</p>
         <p> FI {formatDate(values.admissionDate)}</p>
+        <br />
         {(values.lastWeight ||
           values.weight ||
           values.glucose ||
@@ -102,6 +103,7 @@ function HistoryResult({ values }) {
             <p>{valNumShow(gu.toFixed(2), "DIURESIS", "CC/KG/HORA")}</p>
           </>
         )}
+        <br />
         <h2 style={{ marginBottom: 0 }}> EXAMEN FÍSICO </h2>
         <p>
           SIGNOS VITALES FC:<strong> {values.cardiacFreq} </strong>LPM – FR:{" "}
@@ -169,9 +171,9 @@ function HistoryResult({ values }) {
         <br />
         <h2 style={{ marginBottom: 0 }}>ANÁLISIS </h2>
         <p>
-          PACIENTE {term} EN REGULARES CONDICIONES GENERALES. CON IDX
-          PREVIAMENTE DESCRITOS. SE ENCUENTRA PACIENTE ACTIVO REACTIVO, SIN
-          DÉFICIT APARENTE, NI CRISIS NEONATALES,{" "}
+          PACIENTE {term} EN {values.exit ? `ADECUADAS` : `REGULARES`}{" "}
+          CONDICIONES GENERALES. CON IDX PREVIAMENTE DESCRITOS. SE ENCUENTRA
+          PACIENTE ACTIVO REACTIVO, SIN DÉFICIT APARENTE, NI CRISIS NEONATALES,{" "}
           {values.hasOxygen ? (
             <strong> RECIBIENDO OXÍGENO SUPLEMENTARIO DE BAJO FLUJO </strong>
           ) : (
@@ -220,8 +222,15 @@ function HistoryResult({ values }) {
           {values.nutritionRecovery &&
             "SE ENCUENTRA EN RECUPERACION NUTRICIONAL PARA GANANCIA DE PESO PONDERAL YA QUE NO TIENE EL PESO ADECUADO ESTABLECIDO POR LAS GUIAS DE NEONATALOGIA COLOMBIANA DE ASCON DE BAJO PESO AL NACER"}{" "}
           {values.exit
-            ? `DIAGNÓSTICOS DE INGRESO RESUELTOS POR LO QUE SE OTORGA ALTA HOSPITALARIA
-             CON CITA DE CONTROL POR PEDIATRÍA, SIGNOS DE ALARMA Y RECOMENDACIONES.`
+            ? `DIAGNÓSTICOS DE INGRESO RESUELTOS POR LO QUE SE OTORGA ALTA HOSPITALARIA CON CITA DE CONTROL POR PEDIATRÍA, ${
+                values.ophtalmo ? "CITA POR OFTALMOLOGIA," : ""
+              } ${values.neuro ? "CITA POR NEUROLOGIA," : ""} ${
+                values.nefro ? "CITA POR NEFROLOGIA," : ""
+              } ${
+                values.potentials
+                  ? "ORDEN PARA POTENCIALES EVOCADOS AUDITIVOS Y VISUALES,"
+                  : ""
+              } SIGNOS DE ALARMA Y RECOMENDACIONES.`
             : `CONTINÚA EN LA UNIDAD PARA VIGILANCIA ESTRICTA Y MANEJO, PRONÓSTICO SUJETO A EVOLUCIÓN CLÍNICA. SE EXPLICA A LOS PADRES QUIENES REFIEREN ENTENDER Y ACEPTAR.`}
         </p>
         <br />
@@ -230,49 +239,54 @@ function HistoryResult({ values }) {
           <strong>PESO {values.weight}GR</strong>
         </p>
         {values.exit ? (
-          <p>
-            {` EGRESO INSTITUCIONAL
-  APORTE ENTERAL LECHE MATERNA A LIBRE DEMANDA
-  RECOMENDACIONES Y SIGNOS DE ALARMA VERBALES+FISICAS
-  CITA POR PEDIATRIA EN 72 HORAS
-  
-  
-  INDICACIONES:
-  
-  1. Alimentar al bebe exclusivamente con leche materna hasta los 6 meses y con una alimentación complementaria adecuada, hasta los dos años de vida o más.
-  2. Lavado continuo de manos antes y después de tocar el bebe
-  3. Sacar bien los gases después de cada amamantada, dando suaves palmaditas en la espalda para evitar los cólicos del recién nacido y esperar 20 minutos al acostar.
-  4. Limpiar el área del pañal cada vez que sea necesario con pañitos húmedos/toallitas húmedas libres de alcohol y aplicar crema antipañalitis para proteger la colita.
-  5. Para el baño del recién nacido es recomendable hacerlo con agua tibia y utilizar jabón cremoso o líquidos con PH de 5 de la cabeza a los pies, con precaución en los ojos.
-  6. Aplicar crema liquida humectante, realizando suaves masajes tres veces al día
-  7. Utilizar ropa cómoda preferiblemente de algodón sin lana, no colocarle faja, gorro, manoplas entre otros.
-  8. Cortar las uñas cada vez que se necesario.
-  9. Realice curaciones del muñón (ombligo), cada vez que se realice el baño diario del bebe, con una gasa impregnada de clorhexidina o agua estéril en forma circular de adentro hacia fuera sin devolverse y secarlo bien, una vez se caiga hacer curaciones por 8 días
-  10. Sacar al sol durante 10 minutos diariamente, donde debe desnudarlo y rotarlo a ambos lados con precaución en los ojitos colocando un antifaz negro hecho en material suave.
-  11. Reclamar el TSH NEONATAL en 48 horas en laboratorio de la clínica y llevar resultado a la cita con el pediatra
-  12. Evite las visitas especialmente con personas con síntomas respiratorio.
-  13. Llevar a control de crecimiento y desarrollo
-  14. Seguir con el esquema vacunación.
-  
-  SIGNOS DE ALARMA: CUANDO ACUDIR A LA URGENCIA CON MI BEBE:
-  1. Llanto inconsolable.
-  2. Pobre succión.
-  3. Labios y uñas moradas.
-  4. Temperatura mayor de 38 grados o menor de 36 grados
-  5. Respiración rápida acompañado de hundimiento de las costillas, quejido y aleteo nasal
-  6. Ausencia de respiración valores normales (40-60 rep x min)
-  7. Piel amarrilla: cara, espalda, brazos, piernas y cola
-  8. Vómitos persistentes y abundantes mayores de 2 tomas en el día
-  9. Diarrea: mayor de 4 a 5 deposiciones liquidas en 1 hora.
-  10. Ausencia de deposiciones por más de 48 horas
-  11. Deposición con sangre o moco
-  12. Presencia de movimientos involuntarios en miembros superiores e inferiores por más de 1 segundo
-  13. Abdomen globoso, brillante, piel templada y dolor al tacto.
-  14. Región umbilical con salida de líquido purulento, enrojecimiento alrededor del muñón.
-  
-  
-  `}
-          </p>
+          <div>
+            <p>
+              {`EGRESO INSTITUCIONAL
+    APORTE ENTERAL LECHE MATERNA A LIBRE DEMANDA
+    RECOMENDACIONES Y SIGNOS DE ALARMA VERBALES+FISICAS
+    CITA POR PEDIATRIA EN 72 HORAS`}
+            </p>
+            {values.ophtalmo && <p>CITA POR OFTALMOLOGIA</p>}
+            {values.neuro && <p>CITA POR NEUROLOGIA</p>}
+            {values.nefro && <p>OR NEFROLOGIA</p>}
+            {values.potentials && (
+              <p>ORDEN PARA POTENCIALES EVOCADOS AUDITIVOS Y VISUALES</p>
+            )}
+            <p>
+              {`INDICACIONES:
+    1. Alimentar al bebe exclusivamente con leche materna hasta los 6 meses y con una alimentación complementaria adecuada, hasta los dos años de vida o más.
+    2. Lavado continuo de manos antes y después de tocar el bebe
+    3. Sacar bien los gases después de cada amamantada, dando suaves palmaditas en la espalda para evitar los cólicos del recién nacido y esperar 20 minutos al acostar.
+    4. Limpiar el área del pañal cada vez que sea necesario con pañitos húmedos/toallitas húmedas libres de alcohol y aplicar crema antipañalitis para proteger la colita.
+    5. Para el baño del recién nacido es recomendable hacerlo con agua tibia y utilizar jabón cremoso o líquidos con PH de 5 de la cabeza a los pies, con precaución en los ojos.
+    6. Aplicar crema liquida humectante, realizando suaves masajes tres veces al día
+    7. Utilizar ropa cómoda preferiblemente de algodón sin lana, no colocarle faja, gorro, manoplas entre otros.
+    8. Cortar las uñas cada vez que se necesario.
+    9. Realice curaciones del muñón (ombligo), cada vez que se realice el baño diario del bebe, con una gasa impregnada de clorhexidina o agua estéril en forma circular de adentro hacia fuera sin devolverse y secarlo bien, una vez se caiga hacer curaciones por 8 días
+    10. Sacar al sol durante 10 minutos diariamente, donde debe desnudarlo y rotarlo a ambos lados con precaución en los ojitos colocando un antifaz negro hecho en material suave.
+    11. Reclamar el TSH NEONATAL en 48 horas en laboratorio de la clínica y llevar resultado a la cita con el pediatra
+    12. Evite las visitas especialmente con personas con síntomas respiratorio.
+    13. Llevar a control de crecimiento y desarrollo
+    14. Seguir con el esquema vacunación.
+    
+    SIGNOS DE ALARMA: CUANDO ACUDIR A LA URGENCIA CON MI BEBE:
+    1. Llanto inconsolable.
+    2. Pobre succión.
+    3. Labios y uñas moradas.
+    4. Temperatura mayor de 38 grados o menor de 36 grados
+    5. Respiración rápida acompañado de hundimiento de las costillas, quejido y aleteo nasal
+    6. Ausencia de respiración valores normales (40-60 rep x min)
+    7. Piel amarrilla: cara, espalda, brazos, piernas y cola
+    8. Vómitos persistentes y abundantes mayores de 2 tomas en el día
+    9. Diarrea: mayor de 4 a 5 deposiciones liquidas en 1 hora.
+    10. Ausencia de deposiciones por más de 48 horas
+    11. Deposición con sangre o moco
+    12. Presencia de movimientos involuntarios en miembros superiores e inferiores por más de 1 segundo
+    13. Abdomen globoso, brillante, piel templada y dolor al tacto.
+    14. Región umbilical con salida de líquido purulento, enrojecimiento alrededor del muñón.
+    `}
+            </p>
+          </div>
         ) : (
           <>
             <p>
@@ -486,7 +500,7 @@ const hasParaclinics = (values) => {
 };
 
 const hemogram = ["hb", "hto", "plt", "wbc", "n", "l"];
-const ions = ["na", "k", "ca", "cl"];
+const ions = ["na", "k", "ca", "cl", "mg"];
 const gases = ["ph", "pco2", "po2", "hco3", "be"];
 const paraclinics = ["glicemia", "pcr", "vdrl", "hemoclasificacion", "tsh"];
 const bilirubins = ["bt", "bd", "bi", "ret"];
