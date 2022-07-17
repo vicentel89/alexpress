@@ -6,6 +6,7 @@ import NumberInput from "../../components/shared/NumberInput";
 import DateInput from "../../components/shared/DateInput";
 import CheckboxInput from "../../components/shared/CheckboxInput";
 import TextareaInput from "../../components/shared/TextareaInput";
+import { autocompleteClasses } from "@mui/material";
 
 export const initialValues = {
   momName: "",
@@ -14,7 +15,8 @@ export const initialValues = {
   timeOfBirth: "",
   perfilInfeccioso: `ÚLTIMO PERFIL INFECCIOSO NEGATIVO`,
   antecedentesMaternos: "",
-  malformacionesApgar: `SE TRASLADA PACIENTE A CUNA DE CALOR RADIENTE SE ESTIMULA Y SECA, SE CLAMPEA Y CORTA CORDÓN TRIVASCULAR (2 ARTERIAS Y UNA VENA), SE APLICA VITAMINA K. SE VERIFICA PERMEABILIDAD DE ANO Y ESÓFAGO. AL EXAMEN FÍSICO NO SE EVIDENCIAN MALFORMACIONES OSTENSIBLES, ORIFICIOS PERMEABLES, SATURACIÓN PRE Y POSTDUCTAL NORMALES. CON BUENA ADAPTACIÓN, PERÍMETRO CEFÁLICO, TALLA Y PESO ADECUADOS PARA SU EDAD,`,
+  malformacionesApgar: ``,
+  gases: "false",
   careType: "BASICO",
   weeksBallard: "",
   momAge: "",
@@ -32,17 +34,40 @@ export const initialValues = {
   thoraxAtBirth: "",
   abdomenAtBirth: "",
   prenatalControl: "",
-  apgar1: "",
-  apgar5: "",
-  apgar10: "",
   gender: "",
-  birthBy: "CESÁREA",
+  apgar1Appearance: "ACROCIANÓTICO",
+  apgar1Pulse: ">100 LPM",
+  apgar1Grimace: "MUECAS/LLANTO A ESTÍMULOS",
+  apgar1Activity: "EXTREMIDADES FLEXIONADAS",
+  apgar1Respiration: "LLANTO VIGOROSO",
+  apgar5Appearance: "ACROCIANÓTICO",
+  apgar5Pulse: ">100 LPM",
+  apgar5Grimace: "LLANTO ESPONTÁNEO",
+  apgar5Activity: "MOVIMIENTOS ACTIVOS",
+  apgar5Respiration: "LLANTO VIGOROSO",
+  apgar10Appearance: "ACROCIANÓTICO",
+  apgar10Pulse: ">100 LPM",
+  apgar10Grimace: "LLANTO ESPONTÁNEO",
+  apgar10Activity: "MOVIMIENTOS ACTIVOS",
+  apgar10Respiration: "LLANTO VIGOROSO",
+  birthBy: "PARTO",
   surgeryIndication: "MOTIVADA POR",
   amnioLiq: "LIQUIDO AMNIÓTICO CLARO, EUTÉRMICO,",
+  ph: " ",
+  pco2: " ",
+  po2: " ",
+  hco3: " ",
+  be: " ",
+  na: " ",
+  k: " ",
+  ca: " ",
+  cl: " ",
+  glu: " ",
+  lac: " ",
   dxUCI: "",
   UciOrMaterno: "MATERNO",
   estanciaUCI:
-    "POR LO QUE SE INDICA INGRESO A UCIN PARA TOMA DE PARACLÍNICOS Y EXÁMENES COMPLEMENTARIOS, SEGUIMIENTO, MANEJO Y VIGILANCIA ESTRICTA.",
+    "SE INDICA INGRESO A UCIN PARA TOMA DE PARACLÍNICOS Y EXÁMENES COMPLEMENTARIOS, SEGUIMIENTO, MANEJO Y VIGILANCIA ESTRICTA.",
   planMaterno: `ATENCIÓN AL RECIÉN NACIDO 
   GENTAMICINA GOTAS OFTÁLMICAS PROFILÁCTICAS
   VITAMINA K 1 MG IM 
@@ -82,7 +107,7 @@ function NewBornForm({ formik }) {
       spacing={0}
       gap={2}
     >
-      <h3 style={{ paddingLeft: 20 }}>**IDENTIFICACION**</h3>
+      <h2 style={{ paddingLeft: 20 }}>**IDENTIFICACION**</h2>
       <Grid
         container
         direction="row"
@@ -177,34 +202,262 @@ function NewBornForm({ formik }) {
         spacing={0}
         gap={1}
       >
-        <h3>**DATOS DE NACIMIENTO**</h3>
+        <h2>**DATOS DE NACIMIENTO**</h2>
+
         <Grid
           container
           direction="row"
           justifyContent="left"
           alignItems="flex-start"
-          spacing={1}
-          style={{ paddingLeft: 30 }}
+          spacing={0}
+          gap={1}
+          pb={0}
+          pl={0}
+          pr={0}
         >
-          <RadioInput
-            md={5}
-            name="gender"
-            label="Sexo"
-            options={["MASCULINO", "FEMENINO"]}
-            {...fieldProps}
-          />
           <DateInput
-            md={3}
+            md={2.4}
             name="dateOfBirth"
             label="FECHA DE NACIMIENTO: "
             {...fieldProps}
           />
           <TextfieldInput
-            md={1.1}
+            md={1.5}
             name="timeOfBirth"
             label="HORA"
             {...fieldProps}
           />
+          <RadioInput
+            md={2.74}
+            name="birthBy"
+            label="NACIMIENTO POR"
+            options={["CESÁREA", "PARTO"]}
+            {...fieldProps}
+          />
+          {values.birthBy === "CESÁREA" && (
+            <TextfieldInput
+              md={5}
+              style={{ width: "100%" }}
+              name="surgeryIndication"
+              label="INDICACION CESAREA"
+              {...fieldProps}
+            />
+          )}
+        </Grid>
+        <Grid
+          container
+          direction="column"
+          justifyContent="left"
+          alignItems="flex-start"
+          spacing={0}
+          gap={1}
+        >
+          <RadioInput
+            md={3.5}
+            name="gender"
+            label="Sexo"
+            options={["MASCULINO", "FEMENINO"]}
+            {...fieldProps}
+          />
+
+          <TextfieldInput
+            md={7}
+            style={{ width: "100%" }}
+            name="amnioLiq"
+            label="CARACTERISTICAS LIQUIDO AMNIOTICO"
+            {...fieldProps}
+          />
+        </Grid>
+
+        <h3> APGAR 1 </h3>
+        <Grid
+          container
+          direction="row"
+          justifyContent="left"
+          alignItems="flex-start"
+          spacing={0}
+          pl={0}
+          pr={0}
+          pb={1}
+        >
+          <RadioInput
+            options={["CIANÓTICO/PÁLIDO", "ACROCIANÓTICO", "TOTALMENTE ROSADO"]}
+            md={2.16}
+            smallFont
+            name="apgar1Appearance"
+            label="APARIENCIA"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={["SIN PULSO", "<100 LPM", ">100 LPM"]}
+            md={1.4}
+            smallFont
+            name="apgar1Pulse"
+            label="PULSO"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={[
+              "SIN RESPUESTA A ESTÍMULOS",
+              "MUECAS/LLANTO A ESTÍMULOS",
+              "LLANTO ESPONTÁNEO",
+            ]}
+            md={2.75}
+            smallFont
+            name="apgar1Grimace"
+            label="GESTOS"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={[
+              "FLÁCIDO/HIPOTÓNICO",
+              "EXTREMIDADES FLEXIONADAS",
+              "MOVIMIENTOS ACTIVOS",
+            ]}
+            md={3}
+            smallFont
+            name="apgar1Activity"
+            label="ACTIVIDAD"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={["APNEA", "LENTA/IRREGULAR", "LLANTO VIGOROSO"]}
+            md={2}
+            smallFont
+            name="apgar1Respiration"
+            label="RESPIRACIÓN"
+            {...fieldProps}
+          />
+        </Grid>
+        <h3> APGAR 5 </h3>
+        <Grid
+          container
+          direction="row"
+          justifyContent="left"
+          alignItems="flex-start"
+          pl={0}
+          pr={0}
+          pb={1}
+        >
+          <RadioInput
+            options={["CIANÓTICO/PÁLIDO", "ACROCIANÓTICO", "TOTALMENTE ROSADO"]}
+            md={2.16}
+            smallFont
+            name="apgar5Appearance"
+            label="APARIENCIA"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={["SIN PULSO", "<100 LPM", ">100 LPM"]}
+            md={1.4}
+            smallFont
+            name="apgar5Pulse"
+            label="PULSO"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={[
+              "SIN RESPUESTA A ESTÍMULOS",
+              "MUECAS/LLANTO A ESTÍMULOS",
+              "LLANTO ESPONTÁNEO",
+            ]}
+            md={2.75}
+            smallFont
+            name="apgar5Grimace"
+            label="GESTOS"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={[
+              "FLÁCIDO/HIPOTÓNICO",
+              "EXTREMIDADES FLEXIONADAS",
+              "MOVIMIENTOS ACTIVOS",
+            ]}
+            md={3}
+            smallFont
+            name="apgar5Activity"
+            label="ACTIVIDAD"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={["APNEA", "LENTA/IRREGULAR", "LLANTO VIGOROSO"]}
+            md={2}
+            smallFont
+            name="apgar5Respiration"
+            label="RESPIRACIÓN"
+            {...fieldProps}
+          />
+        </Grid>
+        <h3> APGAR 10 </h3>
+        <Grid
+          container
+          direction="row"
+          justifyContent="left"
+          alignItems="flex-start"
+          pl={0}
+          pr={0}
+          pb={1}
+        >
+          <RadioInput
+            options={["CIANÓTICO/PÁLIDO", "ACROCIANÓTICO", "TOTALMENTE ROSADO"]}
+            md={2.16}
+            smallFont
+            name="apgar10Appearance"
+            label="APARIENCIA"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={["SIN PULSO", "<100 LPM", ">100 LPM"]}
+            md={1.4}
+            smallFont
+            name="apgar10Pulse"
+            label="PULSO"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={[
+              "SIN RESPUESTA A ESTÍMULOS",
+              "MUECAS/LLANTO A ESTÍMULOS",
+              "LLANTO ESPONTÁNEO",
+            ]}
+            md={2.75}
+            smallFont
+            name="apgar10Grimace"
+            label="GESTOS"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={[
+              "FLÁCIDO/HIPOTÓNICO",
+              "EXTREMIDADES FLEXIONADAS",
+              "MOVIMIENTOS ACTIVOS",
+            ]}
+            md={3}
+            smallFont
+            name="apgar10Activity"
+            label="ACTIVIDAD"
+            {...fieldProps}
+          />
+          <RadioInput
+            options={["APNEA", "LENTA/IRREGULAR", "LLANTO VIGOROSO"]}
+            md={2}
+            smallFont
+            name="apgar10Respiration"
+            label="RESPIRACIÓN"
+            {...fieldProps}
+          />
+          {/*  
+      APGAR:
+      -resultado
+      0-3 depresion severa al nacer
+      4-6 depresion moderada al nacer
+      7-9 adecuada adaptacion al nacer
+       <NumberInput md={0.6} name="ph" label="ph" {...fieldProps} />
+        <NumberInput md={0.8} name="pco2" label="pco2" {...fieldProps} />
+        <NumberInput md={0.7} name="po2" label="po2" {...fieldProps} />
+        <NumberInput md={0.8} name="hco3" label="hco3" {...fieldProps} />
+        <NumberInput md={0.6} name="be" label="be" {...fieldProps} />
+       */}
         </Grid>
         <Grid
           container
@@ -215,7 +468,7 @@ function NewBornForm({ formik }) {
           gap={1}
         >
           <NumberInput
-            md={1.2}
+            md={1.3}
             name="weightAtBirth"
             label="PESO"
             {...fieldProps}
@@ -227,76 +480,114 @@ function NewBornForm({ formik }) {
             {...fieldProps}
           />
           <NumberInput
-            md={2.65}
+            md={1.55}
             name="headAtBirth"
-            label="PERIMETRO CEFALICO"
+            label="P CEFALICO"
             {...fieldProps}
           />
           <NumberInput
-            md={2.75}
+            md={1.58}
             name="thoraxAtBirth"
-            label="PERIMETRO TORACICO"
+            label="P TORACICO"
             {...fieldProps}
           />
           <NumberInput
-            md={2.9}
+            md={1.7}
             name="abdomenAtBirth"
-            label="PERIMETRO ABDOMINAL"
+            label="P ABDOMINAL"
             {...fieldProps}
           />
           <NumberInput
-            md={2.1}
+            md={1.12}
             name="percentileWeightAtBirth"
-            label="PERCENTIL PESO"
+            label="% PESO"
             {...fieldProps}
           />
           <NumberInput
-            md={2.2}
+            md={1.15}
             name="percentileHeightAtBirth"
-            label="PERCENTIL TALLA"
+            label="% TALLA"
             {...fieldProps}
           />
           <NumberInput
-            md={2.65}
+            md={1.6}
             name="percentileHeadAtBirth"
-            label="PERCENTIL CEFALICO"
+            label="% CEFALICO"
             {...fieldProps}
           />
+          {/*  
+ 
+        
 
-          <NumberInput md={1.3} name="apgar1" label="APGAR 1" {...fieldProps} />
-          <NumberInput md={1.3} name="apgar5" label="APGAR 5" {...fieldProps} />
-          <NumberInput
-            md={1.5}
-            name="apgar10"
-            label="APGAR 10"
-            {...fieldProps}
-          />
+      APGAR:
+      -resultado
+      0-3 depresion severa al nacer
+      4-6 depresion moderada al nacer
+      7-9 adecuada adaptacion al nacer
+
+    Gases de cordon
+    ph
+    pco2 
+    po2
+    hco3
+    be
+    lactato
+    na
+    k
+    ca
+    cl
+    glu
+    lac
+  asfixia perinatal severa 3 de
+  -apgar 5 < = 5
+  -ph <7 o be <=-16
+  -sarnat ii o iii
+  -lactato > = 12
+  moderada 2 de
+  -apgar 5 <=7
+  -ph < 7.15
+  -sarnat i o ii
+  asfixia perinatal leve sin acidosis metavbolica 2 de
+  -apgar 5 <=7
+  -ph >=7.15
+  acidosis metabolica sin alteracion vlinica o neurologica
+  -ph < 7.15
+  -apgar 5 >7
+  asfixia perinatal descartada
+  -ph >=7.15
+  -apgar 5 >7
+       */}
         </Grid>
       </Grid>
 
-      <RadioInput
-        name="birthBy"
-        label="NACIMIENTO POR"
-        options={["CESÁREA", "PARTO"]}
+      <TextareaInput
+        name="malformacionesApgar"
+        label="DESCRIPCIÓN ADMINISTRACIÓN DE OXÍGENO"
         {...fieldProps}
       />
-      {values.birthBy === "CESÁREA" && (
-        <TextfieldInput
-          md={6}
-          style={{ width: "100%" }}
-          name="surgeryIndication"
-          label="INDICACION CESAREA"
-          {...fieldProps}
-        />
-      )}
-      <TextfieldInput
-        md={6}
-        style={{ width: "100%" }}
-        name="amnioLiq"
-        label="CARACTERISTICAS LIQUIDO AMNIOTICO"
+      <CheckboxInput
+        md={2}
+        label="GASES DE CORDON"
+        name="gases"
         {...fieldProps}
       />
-      <TextareaInput name="malformacionesApgar" label="" {...fieldProps} />
+      {values.gases ? (
+        <>
+          <Grid container gap={1} item>
+            <NumberInput md={0.9} name="ph" label="ph" {...fieldProps} />
+            <NumberInput md={0.9} name="pco2" label="pco2" {...fieldProps} />
+            <NumberInput md={0.9} name="po2" label="po2" {...fieldProps} />
+            <NumberInput md={1} name="hco3" label="hco3" {...fieldProps} />
+            <NumberInput md={1} name="be" label="be" {...fieldProps} />
+            <NumberInput md={1} name="na" label="sodio" {...fieldProps} />
+            <NumberInput md={1} name="k" label="potasio" {...fieldProps} />
+            <NumberInput md={1} name="ca" label="calcio" {...fieldProps} />
+            <NumberInput md={1} name="cl" label="cloro" {...fieldProps} />
+            <NumberInput md={1.2} name="glu" label="glucosa" {...fieldProps} />
+            <NumberInput md={1} name="lac" label="lactato" {...fieldProps} />
+          </Grid>
+        </>
+      ) : null}
       <TextareaInput name="dxUCI" label="DIAGNÓSTICOS" {...fieldProps} />
       <RadioInput
         name="UciOrMaterno"

@@ -36,14 +36,14 @@ function HistoryResult({ values }) {
       <div ref={pResultRef}>
         <h1 style={{ marginBottom: 0 }}>{values.bedNumber}</h1>
         <p>
-          ***{values.exit ? "NOTA DE EGRESO" : "EVOLUCION MÉDICA"}{" "}
+          ***{values.exit ? "NOTA DE EGRESO" : "EVOLUCIÓN MÉDICA"}{" "}
           {values.timeOfDay} CUIDADOS {careType}S NEONATALES***{" "}
         </p>
         <p>
           NOTA: PACIENTE VALORADO CON TODAS LAS MEDIDAS DE PROTECCIÓN REQUERIDAS
           POR EVENTUALIDAD DE PANDEMIA POR VIRUS SARS COV 2{" "}
         </p>
-        <p style={{ fontSize: "0.5rem" }}>
+        <p style={{ fontSize: "0.5rem", color: "red" }}>
           SE REALIZA VALORACIÓN CONJUNTA CON PEDIATRA EN TURNO{" "}
           {values.pediatricianShift}{" "}
         </p>
@@ -64,10 +64,14 @@ function HistoryResult({ values }) {
         )}
         <p>
           -RECIÉN NACIDO {term} {values.sex} DE {values.weeks} SEMANAS POR
-          BALLARD {!isPostTerm && <span>EDAD GESTACIONAL CORREGIDA {egc}</span>}
+          BALLARD{" "}
+          {!isPostTerm && <span> EDAD GESTACIONAL CORREGIDA {egc}</span>}
         </p>
         <p> {values.diagnosis}</p>
         <p>{values.nutritionRecovery && "-RECUPERACIÓN NUTRICIONAL"}</p>
+        <br />
+        <p>ESTUDIOS REALIZADOS:</p>
+        <p>{values.studies}</p>
         <br />
         <p> FN {formatDate(values.dob)}</p>
         <p> FI {formatDate(values.admissionDate)}</p>
@@ -78,8 +82,8 @@ function HistoryResult({ values }) {
           values.intake ||
           values.output) && (
           <>
-            <h2 style={{ marginBottom: 0 }}>
-              BALANCE HÍDIRICO EN {values.waterBalanceTime}HR{" "}
+            <h2 style={{ marginBottom: 0, color: "red" }}>
+              BALANCE HÍDRICO EN {values.waterBalanceTime}HR{" "}
               {valNumShow(dailyBalance.toFixed(1), " ", "CC")}
             </h2>
             <p>{valNumShow(values.lastWeight, "PESO AYER", "GR")}</p>
@@ -89,7 +93,7 @@ function HistoryResult({ values }) {
             <p>
               {valNumShow(
                 pia.toFixed(1),
-                "PERDIDAS INSENSIBLES APROXIMADAS",
+                "PÉRDIDAS INSENSIBLES APROXIMADAS",
                 "CC"
               )}
             </p>
@@ -106,9 +110,10 @@ function HistoryResult({ values }) {
         <br />
         <h2 style={{ marginBottom: 0 }}> EXAMEN FÍSICO </h2>
         <p>
-          SIGNOS VITALES FC:<strong> {values.cardiacFreq} </strong>LPM – FR:{" "}
-          <strong>{values.respiratoryFreq}</strong> RPM – SAT02:{" "}
-          <strong>{values.saturation} </strong>% - T:{" "}
+          SIGNOS VITALES FC:
+          <strong style={{ color: "red" }}> {values.cardiacFreq} </strong>LPM –
+          FR: <strong style={{ color: "red" }}>{values.respiratoryFreq}</strong>{" "}
+          RPM – SAT02: <strong>{values.saturation} </strong>% - T:{" "}
           <strong>{values.temperture}°C</strong>
         </p>
         <p>{values.physicalExam}</p>
@@ -116,7 +121,9 @@ function HistoryResult({ values }) {
         {hasParaclinics(values) && (
           <>
             <br />
-            <h2 style={{ marginBottom: 0 }}>REPORTE DE PARACLÍNICOS</h2>
+            <h2 style={{ marginBottom: 0, color: "red" }}>
+              REPORTE DE PARACLÍNICOS
+            </h2>
             <p>
               <strong>{formatDate(values.reportDate)}</strong>
             </p>
@@ -175,33 +182,41 @@ function HistoryResult({ values }) {
           CONDICIONES GENERALES. CON IDX PREVIAMENTE DESCRITOS. SE ENCUENTRA
           PACIENTE ACTIVO REACTIVO, SIN DÉFICIT APARENTE, NI CRISIS NEONATALES,{" "}
           {values.hasOxygen ? (
-            <strong> RECIBIENDO OXÍGENO SUPLEMENTARIO DE BAJO FLUJO </strong>
+            <strong style={{ color: "blue" }}>
+              {" "}
+              RECIBIENDO OXÍGENO SUPLEMENTARIO DE BAJO FLUJO{" "}
+            </strong>
           ) : (
-            <strong>TOLERANDO OXÍGENO AMBIENTE</strong>
+            <strong style={{ color: "blue" }}>
+              TOLERANDO OXÍGENO AMBIENTE
+            </strong>
           )}
           , PATRÓN RESPIRATORIO ADECUADO, NORMOSATURADO, MANTIENE SIGNOS VITALES
           ESTABLES, NO SOPORTES, BIEN PERFUNDIDO,
           {values.oralIntake ? (
-            <strong> AYUNADO</strong>
+            <strong style={{ color: "blue" }}> AYUNADO</strong>
           ) : values.foley ? (
-            <strong> TOLERANDO APORTE ENTERAL POR SONDA </strong>
+            <strong style={{ color: "blue" }}>
+              {" "}
+              TOLERANDO APORTE ENTERAL POR SONDA{" "}
+            </strong>
           ) : (
             <strong> TOLERANDO APORTE ENTERAL POR SUCCIÓN </strong>
           )}
           {values.nutritionSupport === "LEVS" && (
-            <strong>
+            <strong style={{ color: "grey" }}>
               , CON SOPORTE DE LIQUIDOS ENDOVENOSOS DEXTROSADOS CON ELECTROLITOS
               PARA EVITAR DESPLOME NUTRICIONAL
             </strong>
           )}
           {values.nutritionSupport === "NPT" && (
-            <strong>
+            <strong style={{ color: "red" }}>
               , CON SOPORTE DE NUTRICIÓN PARENTERAL PARA EVITAR CATABOLISMO
               PROTEICO
             </strong>
           )}
           {values.upOralIntake && (
-            <strong>
+            <strong style={{ color: "blue" }}>
               , POR LO QUE SE PROGRESA{" "}
               {values.nutritionSupport === "LEVS" && " Y SE AJUSTAN LEVS"}
               {values.nutritionSupport === "NPT" &&
@@ -218,9 +233,11 @@ function HistoryResult({ values }) {
           )} */}
           , HIDRATADO, NORMOGLICÉMICO, DIURESIS POR PAÑAL PRESENTE, NO EDEMAS,
           NO DISTERMIAS, NO DETERIORO CLÍNICO.{" "}
-          <strong>{values.paraclinicAnalysis}</strong>{" "}
-          {values.nutritionRecovery &&
-            "SE ENCUENTRA EN RECUPERACION NUTRICIONAL PARA GANANCIA DE PESO PONDERAL YA QUE NO TIENE EL PESO ADECUADO ESTABLECIDO POR LAS GUIAS DE NEONATALOGIA COLOMBIANA DE ASCON DE BAJO PESO AL NACER"}{" "}
+          <strong style={{ color: "red" }}>{values.paraclinicAnalysis}</strong>{" "}
+          <strong>
+            {values.nutritionRecovery &&
+              ". SE ENCUENTRA EN RECUPERACION NUTRICIONAL PARA GANANCIA DE PESO PONDERAL YA QUE NO TIENE EL PESO ADECUADO ESTABLECIDO POR LAS GUIAS DE NEONATALOGIA COLOMBIANA DE ASCON DE BAJO PESO AL NACER. "}
+          </strong>{" "}
           {values.exit
             ? `DIAGNÓSTICOS DE INGRESO RESUELTOS POR LO QUE SE OTORGA ALTA HOSPITALARIA CON CITA DE CONTROL POR PEDIATRÍA, ${
                 values.ophtalmo ? "CITA POR OFTALMOLOGIA," : ""
@@ -248,7 +265,7 @@ function HistoryResult({ values }) {
             </p>
             {values.ophtalmo && <p>CITA POR OFTALMOLOGIA</p>}
             {values.neuro && <p>CITA POR NEUROLOGIA</p>}
-            {values.nefro && <p>OR NEFROLOGIA</p>}
+            {values.nefro && <p>CITA POR NEFROLOGIA</p>}
             {values.potentials && (
               <p>ORDEN PARA POTENCIALES EVOCADOS AUDITIVOS Y VISUALES</p>
             )}
@@ -290,9 +307,12 @@ function HistoryResult({ values }) {
         ) : (
           <>
             <p>
-              THT <strong>{values.hidricRate + values.newOralIntake}</strong>
+              THT{" "}
+              <strong style={{ color: "red" }}>
+                {values.hidricRate + values.newOralIntake}
+              </strong>
             </p>
-            <p>
+            <p style={{ color: "red" }}>
               <strong>-CUIDADOS {careType}S NEONATALES</strong>
               {values.foley && " //SOG "}
               {values.hasOxygen && " //OXÍGENO "}
@@ -306,6 +326,7 @@ function HistoryResult({ values }) {
               foley={values.foley}
               newOralIntake={values.newOralIntake}
               momMilk={values.momMilk}
+              freeMilk={values.freeMilk}
             />
             <Liquids
               weight={values.weight}
@@ -350,8 +371,16 @@ function HistoryResult({ values }) {
   );
 }
 
-const Diet = ({ weight, foley, newOralIntake, momMilk }) => {
-  if (!newOralIntake) return <strong> -NVO/SOG ABIERTA </strong>;
+const Diet = ({ weight, foley, newOralIntake, momMilk, freeMilk }) => {
+  if (!newOralIntake && !freeMilk) return <strong> -NVO/SOG ABIERTA </strong>;
+  if (!newOralIntake && freeMilk)
+    return (
+      <strong>
+        {" "}
+        -LM/LF A LIBRE DEMANDA CADA 3 HORAS POR{" "}
+        {foley ? <strong> SONDA </strong> : <strong> SUCCIÓN </strong>}
+      </strong>
+    );
   if (newOralIntake && momMilk && `-${newOralIntake}`)
     return (
       <p>

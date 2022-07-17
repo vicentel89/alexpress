@@ -48,7 +48,7 @@ p {
   display: flex;
   justify-content: space-between;
   height: 40px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .heart {
@@ -56,4 +56,8 @@ p {
   width: 60px;
   margin-left: auto;
   text-align: center;
+}
+
+.small-font {
+  font-size: 0.75rem;
 }

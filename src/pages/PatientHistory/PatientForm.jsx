@@ -20,28 +20,41 @@ function PatientForm({ formik }) {
   return (
     <Grid
       container
-      direction="column"
+      direction="row"
       justifyContent="center"
       alignItems="flex-start"
-      spacing={1.5}
+      pl={1}
+      pr={0}
+      pb={1}
     >
-      <h3 style={{ paddingLeft: 20 }}>**IDENTIFICACION**</h3>
-      <TextfieldInput
-        style={{ width: "30%" }}
-        name="bedNumber"
-        label="Nombre del paciente"
-        {...fieldProps}
-      />
+      <h3>**IDENTIFICACION**</h3>
       <Grid
         container
         direction="row"
         justifyContent="left"
-        gap={4}
-        spacing={1.5}
-        item
+        alignItems="flex-start"
+        pl={1}
+        pr={0}
+        pb={1.7}
+      >
+        <TextfieldInput
+          style={{ width: "100%" }}
+          name="bedNumber"
+          label="Nombre del paciente"
+          {...fieldProps}
+        />
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="left"
+        alignItems="flex-start"
+        pl={1}
+        pr={0}
+        pb={1.7}
       >
         <DateInput
-          md={4}
+          md={3}
           label=" Fecha evolución: "
           name="reportDate"
           {...fieldProps}
@@ -54,39 +67,62 @@ function PatientForm({ formik }) {
           {...fieldProps}
         />
         <CheckboxInput
-          md={2}
+          md={3}
           label="¿Nacio hoy?"
           name="justBorn"
           {...fieldProps}
         />
+        <CheckboxInput md={3} label="EGRESO" name="exit" {...fieldProps} />
+        <RadioInput
+          options={[
+            "DRA GRACIELA AGAMEZ",
+            "DR MANUEL BRAVO",
+            "DRA ADRIANA DONADO",
+            "DR LUIS MENDEZ",
+            "DRA MILENA BUSTAMANTE",
+            "DRA NAZLY MULFORD",
+            "DR ROY CASTRO",
+            "DRA TANIA GOMEZ",
+          ]}
+          name="pediatricianShift"
+          label="Pediatra en turno"
+          smallFont
+          md={9}
+          {...fieldProps}
+        />
       </Grid>
-      <RadioInput
-        options={[
-          "DRA GRACIELA AGAMEZ",
-          "DR MANUEL BRAVO",
-          "DRA DANNY VIÑA",
-          "DR LUIS MENDEZ",
-        ]}
-        name="pediatricianShift"
-        label="Pediatra en turno"
-        {...fieldProps}
-      />
-      <Grid container direction="row" justifyContent="left" gap={2} item>
+      <Grid
+        container
+        direction="row"
+        justifyContent="left"
+        alignItems="flex-start"
+        pl={1}
+        pr={0}
+        pb={1.7}
+      >
         <DateInput
-          md={4}
+          md={5}
           label="Fecha nacimiento: "
           name="dob"
           {...fieldProps}
         />
         <DateInput
-          md={3.7}
+          md={5}
           label="Fecha ingreso: "
           name="admissionDate"
           {...fieldProps}
         />
-        <CheckboxInput md={1} label="EGRESO" name="exit" {...fieldProps} />
       </Grid>
-      <Grid container direction="column" justifyContent="left" gap={1} item>
+      <Grid
+        container
+        direction="column"
+        justifyContent="left"
+        alignItems="flex-start"
+        pl={1}
+        pr={0}
+        pb={1.7}
+        gap={2}
+      >
         <RadioInput
           md={5}
           options={["MASCULINO", "FEMENINO"]}
@@ -100,25 +136,44 @@ function PatientForm({ formik }) {
           label="Edad gestacional"
           {...fieldProps}
         />
+        <TextareaInput name="diagnosis" label="Diagnósticos" {...fieldProps} />
+        <TextareaInput
+          name="studies"
+          label="Estudios Realizados"
+          {...fieldProps}
+        />
       </Grid>
-      <TextareaInput name="diagnosis" label="Diagnósticos" {...fieldProps} />
-      <h3 style={{ paddingLeft: 20 }}>**OBJETIVO**</h3>
-      <RadioInput
-        options={[24, 12, 6]}
-        name="waterBalanceTime"
-        label="Tiempo de balance de agua"
-        {...fieldProps}
-      />
-      <Grid container gap={2} item>
+      <h3>**OBJETIVO**</h3>
+      <Grid
+        container
+        direction="row"
+        justifyContent="left"
+        alignItems="flex-start"
+        pl={1}
+        pr={0}
+        pb={1.7}
+        gap={1}
+      >
+        <RadioInput
+          options={[24, 12, 6]}
+          name="waterBalanceTime"
+          label="Tiempo balance hídrico"
+          {...fieldProps}
+        />
         <NumberInput
-          md={2}
+          md={1.55}
           name="lastWeight"
           label="Peso anterior"
           {...fieldProps}
         />
-        <NumberInput md={2} name="weight" label="Peso actual" {...fieldProps} />
         <NumberInput
-          md={2}
+          md={1.4}
+          name="weight"
+          label="Peso actual"
+          {...fieldProps}
+        />
+        <NumberInput
+          md={1.5}
           name="glucose"
           label="Glucometría"
           {...fieldProps}
@@ -136,8 +191,17 @@ function PatientForm({ formik }) {
           {...fieldProps}
         />
       </Grid>
-      <h3 style={{ paddingLeft: 20 }}>**SIGNOS VITALES**</h3>
-      <Grid container gap={2} item>
+      <h4>**SIGNOS VITALES**</h4>
+      <Grid
+        container
+        direction="row"
+        justifyContent="left"
+        alignItems="flex-start"
+        pl={1}
+        pr={0}
+        pb={1.7}
+        gap={1}
+      >
         <NumberInput
           name="cardiacFreq"
           label="Frecuencia cardiaca"
@@ -150,204 +214,342 @@ function PatientForm({ formik }) {
         />
         <NumberInput name="saturation" label="Saturacion" {...fieldProps} />
         <NumberInput name="temperture" label="Temperatura" {...fieldProps} />
-      </Grid>
-      <TextareaInput
-        name="physicalExam"
-        label="Examen físico"
-        {...fieldProps}
-      />
-      <h3 style={{ paddingLeft: 20 }}>**PARACLÍNICOS**</h3>
-      <Grid container gap={1} item>
-        <TextfieldInput md={0.7} name="vdrl" label="vdrl" {...fieldProps} />
-        <NumberInput md={0.6} name="tsh" label="tsh" {...fieldProps} />
-        <TextfieldInput
-          md={2}
-          name="hemoclasificacion"
-          label="hemoclasificación"
-          {...fieldProps}
-        />
-        <NumberInput md={1.5} name="hb" label="hemoglobina" {...fieldProps} />
-        <NumberInput md={1.4} name="hto" label="hematocrito" {...fieldProps} />
-        <NumberInput md={1.25} name="plt" label="plaquetas" {...fieldProps} />
-        <NumberInput md={1} name="wbc" label="leucos" {...fieldProps} />
-        <NumberInput md={1.05} name="n" label="neutros" {...fieldProps} />
-        <NumberInput md={1} name="l" label="linfos" {...fieldProps} />
-      </Grid>
-      <Grid container gap={1} item>
-        <NumberInput md={0.9} name="ca" label="calcio" {...fieldProps} />
-        <NumberInput md={0.9} name="na" label="sodio" {...fieldProps} />
-        <NumberInput md={1} name="k" label="potasio" {...fieldProps} />
-        <NumberInput md={0.8} name="cl" label="cloro" {...fieldProps} />
-        <NumberInput md={1.3} name="mg" label="magnesio" {...fieldProps} />
-        <NumberInput md={0.6} name="ph" label="ph" {...fieldProps} />
-        <NumberInput md={0.8} name="pco2" label="pco2" {...fieldProps} />
-        <NumberInput md={0.7} name="po2" label="po2" {...fieldProps} />
-        <NumberInput md={0.8} name="hco3" label="hco3" {...fieldProps} />
-        <NumberInput md={0.6} name="be" label="be" {...fieldProps} />
-        <NumberInput md={1} name="pcr" label="PCR" {...fieldProps} />
-        <NumberInput
-          md={1.1}
-          name="glicemia"
-          label="glicemia"
+        <TextareaInput
+          name="physicalExam"
+          label="Examen físico"
+          md={11.7}
           {...fieldProps}
         />
       </Grid>
-      <Grid container gap={1} item>
-        <NumberInput md={1.1} name="bt" label="bili total" {...fieldProps} />
-        <NumberInput md={1.3} name="bd" label="bili directa" {...fieldProps} />
-        <NumberInput
-          md={1.5}
-          name="bi"
-          label="bili indirecta"
-          {...fieldProps}
-        />
-        <NumberInput
-          md={1.5}
-          name="ret"
-          label="reticulocitos"
-          {...fieldProps}
-        />
-      </Grid>
-      <TextareaInput name="otherLabs" label="Otros" {...fieldProps} />
-      <h3 style={{ paddingLeft: 20 }}>**ANÁLISIS**</h3>
+
+      {values.exit ? (
+        <Grid
+          container
+          direction="row"
+          justifyContent="left"
+          alignItems="flex-start"
+          pl={1}
+          pr={0}
+          pb={1.7}
+          gap={1}
+        >
+          <h4>**ANTECEDENTES PERINATALES**</h4>
+          <TextareaInput
+            md={11.7}
+            name="otherLabs"
+            label="Otros"
+            {...fieldProps}
+          />
+          <NumberInput md={1} name="tsh" label="tsh" {...fieldProps} />
+          <TextfieldInput
+            md={3}
+            name="hemoclasificacion"
+            label="Grupo Sanguíneo"
+            {...fieldProps}
+          />
+        </Grid>
+      ) : null}
+
+      <h3>**PARACLÍNICOS**</h3>
       <Grid
         container
         direction="row"
         justifyContent="left"
         alignItems="flex-start"
         spacing={1}
-        gap={-15}
+        gap={0}
+        pl={2}
+        pr={0}
+        pb={2}
       >
-        {values.exit ? (
-          <>
+        <TextfieldInput md={1} name="vdrl" label="vdrl" {...fieldProps} />
+        <NumberInput md={1} name="tsh" label="tsh" {...fieldProps} />
+        <TextfieldInput
+          md={2.5}
+          name="hemoclasificacion"
+          label="Grupo Sanguíneo"
+          {...fieldProps}
+        />
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="left"
+        alignItems="flex-start"
+        spacing={1}
+        gap={0}
+        pl={2}
+        pr={0}
+        pb={2}
+      >
+        <NumberInput md={2} name="hb" label="hemoglobina" {...fieldProps} />
+        <NumberInput md={2} name="hto" label="hematocrito" {...fieldProps} />
+        <NumberInput md={2} name="plt" label="plaquetas" {...fieldProps} />
+        <NumberInput md={2} name="wbc" label="leucos" {...fieldProps} />
+        <NumberInput md={1.5} name="n" label="neutros" {...fieldProps} />
+        <NumberInput md={1.5} name="l" label="linfos" {...fieldProps} />
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="left"
+        alignItems="flex-start"
+        spacing={1}
+        gap={0}
+        pl={2}
+        pr={0}
+        pb={2}
+      >
+        <NumberInput md={1} name="pcr" label="PCR" {...fieldProps} />
+        <NumberInput
+          md={1.5}
+          name="glicemia"
+          label="glicemia"
+          {...fieldProps}
+        />
+        <NumberInput md={1.5} name="ca" label="calcio" {...fieldProps} />
+        <NumberInput md={1.5} name="na" label="sodio" {...fieldProps} />
+        <NumberInput md={1.5} name="k" label="potasio" {...fieldProps} />
+        <NumberInput md={1.5} name="cl" label="cloro" {...fieldProps} />
+        <NumberInput md={1.5} name="mg" label="magnesio" {...fieldProps} />
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="left"
+        alignItems="flex-start"
+        spacing={1}
+        gap={0}
+        pl={2}
+        pr={0}
+        pb={2}
+      >
+        <NumberInput md={1} name="ph" label="ph" {...fieldProps} />
+        <NumberInput md={1} name="pco2" label="pco2" {...fieldProps} />
+        <NumberInput md={1} name="po2" label="po2" {...fieldProps} />
+        <NumberInput md={1} name="hco3" label="hco3" {...fieldProps} />
+        <NumberInput md={1} name="be" label="be" {...fieldProps} />
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="left"
+        alignItems="flex-start"
+        spacing={1}
+        gap={0}
+        pl={2}
+        pr={0}
+        pb={2}
+      >
+        <NumberInput md={3} name="bt" label="bili total" {...fieldProps} />
+        <NumberInput md={3} name="bd" label="bili directa" {...fieldProps} />
+        <NumberInput md={3} name="bi" label="bili indirecta" {...fieldProps} />
+        <NumberInput md={3} name="ret" label="reticulocitos" {...fieldProps} />
+        <TextareaInput md={12} name="otherLabs" label="Otros" {...fieldProps} />
+      </Grid>
+      <h3>**ANÁLISIS**</h3>
+      {values.exit ? (
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
+          spacing={1}
+          gap={0}
+          pl={2}
+          pr={0}
+          pb={2}
+        >
+          <TextareaInput
+            name="paraclinicAnalysis"
+            label="Notas análisis"
+            {...fieldProps}
+          />
+          <CheckboxInput
+            md={2}
+            label="OFTALMO"
+            name="ophtalmo"
+            {...fieldProps}
+          />
+          <CheckboxInput md={2} label="NEURO" name="neuro" {...fieldProps} />
+          <CheckboxInput md={2} label="NEFRO" name="nefro" {...fieldProps} />
+          <CheckboxInput
+            md={2}
+            label="POTENCIALES"
+            name="potentials"
+            {...fieldProps}
+          />
+        </Grid>
+      ) : (
+        <>
+          <Grid
+            container
+            direction="row"
+            justifyContent="left"
+            alignItems="flex-start"
+            spacing={0}
+            gap={0}
+            pl={2}
+            pr={0}
+            pb={1}
+          >
             <CheckboxInput
-              md={2}
-              label="OFTALMO"
-              name="ophtalmo"
-              {...fieldProps}
-            />
-            <CheckboxInput md={2} label="NEURO" name="neuro" {...fieldProps} />
-            <CheckboxInput md={2} label="NEFRO" name="nefro" {...fieldProps} />
-            <CheckboxInput
-              md={2}
-              label="POTENCIALES"
-              name="potentials"
-              {...fieldProps}
-            />
-          </>
-        ) : (
-          <>
-            <CheckboxInput
-              md={2}
-              label="OXÍGENO"
+              md={1.5}
+              label="Oxígeno"
               name="hasOxygen"
               {...fieldProps}
             />
             <CheckboxInput
-              md={2}
-              label="AYUNADO"
+              md={1.5}
+              label="Ayunado"
               name="oralIntake"
               {...fieldProps}
             />
             <CheckboxInput
-              md={1.6}
-              label="SONDA"
+              md={1.5}
+              label="Sonda"
               name="foley"
               {...fieldProps}
             />
-
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justifyContent="left"
+            alignItems="flex-start"
+            spacing={0}
+            gap={0}
+            pl={2}
+            pr={0}
+            pb={1}
+          >
             <CheckboxInput
-              md={2.3}
-              label="PROGRESAR AE"
+              md={3}
+              label="Progresar aporte"
               name="upOralIntake"
               {...fieldProps}
             />
             <CheckboxInput
               md={4}
-              label="RECUPERACIÓN NUTRICIONAL"
+              label="Recuperación nutricional"
               name="nutritionRecovery"
               {...fieldProps}
             />
             <RadioInput
-              md={4}
+              md={5}
               options={["Ninguno", "LEVS", "NPT"]}
               name="nutritionSupport"
               label="Soporte nutricional"
               {...fieldProps}
             />
-          </>
-        )}
-      </Grid>
-      <TextareaInput
-        name="paraclinicAnalysis"
-        label="Notas análisis"
-        {...fieldProps}
-      />
-      <h3 style={{ paddingLeft: 20 }}>**PLAN**</h3>
-      <TextareaInput name="oxygen" label="Oxigeno" {...fieldProps} />
-      <h5 style={{ paddingLeft: 20 }}>*DIETA*</h5>
-      <Grid container item>
-        <NumberInput
-          md={2}
-          name="newOralIntake"
-          label="Tasa hídrica"
-          {...fieldProps}
-        />
-        <CheckboxInput
-          md={4}
-          label="LECHE MATERNA EXCLUSIVA"
-          name="momMilk"
-          {...fieldProps}
-        />
-      </Grid>
-      <h5 style={{ paddingLeft: 20 }}>*LEVS*</h5>
-      <Grid
-        container
-        direction="row"
-        justifyContent="left"
-        alignItems="flex-start"
-        spacing={1}
-        gap={1}
-        style={{ paddingLeft: 20 }}
-      >
-        <NumberInput md={2} name="hidricRate" label="TH LEVS" {...fieldProps} />
-        <NumberInput md={2} name="TIG" label="TIG" {...fieldProps} />
-        <NumberInput
-          md={2}
-          name="meqSodium"
-          label="mEq Sodio"
-          {...fieldProps}
-        />
-        <NumberInput
-          md={2}
-          name="meqPotassium"
-          label="mEq Potasio"
-          {...fieldProps}
-        />
-      </Grid>{" "}
-      <TextareaInput name="NPT" label="NPT" {...fieldProps} />
-      <TextareaInput name="drugs" label="Farmacos" {...fieldProps} />
-      <TextareaInput
-        name="nurse"
-        label="Cuidados de enfermería"
-        {...fieldProps}
-      />
-      <TextareaInput
-        name="test"
-        label="Paraclínicos solicitados"
-        {...fieldProps}
-      />
-      <TextareaInput
-        name="images"
-        label="Imágenes solicitadas"
-        {...fieldProps}
-      />
-      <TextareaInput
-        name="consult"
-        label="Interconsultas solicitadas"
-        {...fieldProps}
-      />
-      <TextareaInput name="pending" label="Pendientes" {...fieldProps} />
+            <TextareaInput
+              name="paraclinicAnalysis"
+              label="Notas análisis"
+              {...fieldProps}
+            />
+          </Grid>
+          <h3>**PLAN**</h3>
+          <Grid
+            container
+            direction="row"
+            justifyContent="left"
+            alignItems="flex-start"
+            spacing={0}
+            gap={0}
+            pl={2}
+            pr={0}
+            pb={1}
+          >
+            <TextareaInput name="oxygen" label="Oxigeno" {...fieldProps} />
+          </Grid>
+          <h5>*DIETA*</h5>
+          <Grid
+            container
+            direction="row"
+            justifyContent="left"
+            alignItems="flex-start"
+            spacing={0}
+            gap={0}
+            pl={2}
+            pr={0}
+            pb={2}
+          >
+            <NumberInput
+              md={2}
+              name="newOralIntake"
+              label="Tasa hídrica"
+              {...fieldProps}
+            />
+            <CheckboxInput
+              md={4}
+              label="LECHE MATERNA EXCLUSIVA"
+              name="momMilk"
+              {...fieldProps}
+            />
+            <CheckboxInput
+              md={4}
+              label="LIBRE DEMANDA"
+              name="freeMilk"
+              {...fieldProps}
+            />
+          </Grid>
+          <h5>*LEVS*</h5>
+          <Grid
+            container
+            direction="row"
+            justifyContent="left"
+            alignItems="flex-start"
+            spacing={0}
+            gap={1}
+            pl={2}
+            pr={0}
+            pb={2}
+          >
+            <NumberInput
+              md={2}
+              name="hidricRate"
+              label="TH LEVS"
+              {...fieldProps}
+            />
+            <NumberInput md={2} name="TIG" label="TIG" {...fieldProps} />
+            <NumberInput
+              md={2}
+              name="meqSodium"
+              label="mEq Sodio"
+              {...fieldProps}
+            />
+            <NumberInput
+              md={2}
+              name="meqPotassium"
+              label="mEq Potasio"
+              {...fieldProps}
+            />
+            <TextareaInput name="NPT" label="NPT" {...fieldProps} />
+            <TextareaInput name="drugs" label="Farmacos" {...fieldProps} />
+            <TextareaInput
+              name="nurse"
+              label="Cuidados de enfermería"
+              {...fieldProps}
+            />
+            <TextareaInput
+              name="test"
+              label="Paraclínicos solicitados"
+              {...fieldProps}
+            />
+            <TextareaInput
+              name="images"
+              label="Imágenes solicitadas"
+              {...fieldProps}
+            />
+            <TextareaInput
+              name="consult"
+              label="Interconsultas solicitadas"
+              {...fieldProps}
+            />
+            <TextareaInput name="pending" label="Pendientes" {...fieldProps} />
+          </Grid>{" "}
+        </>
+      )}
     </Grid>
   );
 }

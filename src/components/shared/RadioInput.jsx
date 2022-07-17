@@ -6,7 +6,14 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Grid from "@mui/material/Grid";
 
-export default function RadioInput({ options, label, values, md, ...props }) {
+export default function RadioInput({
+  options,
+  smallFont,
+  label,
+  values,
+  md,
+  ...props
+}) {
   return (
     <Grid item md={md}>
       <FormControl component="fieldset">
@@ -17,7 +24,13 @@ export default function RadioInput({ options, label, values, md, ...props }) {
               key={value}
               value={value}
               control={<Radio size="small" />}
-              label={value}
+              label={
+                smallFont ? (
+                  <span style={{ fontSize: "0.7rem" }}>{value}</span>
+                ) : (
+                  value
+                )
+              }
             />
           ))}
         </RadioGroup>
