@@ -16,7 +16,7 @@ export const initialValues = {
   perfilInfeccioso: `ÚLTIMO PERFIL INFECCIOSO NEGATIVO`,
   antecedentesMaternos: "",
   malformacionesApgar: ``,
-  gases: "false",
+  gases: false,
   careType: "BASICO",
   weeksBallard: "",
   momAge: "",
